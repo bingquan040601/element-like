@@ -68,4 +68,11 @@ const router = createRouter({
   ],
 })
 
+// 路由切换后同步浏览器标签标题：复用 meta.label 单一数据源，
+// 无需在导航栏之外再维护一份标题映射。
+// 重定向等无 label 的路由回退到站点名。
+router.afterEach((to) => {
+  document.title = to.meta.label ? `${to.meta.label} - element-like` : 'element-like'
+})
+
 export default router
