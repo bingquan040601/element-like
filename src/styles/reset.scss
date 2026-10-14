@@ -4,6 +4,9 @@
 // 正文等第三方内容也保留浏览器默认观感。
 
 body {
+  // 清零浏览器默认的 8px 外边距，避免全屏布局四周留白
+  margin: 0;
+
   // 全局排版基准：字体、字号、字色全部走 vars.scss 的设计 token，
   // 调整主题时无需逐处改值
   font-family: var(--el-font-family);
