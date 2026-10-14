@@ -65,6 +65,12 @@ const router = createRouter({
       meta: { label: 'Dropdown' },
       component: () => import('@/views/DropdownView.vue'),
     },
+    {
+      path: '/color',
+      name: 'color',
+      meta: { label: 'Color' },
+      component: () => import('@/views/ColorView.vue'),
+    },
   ],
 })
 
