@@ -1,0 +1,107 @@
+// 全局样式重置（轻量 reset）：
+// 只统一浏览器默认样式里与设计体系相关的部分（排版、链接、标题、分隔线），
+// 不做 * { margin: 0 } 之类的暴力清零——组件间距由组件自身控制，
+// 正文等第三方内容也保留浏览器默认观感。
+
+body {
+  // 全局排版基准：字体、字号、字色全部走 vars.scss 的设计 token，
+  // 调整主题时无需逐处改值
+  font-family: var(--el-font-family);
+  font-weight: 400;
+  font-size: var(--el-font-size-base);
+  color: var(--el-text-color-primary);
+
+  // 跨平台字体渲染细节：macOS 抗锯齿 + 移动端点击高亮透明化
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  // 链接统一为主题色并去掉下划线，是否加下划线交给使用场景决定
+  color: var(--el-color-primary);
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    // 悬停/聚焦用浅一档主题色（light-3），比主色柔和
+    color: var(--el-color-primary-light-3);
+  }
+
+  &:active {
+    // 按下用深一档主题色（dark-2），提供按压反馈
+    color: var(--el-color-primary-dark-2);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--el-text-color-regular);
+  font-weight: inherit;
+
+  // 标题默认携带上下外边距，放在卡片/容器里容易撑破布局，
+  // 作为首/末元素时清掉对应方向的外边距
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// 标题字号以基础字号为基准逐级递增（+6/+4/+2），保证整站比例一致
+h1 {
+  font-size: calc(var(--el-font-size-base) + 6px);
+}
+
+h2 {
+  font-size: calc(var(--el-font-size-base) + 4px);
+}
+
+h3 {
+  font-size: calc(var(--el-font-size-base) + 2px);
+}
+
+// 更小级别的标题与正文不再放大，跟随父级字号
+h4,
+h5,
+h6,
+p {
+  font-size: inherit;
+}
+
+p {
+  line-height: 1.8; // 正文行高放宽，长段落更易读
+
+  // 与标题同理，避免首/末段的默认外边距影响布局
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// 上标/下标、小字以基础字号为基准微调，不写死像素
+sup,
+sub {
+  font-size: calc(var(--el-font-size-base) - 1px);
+}
+
+small {
+  font-size: calc(var(--el-font-size-base) - 2px);
+}
+
+hr {
+  // 重置为纯分割线：清掉默认边框，改用 token 色画一条顶部细线
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid var(--el-border-color-lighter);
+}
