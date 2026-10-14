@@ -1,15 +1,12 @@
 <script setup lang="ts">
-// 组件示例导航：name 与路由配置一一对应
-const navItems = [
-  { name: 'icon', label: 'Icon' },
-  { name: 'button', label: 'Button' },
-  { name: 'card', label: 'Card' },
-  { name: 'dialog', label: 'Dialog' },
-  { name: 'parger', label: 'Parger' },
-  { name: 'collapse', label: 'Collapse' },
-  { name: 'tooltip', label: 'Tooltip' },
-  { name: 'dropdown', label: 'Dropdown' },
-] as const
+import router from '@/router'
+
+// 导航项从路由配置派生（单一数据源）：
+// 增删路由、修改 name/label 时导航栏自动同步，不会出现路由与导航漂移。
+// 根路径重定向记录没有 name，由 flatMap 过滤掉。
+const navItems = router.options.routes.flatMap((route) =>
+  route.name && route.meta?.label ? [{ name: route.name, label: route.meta.label }] : [],
+)
 </script>
 
 <template>
