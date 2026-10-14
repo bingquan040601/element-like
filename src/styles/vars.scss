@@ -2,6 +2,19 @@
 
 // 颜色计算使用 sass:color 内置模块（全局 color.mix() 将在 Dart Sass 3.0 移除）
 @use 'sass:color';
+@use 'sass:math';
+
+// Dart Sass 1.79 起 color.mix() 保留小数通道，直接输出会得到
+// rgb(47.57%, 73.37%, 100%) 这样的百分比格式。四舍五入回整数通道，
+// 让生成的 token 保持与手写一致的十六进制格式（如 #79bbff）
+@function round-color($c) {
+  @return color.change(
+    $c,
+    $red: math.round(color.channel($c, 'red', $space: rgb)),
+    $green: math.round(color.channel($c, 'green', $space: rgb)),
+    $blue: math.round(color.channel($c, 'blue', $space: rgb))
+  );
+}
 
 // 主题色
 $colors: (
@@ -19,15 +32,14 @@ $colors: (
     --el-color-#{$val}: #{$color};
     // 还需要生成不同亮度的颜色
     @for $i from 1 through 4 {
-      --el-color-#{$val}-light-#{2 * $i + 1}: #{color.mix(#fff, $color, ((2 * $i + 1) * 10 * 1%))};
+      --el-color-#{$val}-light-#{2 * $i + 1}: #{round-color(
+          color.mix(#fff, $color, ((2 * $i + 1) * 10 * 1%))
+        )};
     }
     // dark2 和 light8 因为不符合上面的规律，我们在下面单独来生成
-    --el-color-#{$val}-light-8: #{color.mix(#fff, $color, 80 * 1%)}; // 80% 亮度
-    --el-color-#{$val}-dark-2: #{color.mix(
-        #000,
-        $color,
-        20 * 1%
-      )}; // 注意，dark是和黑色进行混合，20% 亮度
+    --el-color-#{$val}-light-8: #{round-color(color.mix(#fff, $color, 80 * 1%))}; // 80% 亮度
+    // 注意，dark是和黑色进行混合，20% 亮度
+    --el-color-#{$val}-dark-2: #{round-color(color.mix(#000, $color, 20 * 1%))};
   }
 
   // 接下来，还有一些其他的颜色变量
