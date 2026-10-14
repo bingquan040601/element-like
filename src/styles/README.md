@@ -10,6 +10,8 @@
 | `reset.scss` | 全局重置   | 统一浏览器默认样式里与设计体系冲突的部分         |
 | `index.scss` | 聚合入口   | 汇总上面两个文件，供应用一次性引入               |
 
+另外 `tokens.ts`（token 目录的 TS 投影，见「四、使用约定」第 5 条）与 `__tests__/tokens.spec.ts`（防漂移测试）同在本目录。
+
 ---
 
 ## 一、设计 token（vars.scss）
@@ -187,3 +189,4 @@ h1~h3 的字号以 `--el-font-size-base` 为基准递增（+6/+4/+2）：
 2. 需要新颜色时：语义色进 `$colors` map，灰阶进中性色分组，再由组件引用——不要绕过 token 直接在组件里写色值
 3. 新增 token 命名遵循 `--el-<分组>-<语义>`（分组参考 color/text/border/fill/bg），与 Element Plus 官方命名对齐
 4. **边界**：设计 token 用 CSS 变量（`--el-*`，运行时可变）；组件私有、编译期即可确定的值用 SCSS 变量（`$` 前缀）——不要混用
+5. **目录投影的同步责任**：浏览器无法枚举自定义属性，色板类组件通过 `styles/tokens.ts` 消费 token 目录；改动 vars.scss 的变量名时，`styles/__tests__/tokens.spec.ts` 防漂移测试会拦截
