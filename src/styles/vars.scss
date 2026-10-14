@@ -1,5 +1,8 @@
 // 该文件主要是负责定义全局的样式变量，例如颜色、字体大小等等
 
+// 颜色计算使用 sass:color 内置模块（全局 color.mix() 将在 Dart Sass 3.0 移除）
+@use 'sass:color';
+
 // 主题色
 $colors: (
   primary: #409eff,
@@ -16,11 +19,11 @@ $colors: (
     --el-color-#{$val}: #{$color};
     // 还需要生成不同亮度的颜色
     @for $i from 1 through 4 {
-      --el-color-#{$val}-light-#{2 * $i + 1}: #{mix(#fff, $color, ((2 * $i + 1) * 10 * 1%))};
+      --el-color-#{$val}-light-#{2 * $i + 1}: #{color.mix(#fff, $color, ((2 * $i + 1) * 10 * 1%))};
     }
     // dark2 和 light8 因为不符合上面的规律，我们在下面单独来生成
-    --el-color-#{$val}-light-8: #{mix(#fff, $color, 80 * 1%)}; // 80% 亮度
-    --el-color-#{$val}-dark-2: #{mix(
+    --el-color-#{$val}-light-8: #{color.mix(#fff, $color, 80 * 1%)}; // 80% 亮度
+    --el-color-#{$val}-dark-2: #{color.mix(
         #000,
         $color,
         20 * 1%
