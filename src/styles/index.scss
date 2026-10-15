@@ -1,3 +1,4 @@
-// 全局样式聚合入口：先 token（供 reset 与各组件引用），再 reset
+// 全局样式聚合入口：先 token（供 reset 与各组件引用），再 reset，最后组件样式
 @use './vars';
 @use './reset';
+@use './components/icon';

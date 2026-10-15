@@ -1,0 +1,19 @@
+// ElLike-Icon 组件样式：包装层 i.el-like-icon + 类型修饰类。
+// fontawesome 渲染的 svg path 带 fill="currentColor"，图标颜色经 currentColor
+// 从包装层的 color 继承——所以类型配色只需在包装层设置 color
+@use '../vars';
+
+.el-like-icon {
+  // inline-flex：消除 inline 元素的基线空隙，并让 svg 在包装层内居中
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  // 类型修饰类（--primary 等）：直接遍历 vars.scss 的 $colors map 生成，
+  // 语义色新增/改名时此处自动跟随，无需维护第二份清单
+  @each $type, $_ in vars.$colors {
+    &--#{$type} {
+      color: var(--el-color-#{$type});
+    }
+  }
+}
