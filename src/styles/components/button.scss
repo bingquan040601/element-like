@@ -1,0 +1,155 @@
+// ElLike-Button 组件样式：基础结构只消费组件级变量，主题与状态修饰类负责覆盖变量。
+// 全局 token 提供颜色值，组件变量提供可局部定制的样式接口。
+@use '../vars';
+
+.el-like-button {
+  // 默认、悬停、按下、禁用和焦点状态分别定义，修饰类无需重复书写状态选择器
+  --el-button-text-color: var(--el-text-color-regular);
+  --el-button-bg-color: var(--el-fill-color-blank);
+  --el-button-border-color: var(--el-border-color);
+  --el-button-hover-text-color: var(--el-color-primary);
+  --el-button-hover-bg-color: var(--el-color-primary-light-9);
+  --el-button-hover-border-color: var(--el-color-primary-light-5);
+  --el-button-active-text-color: var(--el-color-primary-dark-2);
+  --el-button-active-bg-color: var(--el-color-primary-light-9);
+  --el-button-active-border-color: var(--el-color-primary-dark-2);
+  --el-button-disabled-text-color: var(--el-disabled-text-color);
+  --el-button-disabled-bg-color: var(--el-disabled-bg-color);
+  --el-button-disabled-border-color: var(--el-disabled-border-color);
+  --el-button-outline-color: var(--el-color-primary-light-5);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-sizing: border-box;
+  height: 32px;
+  margin: 0;
+  padding: 8px 15px;
+  border: var(--el-border);
+  border-color: var(--el-button-border-color);
+  border-radius: var(--el-border-radius-base);
+  outline: none;
+  background-color: var(--el-button-bg-color);
+  color: var(--el-button-text-color);
+  font-family: inherit;
+  font-size: var(--el-font-size-base);
+  font-weight: var(--el-font-weight-primary);
+  line-height: 1;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  appearance: none;
+  transition:
+    color var(--el-transition-duration-fast),
+    background-color var(--el-transition-duration-fast),
+    border-color var(--el-transition-duration-fast);
+
+  // 禁用按钮仍可能匹配 :hover，交互状态统一排除 disabled，避免覆盖禁用态变量
+  &:not(:disabled) {
+    &:hover,
+    &:focus-visible {
+      border-color: var(--el-button-hover-border-color);
+      background-color: var(--el-button-hover-bg-color);
+      color: var(--el-button-hover-text-color);
+    }
+
+    &:active {
+      border-color: var(--el-button-active-border-color);
+      background-color: var(--el-button-active-bg-color);
+      color: var(--el-button-active-text-color);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--el-button-outline-color);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    border-color: var(--el-button-disabled-border-color);
+    background-color: var(--el-button-disabled-bg-color);
+    color: var(--el-button-disabled-text-color);
+    cursor: not-allowed;
+  }
+
+  &__icon,
+  &__content {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &.is-round {
+    border-radius: var(--el-border-radius-round);
+  }
+
+  &.is-circle {
+    width: 32px;
+    padding: 8px;
+    border-radius: var(--el-border-radius-circle);
+  }
+
+  // default 朴素按钮只收窄交互背景，其余状态继续消费默认变量
+  &--default.is-plain {
+    --el-button-hover-bg-color: var(--el-fill-color-blank);
+    --el-button-active-bg-color: var(--el-fill-color-blank);
+  }
+
+  &--large {
+    height: 40px;
+    padding: 12px 19px;
+
+    &.is-circle {
+      width: 40px;
+      padding: 12px;
+    }
+  }
+
+  &--small {
+    height: 24px;
+    padding: 5px 11px;
+    font-size: var(--el-font-size-extra-small);
+
+    &.is-circle {
+      width: 24px;
+      padding: 5px;
+    }
+  }
+
+  // 语义主题与 vars.scss 的 $colors 共用一份目录；每个修饰类只负责修改变量
+  @each $type, $_ in vars.$colors {
+    &--#{$type} {
+      --el-button-text-color: var(--el-color-white);
+      --el-button-bg-color: var(--el-color-#{$type});
+      --el-button-border-color: var(--el-color-#{$type});
+      --el-button-hover-text-color: var(--el-color-white);
+      --el-button-hover-bg-color: var(--el-color-#{$type}-light-3);
+      --el-button-hover-border-color: var(--el-color-#{$type}-light-3);
+      --el-button-active-text-color: var(--el-color-white);
+      --el-button-active-bg-color: var(--el-color-#{$type}-dark-2);
+      --el-button-active-border-color: var(--el-color-#{$type}-dark-2);
+      --el-button-disabled-text-color: var(--el-color-white);
+      --el-button-disabled-bg-color: var(--el-color-#{$type}-light-5);
+      --el-button-disabled-border-color: var(--el-color-#{$type}-light-5);
+      --el-button-outline-color: var(--el-color-#{$type}-light-5);
+
+      &.is-plain {
+        --el-button-text-color: var(--el-color-#{$type});
+        --el-button-bg-color: var(--el-color-#{$type}-light-9);
+        --el-button-border-color: var(--el-color-#{$type}-light-5);
+        --el-button-hover-text-color: var(--el-color-white);
+        --el-button-hover-bg-color: var(--el-color-#{$type});
+        --el-button-hover-border-color: var(--el-color-#{$type});
+        --el-button-active-text-color: var(--el-color-white);
+        --el-button-active-bg-color: var(--el-color-#{$type}-dark-2);
+        --el-button-active-border-color: var(--el-color-#{$type}-dark-2);
+        --el-button-disabled-text-color: var(--el-color-#{$type}-light-5);
+        --el-button-disabled-bg-color: var(--el-color-#{$type}-light-9);
+        --el-button-disabled-border-color: var(--el-color-#{$type}-light-8);
+      }
+    }
+  }
+}
