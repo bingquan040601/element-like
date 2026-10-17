@@ -1,0 +1,37 @@
+// ElLike-Card 组件样式：结构样式消费全局 token，组件变量支持局部主题定制。
+.el-like-card {
+  --el-card-bg-color: var(--el-bg-color);
+  --el-card-border-color: var(--el-border-color-light);
+  --el-card-border-radius: var(--el-border-radius-base);
+  --el-card-box-shadow: 0 2px 12px 0 rgb(0 0 0 / 10%);
+  --el-card-padding: 20px;
+
+  box-sizing: border-box;
+  overflow: hidden;
+  border: var(--el-border-width) var(--el-border-style) var(--el-card-border-color);
+  border-radius: var(--el-card-border-radius);
+  background-color: var(--el-card-bg-color);
+  box-shadow: var(--el-card-box-shadow);
+  color: var(--el-text-color-regular);
+
+  &__image {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__summary,
+  &__footer {
+    padding: 14px var(--el-card-padding);
+  }
+
+  &__summary {
+    font-size: var(--el-font-size-base);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  &__footer {
+    border-top: var(--el-border-width) var(--el-border-style) var(--el-card-border-color);
+  }
+}
