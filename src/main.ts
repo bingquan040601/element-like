@@ -5,6 +5,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import Button from '@/components/Button/Button.vue'
 import Card from '@/components/Card/Card.vue'
+import Dialog from '@/components/Dialog/Dialog.vue'
 import Icon from '@/components/Icon/Icon.vue'
 import router from './router'
 // 全局样式（设计 token + reset）：组件样式通过 var(--el-*) 消费，必须先接入
@@ -20,6 +21,7 @@ app.component('font-awesome-icon', FontAwesomeIcon)
 app.component('ElLike-Icon', Icon)
 app.component('ElLike-Button', Button)
 app.component('ElLike-Card', Card)
+app.component('ElLike-Dialog', Dialog)
 
 app.use(router)
 

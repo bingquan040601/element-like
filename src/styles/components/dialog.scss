@@ -1,0 +1,93 @@
+// ElLike-Dialog 组件样式：遮罩负责定位与滚动，对话框主体只消费组件级变量。
+.el-like-dialog {
+  --el-dialog-bg-color: var(--el-bg-color);
+  --el-dialog-border-radius: var(--el-border-radius-base);
+  --el-dialog-box-shadow: 0 12px 32px 0 rgb(0 0 0 / 20%);
+  --el-dialog-padding: 20px;
+
+  box-sizing: border-box;
+  max-width: calc(100% - 32px);
+  margin-right: auto;
+  margin-bottom: 50px;
+  margin-left: auto;
+  border-radius: var(--el-dialog-border-radius);
+  background-color: var(--el-dialog-bg-color);
+  box-shadow: var(--el-dialog-box-shadow);
+  color: var(--el-text-color-regular);
+
+  &__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    overflow-y: auto;
+    background-color: rgb(0 0 0 / 50%);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: var(--el-dialog-padding) var(--el-dialog-padding) 12px;
+  }
+
+  &__title {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    color: var(--el-text-color-primary);
+    font-size: var(--el-font-size-large);
+    line-height: 1.4;
+  }
+
+  &__close {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--el-border-radius-base);
+    background-color: transparent;
+    color: var(--el-text-color-secondary);
+    font: inherit;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      color var(--el-transition-duration-fast),
+      background-color var(--el-transition-duration-fast);
+
+    &:hover {
+      background-color: var(--el-fill-color-light);
+      color: var(--el-text-color-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--el-color-primary);
+      outline-offset: 2px;
+    }
+  }
+
+  &__body {
+    padding: 8px var(--el-dialog-padding) var(--el-dialog-padding);
+    font-size: var(--el-font-size-base);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+
+  &__footer {
+    padding: 12px var(--el-dialog-padding) var(--el-dialog-padding);
+  }
+}
+
+.el-like-dialog-fade-enter-active,
+.el-like-dialog-fade-leave-active {
+  transition: opacity var(--el-transition-duration);
+}
+
+.el-like-dialog-fade-enter-from,
+.el-like-dialog-fade-leave-to {
+  opacity: 0;
+}
