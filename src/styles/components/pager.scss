@@ -1,0 +1,97 @@
+// ElLike-Pager 组件样式：主题只覆盖强调色变量，尺寸只覆盖基础度量变量。
+@use '../vars';
+
+.el-like-pager {
+  --el-pager-active-color: var(--el-color-primary);
+  --el-pager-active-bg-color: var(--el-color-primary-light-9);
+  --el-pager-hover-text-color: var(--el-color-primary);
+  --el-pager-hover-bg-color: var(--el-fill-color-light);
+  --el-pager-button-size: 32px;
+  --el-pager-font-size: var(--el-font-size-base);
+
+  display: inline-flex;
+  max-width: 100%;
+  color: var(--el-text-color-regular);
+  vertical-align: middle;
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item,
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__button {
+    box-sizing: border-box;
+    min-width: var(--el-pager-button-size);
+    height: var(--el-pager-button-size);
+    margin: 0;
+    padding: 0 6px;
+    border: 0;
+    border-radius: var(--el-border-radius-base);
+    outline: none;
+    background-color: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: var(--el-pager-font-size);
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    appearance: none;
+    transition:
+      color var(--el-transition-duration-fast),
+      background-color var(--el-transition-duration-fast);
+
+    &:not(.is-active):hover {
+      background-color: var(--el-pager-hover-bg-color);
+      color: var(--el-pager-hover-text-color);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--el-pager-active-color);
+      outline-offset: 2px;
+    }
+
+    &.is-active {
+      background-color: var(--el-pager-active-bg-color);
+      color: var(--el-pager-active-color);
+      font-weight: var(--el-font-weight-primary);
+      cursor: default;
+    }
+  }
+
+  &__ellipsis {
+    color: var(--el-text-color-secondary);
+    font-weight: var(--el-font-weight-primary);
+  }
+
+  &--large {
+    --el-pager-button-size: 40px;
+    --el-pager-font-size: var(--el-font-size-medium);
+  }
+
+  &--small {
+    --el-pager-button-size: 24px;
+    --el-pager-font-size: var(--el-font-size-extra-small);
+  }
+
+  // 语义主题与 vars.scss 的 $colors 共用一份目录
+  @each $type, $_ in vars.$colors {
+    &--#{$type} {
+      --el-pager-active-color: var(--el-color-#{$type});
+      --el-pager-active-bg-color: var(--el-color-#{$type}-light-9);
+      --el-pager-hover-text-color: var(--el-color-#{$type});
+    }
+  }
+}

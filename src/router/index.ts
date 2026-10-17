@@ -42,11 +42,13 @@ const router = createRouter({
       component: () => import('@/views/DialogView.vue'),
     },
     {
-      path: '/parger',
-      name: 'parger',
-      meta: { label: 'Parger' },
-      component: () => import('@/views/PargerView.vue'),
+      path: '/pager',
+      name: 'pager',
+      meta: { label: 'Pager' },
+      component: () => import('@/views/PagerView.vue'),
     },
+    // 兼容早期占位页的拼写错误路由
+    { path: '/parger', redirect: '/pager' },
     {
       path: '/collapse',
       name: 'collapse',
