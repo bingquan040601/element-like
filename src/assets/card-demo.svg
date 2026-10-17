@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="320" y1="0" x2="320" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#79BBFF" />
+      <stop offset="1" stop-color="#ECF5FF" />
+    </linearGradient>
+    <linearGradient id="water" x1="320" y1="250" x2="320" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A0CFFF" />
+      <stop offset="1" stop-color="#409EFF" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#sky)" />
+  <circle cx="500" cy="82" r="42" fill="white" fill-opacity="0.85" />
+  <path d="M0 278L148 116L278 266L390 150L640 338V360H0V278Z" fill="#A0CFFF" />
+  <path d="M0 312L180 176L300 294L426 206L640 346V360H0V312Z" fill="#79BBFF" />
+  <path d="M148 116L194 162L170 158L148 180L126 156L104 160L148 116Z" fill="white" fill-opacity="0.8" />
+  <path d="M390 150L438 202L410 194L388 216L366 192L348 196L390 150Z" fill="white" fill-opacity="0.75" />
+  <path d="M0 306C122 282 202 330 320 306C438 282 520 282 640 306V360H0V306Z" fill="url(#water)" />
+  <path d="M74 330H226M354 334H534" stroke="white" stroke-opacity="0.55" stroke-width="4" stroke-linecap="round" />
+</svg>
