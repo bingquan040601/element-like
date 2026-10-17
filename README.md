@@ -33,7 +33,8 @@ pnpm format      # Prettier 格式化（只覆盖 src/）
 - ✅ **Icon 图标** —— 对 font-awesome 的二次封装，详见 [src/components/Icon/README.md](src/components/Icon/README.md)
 - ✅ **Button 按钮** —— 支持主题、尺寸、图标及加载状态，详见 [src/components/Button/README.md](src/components/Button/README.md)
 - ✅ **Card 卡片** —— 支持图片、尺寸、摘要及内容插槽，详见 [src/components/Card/README.md](src/components/Card/README.md)
-- 🚧 **开发中**：Dialog 对话框、Pager 分页、Collapse 折叠面板、Tooltip 文字提示、Dropdown 下拉菜单
+- ✅ **Dialog 对话框** —— 支持受控显示、自定义内容及关闭配置，详见 [src/components/Dialog/README.md](src/components/Dialog/README.md)
+- 🚧 **开发中**：Pager 分页、Collapse 折叠面板、Tooltip 文字提示、Dropdown 下拉菜单
 
 开发中组件的示例页（`src/views/*View.vue`）已接入路由，可在开发服务器中预览进度。
 
