@@ -5,6 +5,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import Button from '@/components/Button/Button.vue'
 import Card from '@/components/Card/Card.vue'
+import Collapse from '@/components/Collapse/Collapse.vue'
+import CollapseItem from '@/components/Collapse/CollapseItem.vue'
 import Dialog from '@/components/Dialog/Dialog.vue'
 import Icon from '@/components/Icon/Icon.vue'
 import Pager from '@/components/Pager/Pager.vue'
@@ -22,6 +24,8 @@ app.component('font-awesome-icon', FontAwesomeIcon)
 app.component('ElLike-Icon', Icon)
 app.component('ElLike-Button', Button)
 app.component('ElLike-Card', Card)
+app.component('ElLike-Collapse', Collapse)
+app.component('ElLike-CollapseItem', CollapseItem)
 app.component('ElLike-Dialog', Dialog)
 app.component('ElLike-Pager', Pager)
 

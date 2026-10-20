@@ -1,0 +1,110 @@
+// ElLike-Collapse 组件样式：边框列表 + 手风琴面板。
+// 展开内容的高度过渡由 CollapseItem 内联 height 驱动，这里只提供 transition 与展开态箭头。
+.el-like-collapse {
+  --el-collapse-border-color: var(--el-border-color-light);
+  --el-collapse-header-height: 48px;
+  --el-collapse-header-bg-color: var(--el-fill-color-blank);
+  --el-collapse-header-text-color: var(--el-text-color-primary);
+  --el-collapse-header-font-size: var(--el-font-size-medium);
+  --el-collapse-content-bg-color: var(--el-fill-color-blank);
+  --el-collapse-content-font-size: var(--el-font-size-base);
+  --el-collapse-content-text-color: var(--el-text-color-regular);
+
+  border-top: var(--el-border);
+  border-bottom: var(--el-border);
+}
+
+.el-like-collapse-item {
+  // 分隔线只由头部 border-bottom 承担（展开时置为透明），
+  // 条目自身不再画线，避免收起时头部与条目边框叠成双线
+  &:last-of-type {
+    // 上移 1px 让最后一项的头部边框与容器底边框重合，避免底部双线
+    margin-bottom: -1px;
+  }
+
+  &__header {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: var(--el-collapse-header-height);
+    padding: 0 8px;
+    border: 0;
+    border-bottom: var(--el-border);
+    outline: none;
+    background-color: var(--el-collapse-header-bg-color);
+    color: var(--el-collapse-header-text-color);
+    font-family: inherit;
+    font-size: var(--el-collapse-header-font-size);
+    font-weight: var(--el-font-weight-primary);
+    line-height: 1.4;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+    appearance: none;
+    transition:
+      color var(--el-transition-duration-fast),
+      border-bottom-color var(--el-transition-duration);
+
+    // 展开时标题与内容视觉上连成一体
+    &.is-active {
+      border-bottom-color: transparent;
+    }
+
+    &:hover {
+      color: var(--el-color-primary);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--el-color-primary);
+      outline-offset: -2px;
+    }
+  }
+
+  &__title {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    margin: 0 8px 0 auto;
+    border-right: 2px solid var(--el-collapse-header-text-color);
+    border-bottom: 2px solid var(--el-collapse-header-text-color);
+    transform: rotate(-45deg);
+    transition: transform var(--el-transition-duration);
+
+    &.is-active {
+      transform: rotate(45deg);
+    }
+  }
+
+  &__wrap {
+    overflow: hidden;
+    transition: height var(--el-transition-duration) ease;
+  }
+
+  &__content {
+    padding: 16px;
+    background-color: var(--el-collapse-content-bg-color);
+    color: var(--el-collapse-content-text-color);
+    font-size: var(--el-collapse-content-font-size);
+    line-height: 1.6;
+  }
+
+  &.is-disabled {
+    .el-like-collapse-item__header {
+      color: var(--el-disabled-text-color);
+      cursor: not-allowed;
+
+      &:hover {
+        color: var(--el-disabled-text-color);
+      }
+    }
+  }
+}
