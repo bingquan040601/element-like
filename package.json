@@ -1,6 +1,6 @@
 {
   "name": "element-like",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A Vue 3 components library with Element-style UI components",
   "type": "module",
   "keywords": [
@@ -9,8 +9,15 @@
     "library",
     "element-like"
   ],
+  "license": "MIT",
+  "homepage": "https://github.com/bingquan040601/element-like",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bingquan040601/element-like.git"
+  },
   "files": [
-    "dist"
+    "dist",
+    "docs"
   ],
   "main": "./dist/umd/element-like.umd.cjs",
   "module": "./dist/es/element-like.js",
