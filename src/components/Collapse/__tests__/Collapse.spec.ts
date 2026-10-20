@@ -97,15 +97,16 @@ describe('ElLike-Collapse', () => {
   })
 
   it('renders the title slot and the default slot content', () => {
-    const wrapper = mountCollapse(
-      { modelValue: ['a'] },
-      [
-        h(CollapseItem, { name: 'a' }, {
+    const wrapper = mountCollapse({ modelValue: ['a'] }, [
+      h(
+        CollapseItem,
+        { name: 'a' },
+        {
           title: () => '自定义标题',
           default: () => h('p', '面板内容'),
-        }),
-      ],
-    )
+        },
+      ),
+    ])
 
     expect(wrapper.find('.el-like-collapse-item__title').exists()).toBe(false)
     expect(getHeaders(wrapper)[0]?.text()).toBe('自定义标题')

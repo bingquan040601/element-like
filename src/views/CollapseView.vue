@@ -34,7 +34,9 @@ const recordChange = (value: string[]) => {
           <p>界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</p>
         </ElLike-CollapseItem>
       </ElLike-Collapse>
-      <p class="collapse-section__description">change 事件记录：{{ changeLog.join(' → ') || '暂无' }}</p>
+      <p class="collapse-section__description">
+        change 事件记录：{{ changeLog.join(' → ') || '暂无' }}
+      </p>
     </section>
 
     <section class="collapse-section">

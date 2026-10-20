@@ -11,8 +11,8 @@ const sizeCards = [
   <div class="card-page">
     <h1>卡片 Card</h1>
     <p class="card-page__intro">
-      通过 imgSrc 展示卡片图片，使用 width 和 imgHeight 控制尺寸；summary、默认插槽与
-      footer 插槽共同支持文本摘要和自定义内容。
+      通过 imgSrc 展示卡片图片，使用 width 和 imgHeight 控制尺寸；summary、默认插槽与 footer
+      插槽共同支持文本摘要和自定义内容。
     </p>
 
     <section class="card-section">
@@ -61,8 +61,8 @@ const sizeCards = [
     <section class="card-section">
       <h2>内容扩展</h2>
       <p class="card-section__description">
-        默认插槽用于自定义摘要内容，footer 插槽用于底部操作区；summary
-        与默认插槽同时存在时优先展示 summary。
+        默认插槽用于自定义摘要内容，footer 插槽用于底部操作区；summary 与默认插槽同时存在时优先展示
+        summary。
       </p>
       <div class="card-row">
         <ElLike-Card :width="360" :img-src="cardImage" :img-height="170">

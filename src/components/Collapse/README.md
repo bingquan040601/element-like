@@ -80,16 +80,16 @@ const activeNames = ref<string[]>(['1'])
 
 组件提供以下 CSS 变量，可在 Collapse 或其容器上局部覆盖：
 
-| 变量名                             | 作用             | 默认值                            |
-| ---------------------------------- | ---------------- | --------------------------------- |
-| `--el-collapse-border-color`       | 面板边框颜色     | `var(--el-border-color-light)`    |
-| `--el-collapse-header-height`      | 面板头部高度     | `48px`                            |
-| `--el-collapse-header-bg-color`    | 头部背景色       | `var(--el-fill-color-blank)`      |
-| `--el-collapse-header-text-color`  | 头部文字与箭头色 | `var(--el-text-color-primary)`    |
-| `--el-collapse-header-font-size`   | 头部字号         | `var(--el-font-size-medium)`      |
-| `--el-collapse-content-bg-color`   | 内容区背景色     | `var(--el-fill-color-blank)`      |
-| `--el-collapse-content-font-size`  | 内容区字号       | `var(--el-font-size-base)`        |
-| `--el-collapse-content-text-color` | 内容区文字颜色   | `var(--el-text-color-regular)`    |
+| 变量名                             | 作用             | 默认值                         |
+| ---------------------------------- | ---------------- | ------------------------------ |
+| `--el-collapse-border-color`       | 面板边框颜色     | `var(--el-border-color-light)` |
+| `--el-collapse-header-height`      | 面板头部高度     | `48px`                         |
+| `--el-collapse-header-bg-color`    | 头部背景色       | `var(--el-fill-color-blank)`   |
+| `--el-collapse-header-text-color`  | 头部文字与箭头色 | `var(--el-text-color-primary)` |
+| `--el-collapse-header-font-size`   | 头部字号         | `var(--el-font-size-medium)`   |
+| `--el-collapse-content-bg-color`   | 内容区背景色     | `var(--el-fill-color-blank)`   |
+| `--el-collapse-content-font-size`  | 内容区字号       | `var(--el-font-size-base)`     |
+| `--el-collapse-content-text-color` | 内容区文字颜色   | `var(--el-text-color-regular)` |
 
 ## 无障碍说明
 
@@ -102,23 +102,23 @@ const activeNames = ref<string[]>(['1'])
 
 ### Collapse Attributes
 
-| 属性名     | 说明                          | 类型      | 是否必填 | 默认值 |
-| ---------- | ----------------------------- | --------- | -------- | ------ |
-| modelValue | 当前展开面板的 name 数组      | `string[]` | 否       | `[]`   |
-| accordion  | 是否开启手风琴模式            | `boolean` | 否       | false  |
+| 属性名     | 说明                     | 类型       | 是否必填 | 默认值 |
+| ---------- | ------------------------ | ---------- | -------- | ------ |
+| modelValue | 当前展开面板的 name 数组 | `string[]` | 否       | `[]`   |
+| accordion  | 是否开启手风琴模式       | `boolean`  | 否       | false  |
 
 > 在模板中推荐使用 kebab-case：`model-value`；`v-model` 直接绑定展开集合。
 
 ### Collapse Events
 
-| 事件名 | 说明                     | 回调参数         |
-| ------ | ------------------------ | ---------------- |
-| change | 展开集合发生变化时触发   | `value: string[]` |
+| 事件名 | 说明                   | 回调参数          |
+| ------ | ---------------------- | ----------------- |
+| change | 展开集合发生变化时触发 | `value: string[]` |
 
 ### CollapseItem Attributes
 
-| 属性名   | 说明                           | 类型      | 是否必填 | 默认值 |
-| -------- | ------------------------------ | --------- | -------- | ------ |
-| name     | 面板唯一标识                   | `string`  | 是       | —      |
-| title    | 面板标题，缺省时展示 name      | `string`  | 否       | ''     |
-| disabled | 是否禁用                       | `boolean` | 否       | false  |
+| 属性名   | 说明                      | 类型      | 是否必填 | 默认值 |
+| -------- | ------------------------- | --------- | -------- | ------ |
+| name     | 面板唯一标识              | `string`  | 是       | —      |
+| title    | 面板标题，缺省时展示 name | `string`  | 否       | ''     |
+| disabled | 是否禁用                  | `boolean` | 否       | false  |

@@ -50,20 +50,14 @@ describe('ElLike-Card', () => {
   })
 
   it('prioritizes summary over default slot content', () => {
-    const wrapper = mountCard(
-      { summary: '属性摘要' },
-      { default: '<strong>插槽摘要</strong>' },
-    )
+    const wrapper = mountCard({ summary: '属性摘要' }, { default: '<strong>插槽摘要</strong>' })
 
     expect(wrapper.find('.el-like-card__summary').text()).toBe('属性摘要')
     expect(wrapper.find('.el-like-card__summary strong').exists()).toBe(false)
   })
 
   it('renders custom footer slot content', () => {
-    const wrapper = mountCard(
-      {},
-      { footer: '<button type="button">查看详情</button>' },
-    )
+    const wrapper = mountCard({}, { footer: '<button type="button">查看详情</button>' })
 
     expect(wrapper.find('.el-like-card__footer button').text()).toBe('查看详情')
   })
