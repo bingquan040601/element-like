@@ -21,7 +21,7 @@ const basicIcons = ['user-secret', 'mug-hot', 'paper-plane']
       <h2 class="icon-section__title">基础用法</h2>
       <div class="icon-row">
         <div v-for="name in basicIcons" :key="name" class="icon-item">
-          <ElLike-Icon :icon="name" />
+          <el-like-icon :icon="name" />
           <span class="icon-item__label">{{ name }}</span>
         </div>
       </div>
@@ -31,7 +31,7 @@ const basicIcons = ['user-secret', 'mug-hot', 'paper-plane']
       <h2 class="icon-section__title">类型 type</h2>
       <div class="icon-row">
         <div v-for="t in iconTypes" :key="t" class="icon-item">
-          <ElLike-Icon :type="t" icon="circle-info" />
+          <el-like-icon :type="t" icon="circle-info" />
           <span class="icon-item__label">type="{{ t }}"</span>
         </div>
       </div>
@@ -41,15 +41,15 @@ const basicIcons = ['user-secret', 'mug-hot', 'paper-plane']
       <h2 class="icon-section__title">尺寸 size（透传 fontawesome）</h2>
       <div class="icon-row">
         <div class="icon-item">
-          <ElLike-Icon icon="camera" size="lg" />
+          <el-like-icon icon="camera" size="lg" />
           <span class="icon-item__label">size="lg"</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="camera" size="2x" />
+          <el-like-icon icon="camera" size="2x" />
           <span class="icon-item__label">size="2x"</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="camera" size="3x" />
+          <el-like-icon icon="camera" size="3x" />
           <span class="icon-item__label">size="3x"</span>
         </div>
       </div>
@@ -59,16 +59,16 @@ const basicIcons = ['user-secret', 'mug-hot', 'paper-plane']
       <h2 class="icon-section__title">自定义颜色 color</h2>
       <div class="icon-row">
         <div class="icon-item">
-          <ElLike-Icon icon="heart" color="#8e44ad" />
+          <el-like-icon icon="heart" color="#8e44ad" />
           <span class="icon-item__label">color="#8e44ad"</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="star" color="#16a085" />
+          <el-like-icon icon="star" color="#16a085" />
           <span class="icon-item__label">color="#16a085"</span>
         </div>
         <!-- color 是行内样式，优先级高于 type 的语义色 -->
         <div class="icon-item">
-          <ElLike-Icon icon="bell" type="danger" color="#8e44ad" />
+          <el-like-icon icon="bell" type="danger" color="#8e44ad" />
           <span class="icon-item__label">type="danger" color="#8e44ad"</span>
         </div>
       </div>
@@ -78,32 +78,32 @@ const basicIcons = ['user-secret', 'mug-hot', 'paper-plane']
       <h2 class="icon-section__title">旋转与翻转 rotation / flip</h2>
       <div class="icon-row">
         <div class="icon-item">
-          <ElLike-Icon icon="arrow-up" />
+          <el-like-icon icon="arrow-up" />
           <span class="icon-item__label">arrow-up</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="arrow-up" :rotation="90" />
+          <el-like-icon icon="arrow-up" :rotation="90" />
           <span class="icon-item__label">rotation="90"</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="arrow-up" :rotation="180" />
+          <el-like-icon icon="arrow-up" :rotation="180" />
           <span class="icon-item__label">rotation="180"</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="arrow-up" :rotation="270" />
+          <el-like-icon icon="arrow-up" :rotation="270" />
           <span class="icon-item__label">rotation="270"</span>
         </div>
         <!-- 翻转选上下/左右都不对称的图标，效果才明显 -->
         <div class="icon-item">
-          <ElLike-Icon icon="arrow-trend-up" flip="horizontal" />
+          <el-like-icon icon="arrow-trend-up" flip="horizontal" />
           <span class="icon-item__label">flip="horizontal"</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="arrow-trend-up" flip="vertical" />
+          <el-like-icon icon="arrow-trend-up" flip="vertical" />
           <span class="icon-item__label">flip="vertical"</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="arrow-trend-up" flip="both" />
+          <el-like-icon icon="arrow-trend-up" flip="both" />
           <span class="icon-item__label">flip="both"</span>
         </div>
       </div>
@@ -113,31 +113,31 @@ const basicIcons = ['user-secret', 'mug-hot', 'paper-plane']
       <h2 class="icon-section__title">动画（keyframes 由 fontawesome 注入的 CSS 提供）</h2>
       <div class="icon-row">
         <div class="icon-item">
-          <ElLike-Icon icon="spinner" spin />
+          <el-like-icon icon="spinner" spin />
           <span class="icon-item__label">spin</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="circle-notch" spin-pulse />
+          <el-like-icon icon="circle-notch" spin-pulse />
           <span class="icon-item__label">spin-pulse</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="gear" spin-reverse />
+          <el-like-icon icon="gear" spin-reverse />
           <span class="icon-item__label">spin-reverse</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="heart" beat />
+          <el-like-icon icon="heart" beat />
           <span class="icon-item__label">beat</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="bell" shake />
+          <el-like-icon icon="bell" shake />
           <span class="icon-item__label">shake</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="star" bounce />
+          <el-like-icon icon="star" bounce />
           <span class="icon-item__label">bounce</span>
         </div>
         <div class="icon-item">
-          <ElLike-Icon icon="circle-info" fade />
+          <el-like-icon icon="circle-info" fade />
           <span class="icon-item__label">fade</span>
         </div>
       </div>

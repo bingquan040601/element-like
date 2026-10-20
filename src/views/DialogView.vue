@@ -24,16 +24,16 @@ const releaseNotes = ref('优化页面交互体验，修复已知问题。')
       <p class="dialog-section__description">
         使用 title 设置标题，默认插槽放置正文，footer 插槽放置操作按钮。
       </p>
-      <ElLike-Button type="primary" @click="basicVisible = true">打开基础对话框</ElLike-Button>
-      <ElLike-Dialog :visible="basicVisible" title="操作提示" @close="basicVisible = false">
+      <el-like-button type="primary" @click="basicVisible = true">打开基础对话框</el-like-button>
+      <el-like-dialog :visible="basicVisible" title="操作提示" @close="basicVisible = false">
         <p>这是一个基础对话框。点击关闭按钮、遮罩或按下 Esc 都会触发 close 事件。</p>
         <template #footer>
           <div class="dialog-actions">
-            <ElLike-Button @click="basicVisible = false">取消</ElLike-Button>
-            <ElLike-Button type="primary" @click="basicVisible = false">确定</ElLike-Button>
+            <el-like-button @click="basicVisible = false">取消</el-like-button>
+            <el-like-button type="primary" @click="basicVisible = false">确定</el-like-button>
           </div>
         </template>
-      </ElLike-Dialog>
+      </el-like-dialog>
     </section>
 
     <section class="dialog-section">
@@ -41,8 +41,8 @@ const releaseNotes = ref('优化页面交互体验，修复已知问题。')
       <p class="dialog-section__description">
         width 与 top 接收 CSS 字符串，分别控制对话框宽度和顶部间距。
       </p>
-      <ElLike-Button @click="sizeVisible = true">打开自定义尺寸对话框</ElLike-Button>
-      <ElLike-Dialog
+      <el-like-button @click="sizeVisible = true">打开自定义尺寸对话框</el-like-button>
+      <el-like-dialog
         :visible="sizeVisible"
         title="自定义尺寸"
         width="640px"
@@ -50,7 +50,7 @@ const releaseNotes = ref('优化页面交互体验，修复已知问题。')
         @close="sizeVisible = false"
       >
         <p>当前宽度为 640px，距离视口顶部 8vh；窄屏下会自动限制最大宽度。</p>
-      </ElLike-Dialog>
+      </el-like-dialog>
     </section>
 
     <section class="dialog-section">
@@ -59,13 +59,13 @@ const releaseNotes = ref('优化页面交互体验，修复已知问题。')
         closeOnClickModal 控制点击遮罩是否触发 close；关闭按钮和 Esc 不受影响。
       </p>
       <div class="dialog-section__controls">
-        <ElLike-Button @click="modalVisible = true">打开遮罩配置对话框</ElLike-Button>
+        <el-like-button @click="modalVisible = true">打开遮罩配置对话框</el-like-button>
         <label class="dialog-option">
           <input v-model="closeOnClickModal" type="checkbox" />
           允许点击遮罩关闭
         </label>
       </div>
-      <ElLike-Dialog
+      <el-like-dialog
         :visible="modalVisible"
         :close-on-click-modal="closeOnClickModal"
         title="遮罩关闭配置"
@@ -75,7 +75,7 @@ const releaseNotes = ref('优化页面交互体验，修复已知问题。')
           当前{{ closeOnClickModal ? '允许' : '禁止' }}点击遮罩关闭。请点击遮罩验证，关闭按钮和 Esc
           始终可用。
         </p>
-      </ElLike-Dialog>
+      </el-like-dialog>
     </section>
 
     <section class="dialog-section">
@@ -83,8 +83,8 @@ const releaseNotes = ref('优化页面交互体验，修复已知问题。')
       <p class="dialog-section__description">
         title 插槽可组合图标与文本，默认插槽可承载表单等复杂内容。
       </p>
-      <ElLike-Button type="success" @click="customVisible = true">打开发布对话框</ElLike-Button>
-      <ElLike-Dialog
+      <el-like-button type="success" @click="customVisible = true">打开发布对话框</el-like-button>
+      <el-like-dialog
         :visible="customVisible"
         width="520px"
         top="10vh"
@@ -92,7 +92,7 @@ const releaseNotes = ref('优化页面交互体验，修复已知问题。')
       >
         <template #title>
           <span class="custom-dialog__title">
-            <ElLike-Icon icon="paper-plane" type="primary" />
+            <el-like-icon icon="paper-plane" type="primary" />
             发布新版本
           </span>
         </template>
@@ -110,11 +110,11 @@ const releaseNotes = ref('优化页面交互体验，修复已知问题。')
 
         <template #footer>
           <div class="dialog-actions">
-            <ElLike-Button @click="customVisible = false">取消</ElLike-Button>
-            <ElLike-Button type="primary" @click="customVisible = false">完成</ElLike-Button>
+            <el-like-button @click="customVisible = false">取消</el-like-button>
+            <el-like-button type="primary" @click="customVisible = false">完成</el-like-button>
           </div>
         </template>
-      </ElLike-Dialog>
+      </el-like-dialog>
     </section>
   </div>
 </template>

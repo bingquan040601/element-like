@@ -31,9 +31,9 @@ const recordVisibility = (visible: boolean) => {
       <p class="tooltip-section__description">
         默认 hover 触发、出现在左侧；移入气泡本身不会关闭：
       </p>
-      <ElLike-Tooltip content="这是默认出现在左侧的提示内容" @visible-change="recordVisibility">
-        <ElLike-Button>悬停查看</ElLike-Button>
-      </ElLike-Tooltip>
+      <el-like-tooltip content="这是默认出现在左侧的提示内容" @visible-change="recordVisibility">
+        <el-like-button>悬停查看</el-like-button>
+      </el-like-tooltip>
     </section>
 
     <section class="tooltip-section">
@@ -42,18 +42,18 @@ const recordVisibility = (visible: boolean) => {
         placement 支持 top / bottom / left / right；首选位置空间不足时自动翻转到对侧：
       </p>
       <div class="tooltip-section__row">
-        <ElLike-Tooltip placement="top" content="上方提示">
-          <ElLike-Button>top</ElLike-Button>
-        </ElLike-Tooltip>
-        <ElLike-Tooltip placement="bottom" content="下方提示">
-          <ElLike-Button>bottom</ElLike-Button>
-        </ElLike-Tooltip>
-        <ElLike-Tooltip placement="left" content="左侧提示">
-          <ElLike-Button>left</ElLike-Button>
-        </ElLike-Tooltip>
-        <ElLike-Tooltip placement="right" content="右侧提示">
-          <ElLike-Button>right</ElLike-Button>
-        </ElLike-Tooltip>
+        <el-like-tooltip placement="top" content="上方提示">
+          <el-like-button>top</el-like-button>
+        </el-like-tooltip>
+        <el-like-tooltip placement="bottom" content="下方提示">
+          <el-like-button>bottom</el-like-button>
+        </el-like-tooltip>
+        <el-like-tooltip placement="left" content="左侧提示">
+          <el-like-button>left</el-like-button>
+        </el-like-tooltip>
+        <el-like-tooltip placement="right" content="右侧提示">
+          <el-like-button>right</el-like-button>
+        </el-like-tooltip>
       </div>
     </section>
 
@@ -63,12 +63,12 @@ const recordVisibility = (visible: boolean) => {
         click 点击切换、点击外部区域关闭；focus 聚焦显示、失焦关闭：
       </p>
       <div class="tooltip-section__row">
-        <ElLike-Tooltip trigger="click" content="点击切换，点击外部关闭">
-          <ElLike-Button>click 触发</ElLike-Button>
-        </ElLike-Tooltip>
-        <ElLike-Tooltip trigger="focus" content="聚焦显示，失焦关闭">
-          <ElLike-Button>focus 触发</ElLike-Button>
-        </ElLike-Tooltip>
+        <el-like-tooltip trigger="click" content="点击切换，点击外部关闭">
+          <el-like-button>click 触发</el-like-button>
+        </el-like-tooltip>
+        <el-like-tooltip trigger="focus" content="聚焦显示，失焦关闭">
+          <el-like-button>focus 触发</el-like-button>
+        </el-like-tooltip>
       </div>
     </section>
 
@@ -77,9 +77,9 @@ const recordVisibility = (visible: boolean) => {
       <p class="tooltip-section__description">
         openDelay / closeDelay 仅对 hover 触发生效，单位为毫秒。下方示例打开与关闭均延时 500ms：
       </p>
-      <ElLike-Tooltip content="打开与关闭都延迟 500ms" :open-delay="500" :close-delay="500">
-        <ElLike-Button>延时 500ms</ElLike-Button>
-      </ElLike-Tooltip>
+      <el-like-tooltip content="打开与关闭都延迟 500ms" :open-delay="500" :close-delay="500">
+        <el-like-button>延时 500ms</el-like-button>
+      </el-like-tooltip>
     </section>
 
     <section class="tooltip-section">
@@ -89,16 +89,16 @@ const recordVisibility = (visible: boolean) => {
         方法控制：
       </p>
       <div class="tooltip-section__row">
-        <ElLike-Tooltip manual v-model:visible="manualVisible" content="由 v-model:visible 控制">
-          <ElLike-Button @click="manualVisible = !manualVisible">
+        <el-like-tooltip manual v-model:visible="manualVisible" content="由 v-model:visible 控制">
+          <el-like-button @click="manualVisible = !manualVisible">
             v-model 切换（当前{{ manualVisible ? '显示' : '隐藏' }}）
-          </ElLike-Button>
-        </ElLike-Tooltip>
-        <ElLike-Tooltip ref="methodTooltip" manual content="由实例方法控制">
-          <ElLike-Button @click="methodTooltip?.toggle()">方法 toggle</ElLike-Button>
-        </ElLike-Tooltip>
-        <ElLike-Button @click="methodTooltip?.open()">方法 open</ElLike-Button>
-        <ElLike-Button @click="methodTooltip?.close()">方法 close</ElLike-Button>
+          </el-like-button>
+        </el-like-tooltip>
+        <el-like-tooltip ref="methodTooltip" manual content="由实例方法控制">
+          <el-like-button @click="methodTooltip?.toggle()">方法 toggle</el-like-button>
+        </el-like-tooltip>
+        <el-like-button @click="methodTooltip?.open()">方法 open</el-like-button>
+        <el-like-button @click="methodTooltip?.close()">方法 close</el-like-button>
       </div>
     </section>
 
@@ -107,9 +107,9 @@ const recordVisibility = (visible: boolean) => {
       <p class="tooltip-section__description">
         visible-change 在气泡显示状态变化时触发，参数为当前是否显示：
       </p>
-      <ElLike-Tooltip content="监听 visible-change 事件" @visible-change="recordVisibility">
-        <ElLike-Button>悬停并观察记录</ElLike-Button>
-      </ElLike-Tooltip>
+      <el-like-tooltip content="监听 visible-change 事件" @visible-change="recordVisibility">
+        <el-like-button>悬停并观察记录</el-like-button>
+      </el-like-tooltip>
       <p class="tooltip-section__description">事件记录：{{ eventLog.join(' → ') || '暂无' }}</p>
     </section>
   </div>

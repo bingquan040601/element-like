@@ -1,11 +1,43 @@
 {
   "name": "element-like",
   "version": "0.0.0",
-  "private": true,
+  "description": "A Vue 3 components library with Element-style UI components",
   "type": "module",
+  "keywords": [
+    "vue3",
+    "components",
+    "library",
+    "element-like"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/umd/element-like.umd.cjs",
+  "module": "./dist/es/element-like.js",
+  "types": "./dist/es/bundle.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/es/bundle.d.ts",
+      "import": "./dist/es/element-like.js",
+      "require": "./dist/umd/element-like.umd.cjs"
+    },
+    "./style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/umd/style.css"
+    }
+  },
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
+    "build:lib": "pnpm build-es && pnpm build-umd && pnpm move-style && pnpm copy-types",
+    "build-es": "vite build --config vite.es.config.ts",
+    "build-umd": "vite build --config vite.umd.config.ts",
+    "move-style": "node scripts/move-style.mjs",
+    "copy-types": "node scripts/copy-types.mjs",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
@@ -18,9 +50,10 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.1",
     "@fortawesome/free-solid-svg-icons": "^7.3.1",
-    "@fortawesome/vue-fontawesome": "^3.3.3",
-    "vue": "^3.5.42",
-    "vue-router": "^5.3.1"
+    "@fortawesome/vue-fontawesome": "^3.3.3"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.5",
@@ -46,7 +79,9 @@
     "vite": "^8.2.2",
     "vite-plugin-vue-devtools": "^8.2.1",
     "vitest": "^4.1.11",
+    "vue": "^3.5.42",
     "vue-eslint-parser": "^10.4.1",
+    "vue-router": "^5.3.1",
     "vue-tsc": "^3.3.11"
   },
   "engines": {
