@@ -2,7 +2,7 @@
 
 Pager 用于在多个页面之间切换，支持受控当前页、页码窗口折叠、省略号快速跳转、语义主题和不同尺寸。
 
-- 组件已全局注册，模板中直接使用 `<ElLike-Pager>`，无需 import
+- 组件已全局注册，模板中直接使用 `<el-like-pager>`，无需 import
 - `total` 表示总页码数，不是数据总条数
 - `currentPage` 采用受控模式，需要在 `current-change` 事件中更新
 - `pageCount` 限制数字页码按钮的最大数量，不包含省略号
@@ -18,7 +18,7 @@ const currentPage = ref(1)
 </script>
 
 <template>
-  <ElLike-Pager :total="20" :current-page="currentPage" @current-change="currentPage = $event" />
+  <el-like-pager :total="20" :current-page="currentPage" @current-change="currentPage = $event" />
 </template>
 ```
 
@@ -29,7 +29,7 @@ const currentPage = ref(1)
 总页数超过 `pageCount` 时，组件会自动折叠中间窗口。点击两侧省略号，可以按照 `pageCount` 的步长快速跳转：
 
 ```vue
-<ElLike-Pager
+<el-like-pager
   :total="100"
   :current-page="currentPage"
   :page-count="7"
@@ -44,11 +44,11 @@ const currentPage = ref(1)
 通过 `type` 设置选中、悬停和焦点状态的强调色：
 
 ```vue
-<ElLike-Pager :current-page="currentPage" :total="10" type="primary" />
-<ElLike-Pager :current-page="currentPage" :total="10" type="success" />
-<ElLike-Pager :current-page="currentPage" :total="10" type="warning" />
-<ElLike-Pager :current-page="currentPage" :total="10" type="danger" />
-<ElLike-Pager :current-page="currentPage" :total="10" type="info" />
+<el-like-pager :current-page="currentPage" :total="10" type="primary" />
+<el-like-pager :current-page="currentPage" :total="10" type="success" />
+<el-like-pager :current-page="currentPage" :total="10" type="warning" />
+<el-like-pager :current-page="currentPage" :total="10" type="danger" />
+<el-like-pager :current-page="currentPage" :total="10" type="info" />
 ```
 
 不传 `type` 或传入 `default` 时使用主色强调。完整示例仍应监听 `current-change` 并更新 `currentPage`。
@@ -58,9 +58,9 @@ const currentPage = ref(1)
 支持 `large`、`default` 和 `small` 三种尺寸：
 
 ```vue
-<ElLike-Pager :current-page="currentPage" :total="10" size="large" />
-<ElLike-Pager :current-page="currentPage" :total="10" />
-<ElLike-Pager :current-page="currentPage" :total="10" size="small" />
+<el-like-pager :current-page="currentPage" :total="10" size="large" />
+<el-like-pager :current-page="currentPage" :total="10" />
+<el-like-pager :current-page="currentPage" :total="10" size="small" />
 ```
 
 ## 数值边界

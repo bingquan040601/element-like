@@ -2,7 +2,7 @@
 
 Dropdown 在触发元素附近展示选项菜单，选择条目后触发 `select` 事件。它完整复用 Tooltip 的显示 / 定位 / 触发机制（含翻转、视口夹紧、滚动重算、Teleport），继承 Tooltip 全部属性，仅覆盖两个默认值：`trigger` 默认 `click`、`placement` 默认 `bottom`。
 
-- `Dropdown` 已全局注册，模板中直接使用 `<ElLike-Dropdown>`，无需 import
+- `Dropdown` 已全局注册，模板中直接使用 `<el-like-dropdown>`，无需 import
 - `menuOptions` 传入条目数组，默认插槽放置触发元素
 - 条目为原生 `button`，Tab + Enter 即可完成键盘操作
 
@@ -22,9 +22,9 @@ const options: DropdownMenuOption[] = [
 </script>
 
 <template>
-  <ElLike-Dropdown :menu-options="options" @select="(option) => console.log(option.value)">
-    <ElLike-Button>操作</ElLike-Button>
-  </ElLike-Dropdown>
+  <el-like-dropdown :menu-options="options" @select="(option) => console.log(option.value)">
+    <el-like-button>操作</el-like-button>
+  </el-like-dropdown>
 </template>
 ```
 
@@ -35,9 +35,9 @@ const options: DropdownMenuOption[] = [
 `hideAfterClick` 为 `true` 时，点击条目后立即关闭下拉：
 
 ```vue
-<ElLike-Dropdown :menu-options="options" hide-after-click>
-  <ElLike-Button>选择后关闭</ElLike-Button>
-</ElLike-Dropdown>
+<el-like-dropdown :menu-options="options" hide-after-click>
+  <el-like-button>选择后关闭</el-like-button>
+</el-like-dropdown>
 ```
 
 ## 禁用与分割线
@@ -55,9 +55,9 @@ const options = [
 </script>
 
 <template>
-  <ElLike-Dropdown :menu-options="options" hide-after-click>
-    <ElLike-Button>带状态条目</ElLike-Button>
-  </ElLike-Dropdown>
+  <el-like-dropdown :menu-options="options" hide-after-click>
+    <el-like-button>带状态条目</el-like-button>
+  </el-like-dropdown>
 </template>
 ```
 
@@ -66,7 +66,7 @@ const options = [
 条目设置 `icon`（fontawesome solid 图标名，不含 `fa-` 前缀）后展示图标，图标颜色跟随条目文字状态：
 
 ```vue
-<ElLike-Dropdown
+<el-like-dropdown
   :menu-options="[
     { label: '编辑', value: 'edit', icon: 'pen-to-square' },
     { label: '下载', value: 'download', icon: 'download' },
@@ -74,8 +74,8 @@ const options = [
   ]"
   hide-after-click
 >
-  <ElLike-Button>图标菜单</ElLike-Button>
-</ElLike-Dropdown>
+  <el-like-button>图标菜单</el-like-button>
+</el-like-dropdown>
 ```
 
 ## 继承 Tooltip 属性
@@ -84,9 +84,9 @@ const options = [
 
 ```vue
 <!-- hover 触发、向右展开 -->
-<ElLike-Dropdown trigger="hover" placement="right" :menu-options="options">
-  <ElLike-Button>悬停展开</ElLike-Button>
-</ElLike-Dropdown>
+<el-like-dropdown trigger="hover" placement="right" :menu-options="options">
+  <el-like-button>悬停展开</el-like-button>
+</el-like-dropdown>
 
 <!-- manual 模式：v-model:visible 完全接管显示状态 -->
 <script setup lang="ts">
@@ -94,9 +94,9 @@ const visible = ref(false)
 </script>
 
 <template>
-  <ElLike-Dropdown manual v-model:visible="visible" :menu-options="options">
-    <ElLike-Button @click="visible = !visible">手动切换</ElLike-Button>
-  </ElLike-Dropdown>
+  <el-like-dropdown manual v-model:visible="visible" :menu-options="options">
+    <el-like-button @click="visible = !visible">手动切换</el-like-button>
+  </el-like-dropdown>
 </template>
 ```
 
@@ -105,13 +105,13 @@ const visible = ref(false)
 `visible-change` 在显示状态改变后触发；`select` 在选择具体条目后触发：
 
 ```vue
-<ElLike-Dropdown
+<el-like-dropdown
   :menu-options="options"
   @visible-change="(visible) => console.log(visible)"
   @select="(option) => console.log(option)"
 >
-  <ElLike-Button>观察事件</ElLike-Button>
-</ElLike-Dropdown>
+  <el-like-button>观察事件</el-like-button>
+</el-like-dropdown>
 ```
 
 ## 行为约定
@@ -127,9 +127,9 @@ const visible = ref(false)
 气泡本质上是 Tooltip，[Tooltip 的 CSS 变量](../Tooltip/README.md#样式定制)（如 `--el-tooltip-box-shadow`）全部生效；面板底色、内边距等已被 Dropdown 内置样式覆盖。深度定制气泡时使用 `popper-class` 附加自定义类名，组件内部固定的 `el-like-dropdown` 类会与之合并：
 
 ```vue
-<ElLike-Dropdown popper-class="my-dropdown" :menu-options="options">
-  <ElLike-Button>自定义样式</ElLike-Button>
-</ElLike-Dropdown>
+<el-like-dropdown popper-class="my-dropdown" :menu-options="options">
+  <el-like-button>自定义样式</el-like-button>
+</el-like-dropdown>
 ```
 
 ```css

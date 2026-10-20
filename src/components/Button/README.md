@@ -2,9 +2,9 @@
 
 按钮用于触发操作，支持语义主题、不同尺寸、朴素/圆角/圆形形态，以及图标、禁用和加载状态。
 
-- 组件已全局注册，模板中直接使用 `<ElLike-Button>`，无需 import
+- 组件已全局注册，模板中直接使用 `<el-like-button>`，无需 import
 - 颜色、字号、圆角和过渡均消费全局设计 Token
-- 图标复用 `ElLike-Icon`，图标名称不含 `fa-` 前缀
+- 图标复用 `el-like-icon`，图标名称不含 `fa-` 前缀
 - 根元素为原生 `<button type="button">`，不会在表单中意外触发提交
 
 ## 何时使用
@@ -16,12 +16,12 @@
 `type` 用于设置按钮主题：
 
 ```vue
-<ElLike-Button>默认按钮</ElLike-Button>
-<ElLike-Button type="primary">主要按钮</ElLike-Button>
-<ElLike-Button type="success">成功按钮</ElLike-Button>
-<ElLike-Button type="warning">警告按钮</ElLike-Button>
-<ElLike-Button type="danger">危险按钮</ElLike-Button>
-<ElLike-Button type="info">信息按钮</ElLike-Button>
+<el-like-button>默认按钮</el-like-button>
+<el-like-button type="primary">主要按钮</el-like-button>
+<el-like-button type="success">成功按钮</el-like-button>
+<el-like-button type="warning">警告按钮</el-like-button>
+<el-like-button type="danger">危险按钮</el-like-button>
+<el-like-button type="info">信息按钮</el-like-button>
 ```
 
 ## 朴素按钮
@@ -29,10 +29,10 @@
 添加 `plain` 后，按钮使用浅色背景和主题色文字：
 
 ```vue
-<ElLike-Button plain>默认按钮</ElLike-Button>
-<ElLike-Button type="primary" plain>主要按钮</ElLike-Button>
-<ElLike-Button type="success" plain>成功按钮</ElLike-Button>
-<ElLike-Button type="danger" plain>危险按钮</ElLike-Button>
+<el-like-button plain>默认按钮</el-like-button>
+<el-like-button type="primary" plain>主要按钮</el-like-button>
+<el-like-button type="success" plain>成功按钮</el-like-button>
+<el-like-button type="danger" plain>危险按钮</el-like-button>
 ```
 
 ## 圆角与圆形按钮
@@ -40,11 +40,11 @@
 `round` 用于圆角按钮，`circle` 用于圆形按钮：
 
 ```vue
-<ElLike-Button round>圆角按钮</ElLike-Button>
-<ElLike-Button type="primary" round>主要按钮</ElLike-Button>
+<el-like-button round>圆角按钮</el-like-button>
+<el-like-button type="primary" round>主要按钮</el-like-button>
 
-<ElLike-Button type="primary" icon="paper-plane" circle aria-label="发送" />
-<ElLike-Button type="danger" icon="trash" circle plain aria-label="删除" />
+<el-like-button type="primary" icon="paper-plane" circle aria-label="发送" />
+<el-like-button type="danger" icon="trash" circle plain aria-label="删除" />
 ```
 
 > 圆形图标按钮没有文字内容，必须通过 `aria-label` 为辅助技术提供按钮名称。
@@ -54,16 +54,16 @@
 `size` 支持 `large`、`default` 和 `small`。不传或使用 `default` 时均为基础尺寸：
 
 ```vue
-<ElLike-Button type="primary" size="large">大型按钮</ElLike-Button>
-<ElLike-Button type="primary">默认按钮</ElLike-Button>
-<ElLike-Button type="primary" size="small">小型按钮</ElLike-Button>
+<el-like-button type="primary" size="large">大型按钮</el-like-button>
+<el-like-button type="primary">默认按钮</el-like-button>
+<el-like-button type="primary" size="small">小型按钮</el-like-button>
 ```
 
 `circle` 可以与 `size` 组合，按钮宽高会随尺寸同步变化：
 
 ```vue
-<ElLike-Button type="primary" icon="gear" size="large" circle aria-label="设置" />
-<ElLike-Button type="primary" icon="gear" size="small" circle aria-label="设置" />
+<el-like-button type="primary" icon="gear" size="large" circle aria-label="设置" />
+<el-like-button type="primary" icon="gear" size="small" circle aria-label="设置" />
 ```
 
 ## 图标按钮
@@ -71,9 +71,9 @@
 通过 `icon` 传入 fontawesome solid 图标名，不需要添加 `fa-` 前缀：
 
 ```vue
-<ElLike-Button type="primary" icon="paper-plane">发送</ElLike-Button>
-<ElLike-Button type="success" icon="check">完成</ElLike-Button>
-<ElLike-Button type="danger" icon="trash">删除</ElLike-Button>
+<el-like-button type="primary" icon="paper-plane">发送</el-like-button>
+<el-like-button type="success" icon="check">完成</el-like-button>
+<el-like-button type="danger" icon="trash">删除</el-like-button>
 ```
 
 图标仅作为装饰，不会对辅助技术重复朗读；按钮含义应由默认插槽文字或 `aria-label` 提供。
@@ -83,9 +83,9 @@
 添加 `disabled` 后，原生按钮会被禁用，无法触发点击事件：
 
 ```vue
-<ElLike-Button disabled>禁用按钮</ElLike-Button>
-<ElLike-Button type="primary" disabled>禁用按钮</ElLike-Button>
-<ElLike-Button type="primary" plain disabled>朴素禁用按钮</ElLike-Button>
+<el-like-button disabled>禁用按钮</el-like-button>
+<el-like-button type="primary" disabled>禁用按钮</el-like-button>
+<el-like-button type="primary" plain disabled>朴素禁用按钮</el-like-button>
 ```
 
 ## 加载状态
@@ -93,7 +93,7 @@
 添加 `loading` 后，按钮显示旋转的加载图标、设置 `aria-busy="true"`，并禁止点击：
 
 ```vue
-<ElLike-Button type="primary" loading>提交中</ElLike-Button>
+<el-like-button type="primary" loading>提交中</el-like-button>
 ```
 
 加载图标会暂时替代 `icon` 指定的普通图标；加载结束后，如果传入了 `icon`，普通图标会重新显示。未传 `icon` 时，默认插槽内容不受影响。
@@ -115,9 +115,9 @@ async function submit() {
 </script>
 
 <template>
-  <ElLike-Button type="primary" icon="paper-plane" :loading="loading" @click="submit">
+  <el-like-button type="primary" icon="paper-plane" :loading="loading" @click="submit">
     提交
-  </ElLike-Button>
+  </el-like-button>
 </template>
 ```
 
@@ -133,7 +133,7 @@ function handleClick(event: MouseEvent) {
 </script>
 
 <template>
-  <ElLike-Button type="primary" @click="handleClick">主要按钮</ElLike-Button>
+  <el-like-button type="primary" @click="handleClick">主要按钮</el-like-button>
 </template>
 ```
 
@@ -153,7 +153,7 @@ function focusButton() {
 </script>
 
 <template>
-  <ElLike-Button ref="btnRef" type="primary" @click="focusButton"> 点击后聚焦自身 </ElLike-Button>
+  <el-like-button ref="btnRef" type="primary" @click="focusButton"> 点击后聚焦自身 </el-like-button>
 </template>
 ```
 
@@ -168,7 +168,7 @@ function focusButton() {
 
 ```vue
 <template>
-  <ElLike-Button class="custom-button">自定义按钮</ElLike-Button>
+  <el-like-button class="custom-button">自定义按钮</el-like-button>
 </template>
 
 <style scoped>
