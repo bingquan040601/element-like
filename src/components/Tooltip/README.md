@@ -2,7 +2,7 @@
 
 Tooltip 在触发元素附近展示简短的文字提示，支持 hover / click / focus 三种触发方式、打开与关闭延时、手动控制；气泡传送至 body 固定定位，首选位置空间不足时自动翻转到对侧并夹紧在视口内。
 
-- `Tooltip` 已全局注册，模板中直接使用 `<ElLike-Tooltip>`，无需 import
+- `Tooltip` 已全局注册，模板中直接使用 `<el-like-tooltip>`，无需 import
 - `content` 传入提示文案，默认插槽放置触发元素
 - 气泡带淡入淡出过渡与跟随实际方位的箭头
 
@@ -11,9 +11,9 @@ Tooltip 在触发元素附近展示简短的文字提示，支持 hover / click 
 hover 触发，默认出现在触发元素左侧：
 
 ```vue
-<ElLike-Tooltip content="这是提示内容">
-  <ElLike-Button>悬停查看</ElLike-Button>
-</ElLike-Tooltip>
+<el-like-tooltip content="这是提示内容">
+  <el-like-button>悬停查看</el-like-button>
+</el-like-tooltip>
 ```
 
 鼠标移入触发元素后经过 `openDelay` 显示气泡，移出后经过 `closeDelay` 关闭；移入气泡本身不会关闭。
@@ -23,9 +23,9 @@ hover 触发，默认出现在触发元素左侧：
 `placement` 支持 `top` / `bottom` / `left` / `right`，气泡沿触发元素居中；首选位置空间不足时自动翻转到对侧，翻转后仍放不下时夹紧到视口内：
 
 ```vue
-<ElLike-Tooltip placement="top" content="上方提示">
-  <ElLike-Button>top</ElLike-Button>
-</ElLike-Tooltip>
+<el-like-tooltip placement="top" content="上方提示">
+  <el-like-button>top</el-like-button>
+</el-like-tooltip>
 ```
 
 ## 触发方式
@@ -35,9 +35,9 @@ hover 触发，默认出现在触发元素左侧：
 - `focus`：触发元素获得焦点时显示，失去焦点时关闭（不经过延时）
 
 ```vue
-<ElLike-Tooltip trigger="click" content="点击切换，点击外部关闭">
-  <ElLike-Button>点击</ElLike-Button>
-</ElLike-Tooltip>
+<el-like-tooltip trigger="click" content="点击切换，点击外部关闭">
+  <el-like-button>点击</el-like-button>
+</el-like-tooltip>
 ```
 
 ## 延时控制
@@ -45,9 +45,9 @@ hover 触发，默认出现在触发元素左侧：
 `openDelay` / `closeDelay` 单位为毫秒，仅对 `hover` 触发生效：
 
 ```vue
-<ElLike-Tooltip content="延时 500ms" :open-delay="500" :close-delay="500">
-  <ElLike-Button>悬停</ElLike-Button>
-</ElLike-Tooltip>
+<el-like-tooltip content="延时 500ms" :open-delay="500" :close-delay="500">
+  <el-like-button>悬停</el-like-button>
+</el-like-tooltip>
 ```
 
 ## 手动触发
@@ -65,9 +65,9 @@ const visible = ref(false)
 </script>
 
 <template>
-  <ElLike-Tooltip manual v-model:visible="visible" content="手动控制">
-    <ElLike-Button @click="visible = !visible">切换</ElLike-Button>
-  </ElLike-Tooltip>
+  <el-like-tooltip manual v-model:visible="visible" content="手动控制">
+    <el-like-button @click="visible = !visible">切换</el-like-button>
+  </el-like-tooltip>
 </template>
 ```
 
@@ -76,12 +76,12 @@ const visible = ref(false)
 `content` 插槽可覆盖 `content` 属性，用于自定义富文本内容：
 
 ```vue
-<ElLike-Tooltip>
+<el-like-tooltip>
   <template #content>
     <b>加粗提示</b> 与更多内容
   </template>
-  <ElLike-Button>悬停</ElLike-Button>
-</ElLike-Tooltip>
+  <el-like-button>悬停</el-like-button>
+</el-like-tooltip>
 ```
 
 ## 行为约定

@@ -41,30 +41,30 @@ function clickHandler() {
     <section class="button-section">
       <h2>基础用法</h2>
       <div class="button-row">
-        <ElLike-Button v-for="type in buttonTypes" :key="type" :type="type">
+        <el-like-button v-for="type in buttonTypes" :key="type" :type="type">
           {{ typeLabels[type] }}
-        </ElLike-Button>
+        </el-like-button>
       </div>
     </section>
 
     <section class="button-section">
       <h2>朴素按钮 plain</h2>
       <div class="button-row">
-        <ElLike-Button v-for="type in buttonTypes" :key="type" :type="type" plain>
+        <el-like-button v-for="type in buttonTypes" :key="type" :type="type" plain>
           {{ typeLabels[type] }}
-        </ElLike-Button>
+        </el-like-button>
       </div>
     </section>
 
     <section class="button-section">
       <h2>圆角与圆形 round / circle</h2>
       <div class="button-row">
-        <ElLike-Button v-for="type in buttonTypes" :key="type" :type="type" round>
+        <el-like-button v-for="type in buttonTypes" :key="type" :type="type" round>
           {{ typeLabels[type] }}
-        </ElLike-Button>
+        </el-like-button>
       </div>
       <div class="button-row">
-        <ElLike-Button
+        <el-like-button
           v-for="type in buttonTypes"
           :key="type"
           :type="type"
@@ -78,39 +78,39 @@ function clickHandler() {
     <section class="button-section">
       <h2>尺寸 size</h2>
       <div class="button-row">
-        <ElLike-Button v-for="size in buttonSizes" :key="size" type="primary" :size="size">
+        <el-like-button v-for="size in buttonSizes" :key="size" type="primary" :size="size">
           {{ sizeLabels[size] }}
-        </ElLike-Button>
+        </el-like-button>
       </div>
     </section>
 
     <section class="button-section">
       <h2>图标 icon</h2>
       <div class="button-row">
-        <ElLike-Button type="primary" icon="paper-plane">发送</ElLike-Button>
-        <ElLike-Button type="success" icon="check">完成</ElLike-Button>
-        <ElLike-Button type="danger" icon="trash">删除</ElLike-Button>
+        <el-like-button type="primary" icon="paper-plane">发送</el-like-button>
+        <el-like-button type="success" icon="check">完成</el-like-button>
+        <el-like-button type="danger" icon="trash">删除</el-like-button>
       </div>
     </section>
 
     <section class="button-section">
       <h2>禁用与加载 disabled / loading</h2>
       <div class="button-row">
-        <ElLike-Button disabled>禁用按钮</ElLike-Button>
-        <ElLike-Button type="primary" disabled>禁用按钮</ElLike-Button>
-        <ElLike-Button type="primary" plain disabled>朴素禁用</ElLike-Button>
-        <ElLike-Button type="primary" loading>加载中</ElLike-Button>
+        <el-like-button disabled>禁用按钮</el-like-button>
+        <el-like-button type="primary" disabled>禁用按钮</el-like-button>
+        <el-like-button type="primary" plain disabled>朴素禁用</el-like-button>
+        <el-like-button type="primary" loading>加载中</el-like-button>
       </div>
     </section>
 
     <section class="button-section">
       <h2>点击事件 click</h2>
       <div class="button-row">
-        <ElLike-Button ref="btnRef" type="primary" icon="hand-pointer" @click="clickHandler">
+        <el-like-button ref="btnRef" type="primary" icon="hand-pointer" @click="clickHandler">
           点击次数：{{ clickCount }}
-        </ElLike-Button>
-        <ElLike-Button disabled @click="clickCount++">禁用后不会计数</ElLike-Button>
-        <ElLike-Button loading @click="clickCount++">加载中不会计数</ElLike-Button>
+        </el-like-button>
+        <el-like-button disabled @click="clickCount++">禁用后不会计数</el-like-button>
+        <el-like-button loading @click="clickCount++">加载中不会计数</el-like-button>
       </div>
     </section>
   </div>

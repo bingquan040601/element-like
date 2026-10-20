@@ -2,7 +2,7 @@
 
 Card 用于展示由图片、摘要和底部操作区组成的内容卡片，支持固定尺寸、纯文本摘要以及自定义插槽内容。
 
-- 组件已全局注册，模板中直接使用 `<ElLike-Card>`，无需 import
+- 组件已全局注册，模板中直接使用 `<el-like-card>`，无需 import
 - `imgSrc` 为必填属性，其余属性与插槽均可选
 - 未设置 `width` 时，卡片宽度由父容器或外部布局决定
 - 未设置 `imgHeight` 时，图片保持原始宽高比
@@ -29,7 +29,7 @@ import cardImage from '@/assets/card-demo.svg'
 传入 `imgSrc` 和 `summary` 即可组成基础卡片：
 
 ```vue
-<ElLike-Card :img-src="cardImage" summary="在熟悉的风景里，留一点时间给自己。" />
+<el-like-card :img-src="cardImage" summary="在熟悉的风景里，留一点时间给自己。" />
 ```
 
 未传 `width` 时，卡片作为块级元素由父容器控制宽度；未传 `imgHeight` 时，图片按照原始比例展示。
@@ -39,7 +39,7 @@ import cardImage from '@/assets/card-demo.svg'
 `width` 控制卡片整体宽度，`imgHeight` 控制图片高度，数值单位均为 `px`：
 
 ```vue
-<ElLike-Card
+<el-like-card
   :width="360"
   :img-src="cardImage"
   :img-height="180"
@@ -54,7 +54,7 @@ import cardImage from '@/assets/card-demo.svg'
 `summary` 和默认插槽均不传时，不会渲染摘要容器，可用于纯图片卡片：
 
 ```vue
-<ElLike-Card :width="320" :img-src="cardImage" :img-height="160" />
+<el-like-card :width="320" :img-src="cardImage" :img-height="160" />
 ```
 
 ## 自定义摘要内容
@@ -62,12 +62,12 @@ import cardImage from '@/assets/card-demo.svg'
 未传 `summary` 时，可以通过默认插槽放置标题、富文本、标签等任意内容：
 
 ```vue
-<ElLike-Card :width="360" :img-src="cardImage" :img-height="170">
+<el-like-card :width="360" :img-src="cardImage" :img-height="170">
   <div>
     <h3>在山野之间</h3>
     <p>默认插槽不再局限于纯文本，可以按照业务需求自由组织内容。</p>
   </div>
-</ElLike-Card>
+</el-like-card>
 ```
 
 非空 `summary` 的优先级高于默认插槽；两者同时传入时，只展示 `summary`。`summary` 为空字符串时视为未传入。
@@ -78,7 +78,7 @@ import cardImage from '@/assets/card-demo.svg'
 
 ```vue
 <template>
-  <ElLike-Card
+  <el-like-card
     :width="360"
     :img-src="cardImage"
     :img-height="170"
@@ -87,10 +87,10 @@ import cardImage from '@/assets/card-demo.svg'
     <template #footer>
       <div class="card-footer">
         <span>6 分钟阅读</span>
-        <ElLike-Button type="primary" size="small">阅读全文</ElLike-Button>
+        <el-like-button type="primary" size="small">阅读全文</el-like-button>
       </div>
     </template>
-  </ElLike-Card>
+  </el-like-card>
 </template>
 
 <style scoped>
@@ -111,7 +111,7 @@ import cardImage from '@/assets/card-demo.svg'
 
 ```vue
 <template>
-  <ElLike-Card class="custom-card" :img-src="cardImage" summary="通过 CSS 变量局部定制卡片样式。" />
+  <el-like-card class="custom-card" :img-src="cardImage" summary="通过 CSS 变量局部定制卡片样式。" />
 </template>
 
 <style scoped>

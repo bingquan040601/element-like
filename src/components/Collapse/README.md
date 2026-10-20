@@ -2,7 +2,7 @@
 
 Collapse 通过 v-model 维护展开面板集合，支持手风琴模式、自定义标题与禁用面板，展开/收起带高度过渡动画。
 
-- `Collapse` 与 `CollapseItem` 已全局注册，模板中直接使用 `<ElLike-Collapse>` 与 `<ElLike-CollapseItem>`，无需 import
+- `Collapse` 与 `CollapseItem` 已全局注册，模板中直接使用 `<el-like-collapse>` 与 `<el-like-collapse-item>`，无需 import
 - 每个 `CollapseItem` 必须有唯一的 `name`，`modelValue` 中存放当前展开面板的 name 数组
 - `accordion` 开启手风琴模式，同一时间最多展开一个面板
 - `title` 缺省时回退展示 `name`
@@ -17,14 +17,14 @@ const activeNames = ref<string[]>(['1'])
 </script>
 
 <template>
-  <ElLike-Collapse v-model="activeNames">
-    <ElLike-CollapseItem name="1" title="一致性 Consistency">
+  <el-like-collapse v-model="activeNames">
+    <el-like-collapse-item name="1" title="一致性 Consistency">
       <p>与现实生活流程、逻辑保持一致，遵循用户习惯的语言和概念。</p>
-    </ElLike-CollapseItem>
-    <ElLike-CollapseItem name="2" title="反馈 Feedback">
+    </el-like-collapse-item>
+    <el-like-collapse-item name="2" title="反馈 Feedback">
       <p>通过界面样式和交互动效让用户清晰地感知自己的操作。</p>
-    </ElLike-CollapseItem>
-  </ElLike-Collapse>
+    </el-like-collapse-item>
+  </el-like-collapse>
 </template>
 ```
 
@@ -35,10 +35,10 @@ const activeNames = ref<string[]>(['1'])
 设置 `accordion` 后同时最多展开一个面板，展开新面板会自动收起其他面板；再次点击已展开面板会将其全部收起：
 
 ```vue
-<ElLike-Collapse v-model="activeNames" accordion>
-  <ElLike-CollapseItem name="1" title="一致性 Consistency">…</ElLike-CollapseItem>
-  <ElLike-CollapseItem name="2" title="反馈 Feedback">…</ElLike-CollapseItem>
-</ElLike-Collapse>
+<el-like-collapse v-model="activeNames" accordion>
+  <el-like-collapse-item name="1" title="一致性 Consistency">…</el-like-collapse-item>
+  <el-like-collapse-item name="2" title="反馈 Feedback">…</el-like-collapse-item>
+</el-like-collapse>
 ```
 
 ## 自定义标题
@@ -46,14 +46,14 @@ const activeNames = ref<string[]>(['1'])
 通过 `title` 插槽替换标题内容；不传 `title` 时标题回退展示 `name`：
 
 ```vue
-<ElLike-Collapse v-model="activeNames">
-  <ElLike-CollapseItem name="custom">
+<el-like-collapse v-model="activeNames">
+  <el-like-collapse-item name="custom">
     <template #title>
       <b>自定义标题</b>
     </template>
     <p>通过 title 插槽自定义标题内容。</p>
-  </ElLike-CollapseItem>
-</ElLike-Collapse>
+  </el-like-collapse-item>
+</el-like-collapse>
 ```
 
 ## 禁用面板
@@ -61,11 +61,11 @@ const activeNames = ref<string[]>(['1'])
 `disabled` 面板不响应点击，保持收起或展开的初始状态：
 
 ```vue
-<ElLike-Collapse v-model="activeNames">
-  <ElLike-CollapseItem name="locked" title="禁用面板" disabled>
+<el-like-collapse v-model="activeNames">
+  <el-like-collapse-item name="locked" title="禁用面板" disabled>
     <p>禁用面板不可展开或收起。</p>
-  </ElLike-CollapseItem>
-</ElLike-Collapse>
+  </el-like-collapse-item>
+</el-like-collapse>
 ```
 
 ## 行为约定

@@ -2,7 +2,7 @@
 
 Dialog 用于在当前页面之上展示需要用户关注或处理的内容，支持自定义尺寸、标题、主体和底部操作区。
 
-- 组件已全局注册，模板中直接使用 `<ElLike-Dialog>`，无需 import
+- 组件已全局注册，模板中直接使用 `<el-like-dialog>`，无需 import
 - 通过 `Teleport` 挂载到 `body`，避免受到页面局部定位上下文影响
 - `visible` 采用受控模式，由父组件管理显示状态
 - 默认插槽、`title` 插槽和 `footer` 插槽支持任意自定义内容
@@ -24,16 +24,16 @@ const dialogVisible = ref(false)
 </script>
 
 <template>
-  <ElLike-Button type="primary" @click="dialogVisible = true">打开对话框</ElLike-Button>
+  <el-like-button type="primary" @click="dialogVisible = true">打开对话框</el-like-button>
 
-  <ElLike-Dialog :visible="dialogVisible" title="操作提示" @close="dialogVisible = false">
+  <el-like-dialog :visible="dialogVisible" title="操作提示" @close="dialogVisible = false">
     <p>这里是对话框主体，可以放置文本、表单或其他组件。</p>
 
     <template #footer>
-      <ElLike-Button @click="dialogVisible = false">取消</ElLike-Button>
-      <ElLike-Button type="primary" @click="dialogVisible = false">确定</ElLike-Button>
+      <el-like-button @click="dialogVisible = false">取消</el-like-button>
+      <el-like-button type="primary" @click="dialogVisible = false">确定</el-like-button>
     </template>
-  </ElLike-Dialog>
+  </el-like-dialog>
 </template>
 ```
 
@@ -46,7 +46,7 @@ const dialogVisible = ref(false)
 `width` 和 `top` 接收 String 类型，支持任意有效的 CSS 宽度或长度值：
 
 ```vue
-<ElLike-Dialog
+<el-like-dialog
   :visible="dialogVisible"
   title="自定义尺寸"
   width="640px"
@@ -54,7 +54,7 @@ const dialogVisible = ref(false)
   @close="dialogVisible = false"
 >
   <p>当前宽度为 640px，距离视口顶部 8vh。</p>
-</ElLike-Dialog>
+</el-like-dialog>
 ```
 
 - `width` 默认值为 `50%`
@@ -67,14 +67,14 @@ const dialogVisible = ref(false)
 `closeOnClickModal` 用于控制点击遮罩是否触发 `close`，默认值为 `true`：
 
 ```vue
-<ElLike-Dialog
+<el-like-dialog
   :visible="dialogVisible"
   :close-on-click-modal="false"
   title="编辑资料"
   @close="dialogVisible = false"
 >
   <p>编辑过程中点击遮罩不会关闭对话框。</p>
-</ElLike-Dialog>
+</el-like-dialog>
 ```
 
 | 配置           | 点击遮罩       | 关闭按钮 / Esc |
@@ -89,16 +89,16 @@ const dialogVisible = ref(false)
 `title` 插槽可以覆盖 `title` 属性，用于组合图标、状态标签或其他自定义内容：
 
 ```vue
-<ElLike-Dialog :visible="dialogVisible" @close="dialogVisible = false">
+<el-like-dialog :visible="dialogVisible" @close="dialogVisible = false">
   <template #title>
     <span>
-      <ElLike-Icon icon="paper-plane" type="primary" />
+      <el-like-icon icon="paper-plane" type="primary" />
       发布新版本
     </span>
   </template>
 
   <p>使用 title 插槽后，title 属性不再作为标题内容展示。</p>
-</ElLike-Dialog>
+</el-like-dialog>
 ```
 
 关闭按钮独立于标题插槽，自定义标题时仍会保留。
@@ -109,7 +109,7 @@ const dialogVisible = ref(false)
 
 ```vue
 <template>
-  <ElLike-Dialog
+  <el-like-dialog
     :visible="dialogVisible"
     title="版本说明"
     width="520px"
@@ -125,11 +125,11 @@ const dialogVisible = ref(false)
 
     <template #footer>
       <div class="dialog-actions">
-        <ElLike-Button @click="dialogVisible = false">稍后处理</ElLike-Button>
-        <ElLike-Button type="primary" @click="dialogVisible = false">立即发布</ElLike-Button>
+        <el-like-button @click="dialogVisible = false">稍后处理</el-like-button>
+        <el-like-button type="primary" @click="dialogVisible = false">立即发布</el-like-button>
       </div>
     </template>
-  </ElLike-Dialog>
+  </el-like-dialog>
 </template>
 
 <style scoped>

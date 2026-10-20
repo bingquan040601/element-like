@@ -3,7 +3,7 @@ import type { VNode } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import Collapse from '../Collapse.vue'
-import CollapseItem from '../CollapseItem.vue'
+import CollapseItem from '../../CollapseItem/CollapseItem.vue'
 
 interface ItemOptions {
   title?: string

@@ -21,7 +21,7 @@ const sizeCards = [
         不传 width 时，卡片由父容器控制宽度；图片宽度始终占满卡片。
       </p>
       <div class="card-section__basic">
-        <ElLike-Card
+        <el-like-card
           :img-src="cardImage"
           :img-height="180"
           summary="在熟悉的风景里，留一点时间给自己。未设置 width，卡片宽度由父容器决定。"
@@ -33,7 +33,7 @@ const sizeCards = [
       <h2>自定义尺寸</h2>
       <p class="card-section__description">width 与 imgHeight 接收 Number 类型，单位为 px。</p>
       <div class="card-row">
-        <ElLike-Card
+        <el-like-card
           v-for="card in sizeCards"
           :key="card.width"
           :width="card.width"
@@ -48,13 +48,13 @@ const sizeCards = [
       <h2>可选摘要</h2>
       <p class="card-section__description">不传 summary 时不会渲染摘要区域，可用于纯图片卡片。</p>
       <div class="card-row">
-        <ElLike-Card
+        <el-like-card
           :width="300"
           :img-src="cardImage"
           :img-height="150"
           summary="传入 summary，展示卡片摘要。"
         />
-        <ElLike-Card :width="300" :img-src="cardImage" :img-height="150" />
+        <el-like-card :width="300" :img-src="cardImage" :img-height="150" />
       </div>
     </section>
 
@@ -65,7 +65,7 @@ const sizeCards = [
         summary。
       </p>
       <div class="card-row">
-        <ElLike-Card :width="360" :img-src="cardImage" :img-height="170">
+        <el-like-card :width="360" :img-src="cardImage" :img-height="170">
           <div>
             <h3 class="custom-card__title">在山野之间</h3>
             <p class="custom-card__description">
@@ -80,10 +80,10 @@ const sizeCards = [
           <template #footer>
             <div class="custom-card__footer">
               <span>6 分钟阅读</span>
-              <ElLike-Button type="primary" size="small">阅读全文</ElLike-Button>
+              <el-like-button type="primary" size="small">阅读全文</el-like-button>
             </div>
           </template>
-        </ElLike-Card>
+        </el-like-card>
       </div>
     </section>
   </div>

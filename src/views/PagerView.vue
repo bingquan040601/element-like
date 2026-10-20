@@ -22,7 +22,7 @@ const pagerSizes = ['large', 'default', 'small'] as const
       <p class="pager-section__description">
         Pager 采用受控模式，在 current-change 事件中更新 currentPage。当前第 {{ basicPage }} 页。
       </p>
-      <ElLike-Pager :total="8" :current-page="basicPage" @current-change="basicPage = $event" />
+      <el-like-pager :total="8" :current-page="basicPage" @current-change="basicPage = $event" />
     </section>
 
     <section class="pager-section">
@@ -31,7 +31,7 @@ const pagerSizes = ['large', 'default', 'small'] as const
         pageCount 限制数字页码按钮数量，点击省略号可按该步长快速跳转。当前第
         {{ collapsedPage }} 页。
       </p>
-      <ElLike-Pager
+      <el-like-pager
         :total="100"
         :current-page="collapsedPage"
         :page-count="7"
@@ -43,7 +43,7 @@ const pagerSizes = ['large', 'default', 'small'] as const
       <h2>主题类型</h2>
       <p class="pager-section__description">type 控制选中、悬停和焦点状态的语义强调色。</p>
       <div class="pager-section__stack">
-        <ElLike-Pager
+        <el-like-pager
           v-for="type in pagerTypes"
           :key="type"
           :total="8"
@@ -58,7 +58,7 @@ const pagerSizes = ['large', 'default', 'small'] as const
       <h2>不同尺寸</h2>
       <p class="pager-section__description">size 支持 large、default 和 small。</p>
       <div class="pager-section__stack">
-        <ElLike-Pager
+        <el-like-pager
           v-for="size in pagerSizes"
           :key="size"
           :total="8"

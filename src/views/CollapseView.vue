@@ -23,17 +23,17 @@ const recordChange = (value: string[]) => {
       <p class="collapse-section__description">
         点击标题切换展开状态，可同时展开多个面板。当前展开：{{ activeNames.join('、') || '无' }}
       </p>
-      <ElLike-Collapse v-model="activeNames" @change="recordChange">
-        <ElLike-CollapseItem name="1" title="一致性 Consistency">
+      <el-like-collapse v-model="activeNames" @change="recordChange">
+        <el-like-collapse-item name="1" title="一致性 Consistency">
           <p>与现实生活流程、逻辑保持一致，遵循用户习惯的语言和概念。</p>
-        </ElLike-CollapseItem>
-        <ElLike-CollapseItem name="2" title="反馈 Feedback">
+        </el-like-collapse-item>
+        <el-like-collapse-item name="2" title="反馈 Feedback">
           <p>通过界面样式和交互动效让用户清晰地感知自己的操作。</p>
-        </ElLike-CollapseItem>
-        <ElLike-CollapseItem name="3" title="效率 Efficiency">
+        </el-like-collapse-item>
+        <el-like-collapse-item name="3" title="效率 Efficiency">
           <p>界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</p>
-        </ElLike-CollapseItem>
-      </ElLike-Collapse>
+        </el-like-collapse-item>
+      </el-like-collapse>
       <p class="collapse-section__description">
         change 事件记录：{{ changeLog.join(' → ') || '暂无' }}
       </p>
@@ -45,17 +45,17 @@ const recordChange = (value: string[]) => {
         accordion 开启后同时最多展开一个面板，再次点击已展开面板将其收起。当前展开：
         {{ accordionNames.join('、') || '无' }}
       </p>
-      <ElLike-Collapse v-model="accordionNames" accordion>
-        <ElLike-CollapseItem name="1" title="一致性 Consistency">
+      <el-like-collapse v-model="accordionNames" accordion>
+        <el-like-collapse-item name="1" title="一致性 Consistency">
           <p>与现实生活流程、逻辑保持一致，遵循用户习惯的语言和概念。</p>
-        </ElLike-CollapseItem>
-        <ElLike-CollapseItem name="2" title="反馈 Feedback">
+        </el-like-collapse-item>
+        <el-like-collapse-item name="2" title="反馈 Feedback">
           <p>通过界面样式和交互动效让用户清晰地感知自己的操作。</p>
-        </ElLike-CollapseItem>
-        <ElLike-CollapseItem name="3" title="效率 Efficiency">
+        </el-like-collapse-item>
+        <el-like-collapse-item name="3" title="效率 Efficiency">
           <p>界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</p>
-        </ElLike-CollapseItem>
-      </ElLike-Collapse>
+        </el-like-collapse-item>
+      </el-like-collapse>
     </section>
 
     <section class="collapse-section">
@@ -63,31 +63,31 @@ const recordChange = (value: string[]) => {
       <p class="collapse-section__description">
         title 插槽可替换标题内容；未设置 title 时标题回退展示 name。
       </p>
-      <ElLike-Collapse v-model="slotNames">
-        <ElLike-CollapseItem name="custom">
+      <el-like-collapse v-model="slotNames">
+        <el-like-collapse-item name="custom">
           <template #title>
             <b>自定义标题</b>
             <span class="collapse-page__tag">#title 插槽</span>
           </template>
           <p>通过 title 插槽自定义标题内容。</p>
-        </ElLike-CollapseItem>
-        <ElLike-CollapseItem name="回退示例">
+        </el-like-collapse-item>
+        <el-like-collapse-item name="回退示例">
           <p>本面板未设置 title，标题回退展示 name 的值。</p>
-        </ElLike-CollapseItem>
-      </ElLike-Collapse>
+        </el-like-collapse-item>
+      </el-like-collapse>
     </section>
 
     <section class="collapse-section">
       <h2>禁用面板</h2>
       <p class="collapse-section__description">disabled 面板不响应点击，保持初始展开状态不变。</p>
-      <ElLike-Collapse v-model="activeNames">
-        <ElLike-CollapseItem name="locked" title="禁用面板" disabled>
+      <el-like-collapse v-model="activeNames">
+        <el-like-collapse-item name="locked" title="禁用面板" disabled>
           <p>禁用面板不可展开或收起。</p>
-        </ElLike-CollapseItem>
-        <ElLike-CollapseItem name="normal" title="普通面板">
+        </el-like-collapse-item>
+        <el-like-collapse-item name="normal" title="普通面板">
           <p>普通面板可以正常展开。</p>
-        </ElLike-CollapseItem>
-      </ElLike-Collapse>
+        </el-like-collapse-item>
+      </el-like-collapse>
     </section>
   </div>
 </template>

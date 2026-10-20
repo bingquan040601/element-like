@@ -30,7 +30,8 @@
 
 <script setup lang="ts">
 import { computed, inject, useId } from 'vue'
-import { collapseContextKey, collapseItemProps } from './props'
+import { collapseContextKey } from '../Collapse/props'
+import { collapseItemProps } from './props'
 
 defineOptions({
   name: 'ElLike-CollapseItem',

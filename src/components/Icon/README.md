@@ -4,7 +4,7 @@
 
 - 图标名称查询：[fontawesome 官网图标库](https://fontawesome.com/icons)（当前注册了 free 系列的 solid 全集）
 - 图标颜色默认继承父级文字颜色，可用 `type`（语义色）或 `color`（自定义颜色）指定
-- 组件已全局注册，模板中直接使用 `<ElLike-Icon>`，无需 import
+- 组件已全局注册，模板中直接使用 `<el-like-icon>`，无需 import
 
 ## 何时使用
 
@@ -15,9 +15,9 @@
 通过 `icon` 传入图标名（不含 `fa-` 前缀）：
 
 ```vue
-<ElLike-Icon icon="user-secret" />
-<ElLike-Icon icon="bars" />
-<ElLike-Icon icon="shield-halved" />
+<el-like-icon icon="user-secret" />
+<el-like-icon icon="bars" />
+<el-like-icon icon="shield-halved" />
 ```
 
 ## 类型 type
@@ -25,11 +25,11 @@
 `type` 提供 5 种语义色，颜色消费设计 token（`--el-color-*`），随主题自动切换：
 
 ```vue
-<ElLike-Icon icon="circle-info" type="primary" />
-<ElLike-Icon icon="circle-info" type="success" />
-<ElLike-Icon icon="circle-info" type="warning" />
-<ElLike-Icon icon="circle-info" type="danger" />
-<ElLike-Icon icon="circle-info" type="info" />
+<el-like-icon icon="circle-info" type="primary" />
+<el-like-icon icon="circle-info" type="success" />
+<el-like-icon icon="circle-info" type="warning" />
+<el-like-icon icon="circle-info" type="danger" />
+<el-like-icon icon="circle-info" type="info" />
 ```
 
 ## 尺寸 size
@@ -37,9 +37,9 @@
 透传 fontawesome 的 `size`，支持字面档位（`lg`、`xl` 等）与倍率档位（`2x` 等）：
 
 ```vue
-<ElLike-Icon icon="camera" size="lg" />
-<ElLike-Icon icon="camera" size="2x" />
-<ElLike-Icon icon="camera" size="3x" />
+<el-like-icon icon="camera" size="lg" />
+<el-like-icon icon="camera" size="2x" />
+<el-like-icon icon="camera" size="3x" />
 ```
 
 ## 旋转与翻转 rotation / flip
@@ -47,9 +47,9 @@
 透传 fontawesome 的 `rotation` 与 `flip`：
 
 ```vue
-<ElLike-Icon icon="arrow-up" :rotation="90" />
-<ElLike-Icon icon="arrow-trend-up" flip="horizontal" />
-<ElLike-Icon icon="arrow-trend-up" flip="both" />
+<el-like-icon icon="arrow-up" :rotation="90" />
+<el-like-icon icon="arrow-trend-up" flip="horizontal" />
+<el-like-icon icon="arrow-trend-up" flip="both" />
 ```
 
 ## 动画
@@ -57,10 +57,10 @@
 一组布尔开关，写上即为开启；动画 keyframes 由 fontawesome 自动注入的 CSS 提供，无需额外引入：
 
 ```vue
-<ElLike-Icon icon="spinner" spin />
-<ElLike-Icon icon="circle-notch" spin-pulse />
-<ElLike-Icon icon="heart" beat />
-<ElLike-Icon icon="bell" shake />
+<el-like-icon icon="spinner" spin />
+<el-like-icon icon="circle-notch" spin-pulse />
+<el-like-icon icon="heart" beat />
+<el-like-icon icon="bell" shake />
 ```
 
 ## 自定义颜色 color
@@ -68,8 +68,8 @@
 `color` 以行内样式作用于图标，**优先级高于 `type`**：
 
 ```vue
-<ElLike-Icon icon="heart" color="#8e44ad" />
-<ElLike-Icon icon="bell" type="danger" color="#8e44ad" />
+<el-like-icon icon="heart" color="#8e44ad" />
+<el-like-icon icon="bell" type="danger" color="#8e44ad" />
 ```
 
 ## API

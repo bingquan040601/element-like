@@ -50,9 +50,9 @@ const recordVisibility = (visible: boolean) => {
         默认 click 触发、向下展开；hideAfterClick 默认 false，选择后菜单保持打开：
       </p>
       <div class="dropdown-section__row">
-        <ElLike-Dropdown :menu-options="basicOptions" @select="recordSelect">
-          <ElLike-Button>操作</ElLike-Button>
-        </ElLike-Dropdown>
+        <el-like-dropdown :menu-options="basicOptions" @select="recordSelect">
+          <el-like-button>操作</el-like-button>
+        </el-like-dropdown>
       </div>
     </section>
 
@@ -62,9 +62,9 @@ const recordVisibility = (visible: boolean) => {
         hideAfterClick 为 true 时，点击条目后立即关闭下拉：
       </p>
       <div class="dropdown-section__row">
-        <ElLike-Dropdown :menu-options="basicOptions" hide-after-click @select="recordSelect">
-          <ElLike-Button>选择后关闭</ElLike-Button>
-        </ElLike-Dropdown>
+        <el-like-dropdown :menu-options="basicOptions" hide-after-click @select="recordSelect">
+          <el-like-button>选择后关闭</el-like-button>
+        </el-like-dropdown>
       </div>
     </section>
 
@@ -74,9 +74,9 @@ const recordVisibility = (visible: boolean) => {
         disabled 条目不触发 select、点击不会关闭下拉；divided 条目上方显示分割线：
       </p>
       <div class="dropdown-section__row">
-        <ElLike-Dropdown :menu-options="statusOptions" hide-after-click @select="recordSelect">
-          <ElLike-Button>带状态条目</ElLike-Button>
-        </ElLike-Dropdown>
+        <el-like-dropdown :menu-options="statusOptions" hide-after-click @select="recordSelect">
+          <el-like-button>带状态条目</el-like-button>
+        </el-like-dropdown>
       </div>
     </section>
 
@@ -86,9 +86,9 @@ const recordVisibility = (visible: boolean) => {
         条目设置 icon 后展示 fontawesome 图标，颜色跟随条目文字状态：
       </p>
       <div class="dropdown-section__row">
-        <ElLike-Dropdown :menu-options="iconOptions" hide-after-click @select="recordSelect">
-          <ElLike-Button>图标菜单</ElLike-Button>
-        </ElLike-Dropdown>
+        <el-like-dropdown :menu-options="iconOptions" hide-after-click @select="recordSelect">
+          <el-like-button>图标菜单</el-like-button>
+        </el-like-dropdown>
       </div>
     </section>
 
@@ -99,25 +99,25 @@ const recordVisibility = (visible: boolean) => {
         click、placement 默认 bottom）：
       </p>
       <div class="dropdown-section__row">
-        <ElLike-Dropdown
+        <el-like-dropdown
           trigger="hover"
           placement="right"
           :menu-options="basicOptions"
           hide-after-click
           @select="recordSelect"
         >
-          <ElLike-Button>hover 触发</ElLike-Button>
-        </ElLike-Dropdown>
-        <ElLike-Dropdown
+          <el-like-button>hover 触发</el-like-button>
+        </el-like-dropdown>
+        <el-like-dropdown
           manual
           v-model:visible="manualVisible"
           :menu-options="basicOptions"
           @select="recordSelect"
         >
-          <ElLike-Button @click="manualVisible = !manualVisible">
+          <el-like-button @click="manualVisible = !manualVisible">
             manual 切换（当前{{ manualVisible ? '显示' : '隐藏' }}）
-          </ElLike-Button>
-        </ElLike-Dropdown>
+          </el-like-button>
+        </el-like-dropdown>
       </div>
     </section>
 
@@ -127,14 +127,14 @@ const recordVisibility = (visible: boolean) => {
         select 在选择条目后触发，参数为完整条目对象；visible-change 在显示状态改变后触发：
       </p>
       <div class="dropdown-section__row">
-        <ElLike-Dropdown
+        <el-like-dropdown
           :menu-options="basicOptions"
           hide-after-click
           @select="recordSelect"
           @visible-change="recordVisibility"
         >
-          <ElLike-Button>观察事件</ElLike-Button>
-        </ElLike-Dropdown>
+          <el-like-button>观察事件</el-like-button>
+        </el-like-dropdown>
       </div>
       <p class="dropdown-section__description">事件记录：{{ eventLog.join(' → ') || '暂无' }}</p>
     </section>

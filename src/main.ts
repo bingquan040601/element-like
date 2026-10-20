@@ -1,37 +1,16 @@
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createApp } from 'vue'
 import App from './App.vue'
-import Button from '@/components/Button/Button.vue'
-import Card from '@/components/Card/Card.vue'
-import Collapse from '@/components/Collapse/Collapse.vue'
-import CollapseItem from '@/components/Collapse/CollapseItem.vue'
-import Dialog from '@/components/Dialog/Dialog.vue'
-import Dropdown from '@/components/Dropdown/Dropdown.vue'
-import Icon from '@/components/Icon/Icon.vue'
-import Pager from '@/components/Pager/Pager.vue'
-import Tooltip from '@/components/Tooltip/Tooltip.vue'
+// 示例应用消费库自身的公共入口（与使用方消费 dist 的 ElementLike 同一份代码）：
+// app.use(ElementLike) 全量安装，模板中小写标签 <el-like-button> 直接使用，
+// 与 Element Plus 的 app.use(ElementPlus) 用法对齐
+import ElementLike from '@/bundle'
 import router from './router'
 // 全局样式（设计 token + reset）：组件样式通过 var(--el-*) 消费，必须先接入
 import './styles/index.scss'
 
 const app = createApp(App)
 
-// font-awesome：全量注册 solid 图标库，并挂载全局图标组件
-library.add(fas)
-app.component('font-awesome-icon', FontAwesomeIcon)
-
-// 组件库组件全局注册（与 Element Plus 的 app.use 消费方式对齐）
-app.component('ElLike-Icon', Icon)
-app.component('ElLike-Button', Button)
-app.component('ElLike-Card', Card)
-app.component('ElLike-Collapse', Collapse)
-app.component('ElLike-CollapseItem', CollapseItem)
-app.component('ElLike-Dialog', Dialog)
-app.component('ElLike-Dropdown', Dropdown)
-app.component('ElLike-Pager', Pager)
-app.component('ElLike-Tooltip', Tooltip)
+app.use(ElementLike)
 
 app.use(router)
 
