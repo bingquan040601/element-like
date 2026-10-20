@@ -10,6 +10,7 @@ import CollapseItem from '@/components/Collapse/CollapseItem.vue'
 import Dialog from '@/components/Dialog/Dialog.vue'
 import Icon from '@/components/Icon/Icon.vue'
 import Pager from '@/components/Pager/Pager.vue'
+import Tooltip from '@/components/Tooltip/Tooltip.vue'
 import router from './router'
 // 全局样式（设计 token + reset）：组件样式通过 var(--el-*) 消费，必须先接入
 import './styles/index.scss'
@@ -28,6 +29,7 @@ app.component('ElLike-Collapse', Collapse)
 app.component('ElLike-CollapseItem', CollapseItem)
 app.component('ElLike-Dialog', Dialog)
 app.component('ElLike-Pager', Pager)
+app.component('ElLike-Tooltip', Tooltip)
 
 app.use(router)
 

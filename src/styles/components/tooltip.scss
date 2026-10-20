@@ -1,0 +1,70 @@
+// ElLike-Tooltip 组件样式：气泡为深色底、白色小字号文本，
+// fixed 定位的 left/top 由组件内联样式驱动，这里只负责视觉与过渡。
+.el-like-tooltip {
+  --el-tooltip-bg-color: var(--el-text-color-primary);
+  --el-tooltip-text-color: var(--el-color-white);
+  --el-tooltip-font-size: var(--el-font-size-extra-small);
+  --el-tooltip-padding: 8px 12px;
+  --el-tooltip-max-width: 300px;
+  --el-tooltip-border-radius: var(--el-border-radius-base);
+  --el-tooltip-box-shadow: 0 4px 12px 0 rgb(0 0 0 / 20%);
+
+  position: fixed;
+  z-index: 2010;
+  box-sizing: border-box;
+  max-width: var(--el-tooltip-max-width);
+  padding: var(--el-tooltip-padding);
+  border-radius: var(--el-tooltip-border-radius);
+  background-color: var(--el-tooltip-bg-color);
+  box-shadow: var(--el-tooltip-box-shadow);
+  color: var(--el-tooltip-text-color);
+  font-size: var(--el-tooltip-font-size);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+
+  // 箭头：6px 正方形旋转 45°，中心贴住气泡朝向触发元素的那条边
+  &__arrow {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background-color: var(--el-tooltip-bg-color);
+
+    &.is-top {
+      bottom: -3px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    &.is-bottom {
+      top: -3px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    &.is-left {
+      top: 50%;
+      right: -3px;
+      transform: translateY(-50%) rotate(45deg);
+    }
+
+    &.is-right {
+      top: 50%;
+      left: -3px;
+      transform: translateY(-50%) rotate(45deg);
+    }
+  }
+}
+
+.el-like-tooltip__trigger {
+  display: inline-flex;
+}
+
+.el-like-tooltip-fade-enter-active,
+.el-like-tooltip-fade-leave-active {
+  transition: opacity var(--el-transition-duration-fast);
+}
+
+.el-like-tooltip-fade-enter-from,
+.el-like-tooltip-fade-leave-to {
+  opacity: 0;
+}
