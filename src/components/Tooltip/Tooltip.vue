@@ -17,6 +17,7 @@
         :id="popperId"
         ref="popperRef"
         class="el-like-tooltip"
+        :class="popperClass"
         role="tooltip"
         @mouseenter="onPopperEnter"
         @mouseleave="onPopperLeave"
