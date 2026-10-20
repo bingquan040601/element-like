@@ -1,0 +1,65 @@
+// ElLike-Dropdown 菜单样式：菜单渲染在 Tooltip 气泡内部，
+// 通过 popperClass（el-like-dropdown）覆盖 Tooltip 的深色气泡视觉，
+// 变成浅色底、无内边距的下拉面板；定位与过渡仍由 Tooltip 负责。
+.el-like-tooltip.el-like-dropdown {
+  --el-tooltip-padding: 0;
+  --el-tooltip-bg-color: var(--el-bg-color-overlay);
+  --el-tooltip-max-width: none;
+  min-width: 100px;
+}
+
+.el-like-dropdown-menu {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 5px 0;
+  list-style: none;
+  background-color: var(--el-bg-color-overlay);
+  color: var(--el-text-color-regular);
+  font-size: var(--el-font-size-base);
+
+  &__item {
+    // 分割条目：上方画一条分割线，并与上一条目拉开间距
+    &.is-divided {
+      margin-top: 5px;
+      border-top: 1px solid var(--el-border-color-lighter);
+    }
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 16px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    // 按钮默认不继承字体，显式继承以对齐菜单文本
+    font: inherit;
+    line-height: 36px;
+    white-space: nowrap;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+
+    &:not(:disabled):hover {
+      background-color: var(--el-color-primary-light-9);
+      color: var(--el-color-primary);
+    }
+
+    &:disabled {
+      color: var(--el-text-color-disabled);
+      cursor: not-allowed;
+    }
+  }
+
+  &__icon {
+    flex-shrink: 0;
+  }
+
+  &__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
