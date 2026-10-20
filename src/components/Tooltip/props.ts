@@ -45,4 +45,9 @@ export const tooltipProps = {
     type: Boolean,
     default: undefined,
   },
+  /** 附加到气泡根元素上的类名；气泡 Teleport 到 body，只能通过该属性定制气泡样式 */
+  popperClass: {
+    type: String,
+    default: '',
+  },
 }

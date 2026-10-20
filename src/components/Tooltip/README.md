@@ -97,6 +97,8 @@ const visible = ref(false)
 
 组件提供以下 CSS 变量，可在 Tooltip 或其容器上局部覆盖：
 
+> 气泡 Teleport 到 `body`，组件外层的选择器无法命中它。需要深度定制气泡自身样式时，使用 `popper-class` 属性附加类名（Dropdown 组件即通过该属性覆盖气泡视觉）。
+
 | 变量名                    | 作用         | 默认值                            |
 | ------------------------- | ------------ | --------------------------------- |
 | `--el-tooltip-bg-color`   | 气泡背景色   | `var(--el-text-color-primary)`    |
@@ -124,6 +126,7 @@ const visible = ref(false)
 | openDelay  | 打开延时（毫秒），仅 hover 触发                                     | `number`  | 否       | 100    |
 | closeDelay | 关闭延时（毫秒），仅 hover 触发                                     | `number`  | 否       | 100    |
 | visible    | 是否显示气泡；配合 manual 通过 v-model:visible 控制                 | `boolean` | 否       | —      |
+| popperClass| 附加到气泡根元素上的类名，用于定制气泡样式（气泡在 body 下）        | `string`  | 否       | ''     |
 
 ### Tooltip Events
 

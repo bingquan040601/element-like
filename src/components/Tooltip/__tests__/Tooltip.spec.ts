@@ -216,6 +216,15 @@ describe('ElLike-Tooltip', () => {
     expect(getPopper(wrapper).text()).not.toContain('属性文案')
   })
 
+  it('applies popperClass to the popper element', async () => {
+    const wrapper = mountTooltip({ manual: true, popperClass: 'custom-popper' })
+
+    getInstance(wrapper).open()
+    await nextTick()
+
+    expect(getPopper(wrapper).classes()).toContain('custom-popper')
+  })
+
   it('positions the popper and marks the arrow with the effective placement', async () => {
     const wrapper = mountTooltip({ manual: true, placement: 'top' })
 
