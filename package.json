@@ -1,6 +1,6 @@
 {
   "name": "element-like",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Vue 3 components library with Element-style UI components",
   "type": "module",
   "keywords": [
