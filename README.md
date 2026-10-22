@@ -2,6 +2,8 @@
 
 一个仿 Element UI / Element Plus 的 Vue 3 组件库：从零封装常用 UI 组件，配套设计 token 体系、组件文档与单元测试。支持 npm 安装全量/按需注册，也支持 CDN `<script>` 直引。
 
+**在线预览**：组件交互效果可在 GitHub Pages 直接体验 → <https://bingquan040601.github.io/element-like/icon>（站点托管于 GitHub Pages，部分地区访问较慢，必要时请使用代理）
+
 ## 安装
 
 需要 **Vue** `^3.5.0`（peerDependency，由使用方自行安装）：
@@ -63,7 +65,7 @@ CDN `<script>` 直引、图标机制、TypeScript 支持与常见问题等完整
 - ✅ **Tooltip 文字提示** —— 支持 hover / click / focus 三种触发方式、延时与手动控制、自动翻转定位，详见 [src/components/Tooltip/README.md](src/components/Tooltip/README.md)
 - ✅ **Dropdown 下拉菜单** —— 复用 Tooltip 的显示/定位机制，选择条目触发 select 事件，详见 [src/components/Dropdown/README.md](src/components/Dropdown/README.md)
 
-各组件的示例页（`src/views/*View.vue`）已接入路由，可在开发服务器中预览。
+各组件的示例页（`src/views/*View.vue`）已接入路由，除在开发服务器中预览外，也可通过上文的在线预览地址直接体验。
 
 ## 开发
 
