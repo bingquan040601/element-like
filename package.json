@@ -45,6 +45,8 @@
     "build-umd": "vite build --config vite.umd.config.ts",
     "move-style": "node scripts/move-style.mjs",
     "copy-types": "node scripts/copy-types.mjs",
+    "build:site": "run-p type-check \"build-site-only {@}\" --",
+    "build-site-only": "vite build --base=/element-like/",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
