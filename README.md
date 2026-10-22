@@ -1,35 +1,54 @@
 # element-like
 
-一个仿 Element UI / Element Plus 的 Vue 3 组件库项目：从零封装常用 UI 组件，配套设计 token 体系、组件文档与单元测试。
+一个仿 Element UI / Element Plus 的 Vue 3 组件库：从零封装常用 UI 组件，配套设计 token 体系、组件文档与单元测试。支持 npm 安装全量/按需注册，也支持 CDN `<script>` 直引。
 
-## 技术栈
+## 安装
 
-- **Vue 3** + **TypeScript** + **Vite**（支持 JSX/TSX）
-- **SCSS** 设计 token 体系（CSS 自定义属性，命名对齐 Element Plus 的 `--el-*`）
-- **Vitest** + @vue/test-utils + jsdom（单元测试）
-- **oxlint** + **ESLint** + **Prettier**（双 linter 依次自动修复，格式化由 Prettier 负责）
-- 图标基于 font-awesome 二次封装
-
-## 环境要求
-
-- Node.js `^22.18.0 || >=24.12.0`
-- 包管理器：**pnpm**
-
-## 快速开始
+需要 **Vue** `^3.5.0`（peerDependency，由使用方自行安装）：
 
 ```sh
-pnpm install     # 安装依赖
-pnpm dev         # 启动开发服务器（组件示例页）
-pnpm build       # 类型检查 + 生产构建（并行）
-pnpm build:lib   # 组件库打包（ES + UMD 双格式 + 样式产物）
-pnpm vitest run  # 一次性运行单元测试（pnpm test:unit 为 watch 模式）
-pnpm lint        # oxlint + ESLint 依次自动修复
-pnpm format      # Prettier 格式化（只覆盖 src/）
+pnpm add element-like
 ```
 
-## 组件库打包
+## 快速上手
 
-组件库支持以 npm 包形式发布（ES + UMD 双格式，含样式产物）。打包体系、依赖分层策略与日常维护约定（增删组件、调整依赖时的联动修改点）详见 [docs/packaging.md](docs/packaging.md)；**在新项目中使用组件库**（安装、全量/按需注册、图标机制、常见问题）见 [docs/usage.md](docs/usage.md)。
+### 全量注册（推荐，对齐 element-ui 的 `Vue.use(ElementUI)`）
+
+```ts
+import { createApp } from 'vue'
+import ElementLike from 'element-like'
+import 'element-like/style.css'
+import App from './App.vue'
+
+const app = createApp(App)
+app.use(ElementLike)
+app.mount('#app')
+```
+
+模板中直接使用小写标签，无需 import 组件：
+
+```vue
+<template>
+  <el-like-button type="primary" icon="paper-plane">发送</el-like-button>
+  <el-like-button type="success" icon="check">完成</el-like-button>
+</template>
+```
+
+### 按需注册（对齐 element-plus，tree-shaking）
+
+具名导出为 PascalCase，`app.use` 单独注册，未用到的组件由构建工具摇树掉：
+
+```ts
+import { ElLikeButton, ElLikeIcon } from 'element-like'
+import 'element-like/style.css'
+
+app.use(ElLikeButton)
+app.use(ElLikeIcon)
+```
+
+两种方式的模板写法完全一致；按需场景下 Button 的 `icon` 属性需要同时注册 `ElLikeIcon` 才生效。
+
+CDN `<script>` 直引、图标机制、TypeScript 支持与常见问题等完整接入说明见 [docs/usage.md](docs/usage.md)。
 
 ## 组件列表
 
@@ -46,7 +65,38 @@ pnpm format      # Prettier 格式化（只覆盖 src/）
 
 各组件的示例页（`src/views/*View.vue`）已接入路由，可在开发服务器中预览。
 
-## 目录结构
+## 开发
+
+### 技术栈
+
+- **Vue 3** + **TypeScript** + **Vite**（支持 JSX/TSX）
+- **SCSS** 设计 token 体系（CSS 自定义属性，命名对齐 Element Plus 的 `--el-*`）
+- **Vitest** + @vue/test-utils + jsdom（单元测试）
+- **oxlint** + **ESLint** + **Prettier**（双 linter 依次自动修复，格式化由 Prettier 负责）
+- 图标基于 font-awesome 二次封装
+
+### 环境要求
+
+- Node.js `^22.18.0 || >=24.12.0`
+- 包管理器：**pnpm**
+
+### 常用命令
+
+```sh
+pnpm install     # 安装依赖
+pnpm dev         # 启动开发服务器（组件示例页）
+pnpm build       # 类型检查 + 生产构建（并行）
+pnpm build:lib   # 组件库打包（ES + UMD 双格式 + 样式产物）
+pnpm vitest run  # 一次性运行单元测试（pnpm test:unit 为 watch 模式）
+pnpm lint        # oxlint + ESLint 依次自动修复
+pnpm format      # Prettier 格式化（只覆盖 src/）
+```
+
+### 组件库打包
+
+组件库支持以 npm 包形式发布（ES + UMD 双格式，含样式产物）。打包体系、依赖分层策略与日常维护约定（增删组件、调整依赖时的联动修改点）详见 [docs/packaging.md](docs/packaging.md)。
+
+### 目录结构
 
 ```text
 src/
@@ -58,7 +108,7 @@ src/
 └── __tests__/       # 单元测试
 ```
 
-## 开发约定
+### 开发约定
 
 - **样式**：组件样式一律通过 `var(--el-*)` 消费设计 token，禁止手写色值；token 体系的设计决策见 [src/styles/README.md](src/styles/README.md)
 - **路径别名**：`@/*` → `./src/*`，优先使用别名而非深层相对导入
