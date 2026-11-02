@@ -104,6 +104,7 @@ app.use(ElLikeIcon)
 | `ElLikeCollapseItem` | `<el-like-collapse-item>` | 折叠面板项 |
 | `ElLikeTooltip` | `<el-like-tooltip>` | 文字提示 |
 | `ElLikeDropdown` | `<el-like-dropdown>` | 下拉菜单 |
+| `ElLikeVirtualList` | `<el-like-virtual-list>` | 虚拟列表；支持动态行高与滚动定位 |
 
 每个组件同时注册原始名（`ElLike-Button`）与去连字符别名（`ElLikeButton`），因此 SFC 模板里 `<ElLikeButton>` 与 `<el-like-button>` 两种写法均可用；DOM 模板（CDN 场景，浏览器会把标签小写化）只能写小写。注意多词组件的小写标签按单词断连字符：`<el-like-collapse-item>`（写成 `<el-like-collapseitem>` 解析不到注册名）。
 

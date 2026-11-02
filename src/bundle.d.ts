@@ -21,6 +21,18 @@ export const ElLikeCollapse: SFCWithInstall<Component>
 export const ElLikeCollapseItem: SFCWithInstall<Component>
 export const ElLikeTooltip: SFCWithInstall<Component>
 export const ElLikeDropdown: SFCWithInstall<Component>
+export const ElLikeVirtualList: SFCWithInstall<Component>
+
+export type VirtualListKey = string | number
+export type ScrollAlign = 'start' | 'center' | 'end'
+export interface VirtualListRange {
+  startIndex: number
+  endIndex: number
+}
+export interface VirtualListExpose {
+  scrollToIndex: (index: number, align?: ScrollAlign) => void
+  scrollToOffset: (offset: number) => void
+}
 
 declare const _default: {
   install: (app: App) => void
@@ -33,6 +45,7 @@ declare const _default: {
   ElLikeCollapseItem: typeof ElLikeCollapseItem
   ElLikeTooltip: typeof ElLikeTooltip
   ElLikeDropdown: typeof ElLikeDropdown
+  ElLikeVirtualList: typeof ElLikeVirtualList
 }
 
 export default _default
@@ -48,5 +61,6 @@ declare module 'vue' {
     ElLikeCollapseItem: typeof ElLikeCollapseItem
     ElLikeTooltip: typeof ElLikeTooltip
     ElLikeDropdown: typeof ElLikeDropdown
+    ElLikeVirtualList: typeof ElLikeVirtualList
   }
 }

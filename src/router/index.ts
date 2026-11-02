@@ -68,6 +68,12 @@ const router = createRouter({
       component: () => import('@/views/DropdownView.vue'),
     },
     {
+      path: '/virtual-list',
+      name: 'virtual-list',
+      meta: { label: 'VirtualList' },
+      component: () => import('@/views/VirtualListView.vue'),
+    },
+    {
       path: '/color',
       name: 'color',
       meta: { label: 'Color' },

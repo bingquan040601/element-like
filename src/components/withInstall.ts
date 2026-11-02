@@ -24,17 +24,19 @@ type WithInstallOptions = {
 // 会导致 bundle 里 componentArr 调用 install 时报「可能为 undefined」
 type SFCWithInstall<T> = T & { install: (app: App) => void }
 
-export function withInstall<T extends { name?: string }>(
+export function withInstall<T extends object>(
   component: T,
   options: WithInstallOptions = {},
 ): SFCWithInstall<T> {
   const installed = component as SFCWithInstall<T>
   installed.install = (app: App) => {
     options.setup?.(app)
+    // 泛型组件的函数类型不直接暴露 name，在运行时按统一组件约定读取
+    const { name } = component as { name?: string }
     // 组件必须声明 name 才能注册；defineOptions 已声明过的组件满足该约束
-    if (!component.name) return
-    app.component(component.name, component as Component)
-    app.component(component.name.replace(/-/g, ''), component as Component)
+    if (!name) return
+    app.component(name, component as Component)
+    app.component(name.replace(/-/g, ''), component as Component)
   }
   return installed
 }
