@@ -1,0 +1,31 @@
+// 视口负责滚动，spacer 撑开完整高度，content 只承载实际渲染的行。
+.el-like-virtual-list {
+  position: relative;
+  overflow: auto;
+  overscroll-behavior: contain;
+  contain: strict;
+  scrollbar-gutter: stable;
+
+  &:focus-visible {
+    outline: 2px solid var(--el-color-primary);
+    outline-offset: -2px;
+  }
+
+  &__spacer {
+    position: relative;
+    width: 100%;
+  }
+
+  &__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    will-change: transform;
+  }
+
+  &__item {
+    box-sizing: border-box;
+    width: 100%;
+  }
+}

@@ -37,7 +37,18 @@ describe('withInstall 按需安装', () => {
     const app = createApp({ render: () => h('div') })
     app.use(ElementLike)
 
-    const names = ['Icon', 'Button', 'Card', 'Dialog', 'Pager', 'Collapse', 'CollapseItem', 'Tooltip', 'Dropdown']
+    const names = [
+      'Icon',
+      'Button',
+      'Card',
+      'Dialog',
+      'Pager',
+      'Collapse',
+      'CollapseItem',
+      'Tooltip',
+      'Dropdown',
+      'VirtualList',
+    ]
     names.forEach((name) => {
       expect(app.component(`ElLike-${name}`)).toBeDefined()
       expect(app.component(`ElLike${name}`)).toBeDefined()

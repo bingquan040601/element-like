@@ -20,6 +20,7 @@ import ElLikeCollapse from './components/Collapse'
 import ElLikeCollapseItem from './components/CollapseItem'
 import ElLikeTooltip from './components/Tooltip'
 import ElLikeDropdown from './components/Dropdown'
+import ElLikeVirtualList from './components/VirtualList'
 
 // 全部组件清单（新增组件在此登记，install 与按需导出共用同一份）
 const componentArr = [
@@ -32,6 +33,7 @@ const componentArr = [
   ElLikeCollapseItem,
   ElLikeTooltip,
   ElLikeDropdown,
+  ElLikeVirtualList,
 ]
 
 // app.use(ElementLike) 时的安装函数：逐个调用组件的 install。
@@ -54,7 +56,14 @@ export {
   ElLikeCollapseItem,
   ElLikeTooltip,
   ElLikeDropdown,
+  ElLikeVirtualList,
 }
+export type {
+  ScrollAlign,
+  VirtualListExpose,
+  VirtualListKey,
+  VirtualListRange,
+} from './components/VirtualList/types'
 
 // 全量导出：默认导出支持 app.use(ElementLike) 全量安装，同时携带全部组件
 // （对齐 Element Plus：ElementLike.ElLikeButton 也可单独安装）
@@ -69,4 +78,5 @@ export default {
   ElLikeCollapseItem,
   ElLikeTooltip,
   ElLikeDropdown,
+  ElLikeVirtualList,
 }
