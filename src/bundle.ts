@@ -21,6 +21,7 @@ import ElLikeCollapseItem from './components/CollapseItem'
 import ElLikeTooltip from './components/Tooltip'
 import ElLikeDropdown from './components/Dropdown'
 import ElLikeVirtualList from './components/VirtualList'
+import ElLikeCascader from './components/Cascader'
 
 // 全部组件清单（新增组件在此登记，install 与按需导出共用同一份）
 const componentArr = [
@@ -34,6 +35,7 @@ const componentArr = [
   ElLikeTooltip,
   ElLikeDropdown,
   ElLikeVirtualList,
+  ElLikeCascader,
 ]
 
 // app.use(ElementLike) 时的安装函数：逐个调用组件的 install。
@@ -57,7 +59,21 @@ export {
   ElLikeTooltip,
   ElLikeDropdown,
   ElLikeVirtualList,
+  ElLikeCascader,
 }
+export type {
+  CascaderBeforeFilter,
+  CascaderConfig,
+  CascaderExpose,
+  CascaderFilterMethod,
+  CascaderLazyLoad,
+  CascaderNode,
+  CascaderNodeValue,
+  CascaderOption,
+  CascaderPlacement,
+  CascaderSize,
+  CascaderValue,
+} from './components/Cascader/props'
 export type {
   ScrollAlign,
   VirtualListExpose,
@@ -79,4 +95,5 @@ export default {
   ElLikeTooltip,
   ElLikeDropdown,
   ElLikeVirtualList,
+  ElLikeCascader,
 }
