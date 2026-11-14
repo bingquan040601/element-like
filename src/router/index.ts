@@ -74,6 +74,12 @@ const router = createRouter({
       component: () => import('@/views/VirtualListView.vue'),
     },
     {
+      path: '/cascader',
+      name: 'cascader',
+      meta: { label: 'Cascader' },
+      component: () => import('@/views/CascaderView.vue'),
+    },
+    {
       path: '/color',
       name: 'color',
       meta: { label: 'Color' },

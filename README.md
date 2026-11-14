@@ -65,6 +65,7 @@ CDN `<script>` 直引、图标机制、TypeScript 支持与常见问题等完整
 - ✅ **Tooltip 文字提示** —— 支持 hover / click / focus 三种触发方式、延时与手动控制、自动翻转定位，详见 [src/components/Tooltip/README.md](src/components/Tooltip/README.md)
 - ✅ **Dropdown 下拉菜单** —— 复用 Tooltip 的显示/定位机制，选择条目触发 select 事件，详见 [src/components/Dropdown/README.md](src/components/Dropdown/README.md)
 - ✅ **VirtualList 虚拟列表** —— 支持动态行高、高度缓存与滚动定位，详见 [src/components/VirtualList/README.md](src/components/VirtualList/README.md)
+- ✅ **Cascader 级联选择器** —— 支持单选、多选、任意级选择、搜索与懒加载，详见 [src/components/Cascader/README.md](src/components/Cascader/README.md)
 
 各组件的示例页（`src/views/*View.vue`）已接入路由，除在开发服务器中预览外，也可通过上文的在线预览地址直接体验。
 

@@ -22,6 +22,59 @@ export const ElLikeCollapseItem: SFCWithInstall<Component>
 export const ElLikeTooltip: SFCWithInstall<Component>
 export const ElLikeDropdown: SFCWithInstall<Component>
 export const ElLikeVirtualList: SFCWithInstall<Component>
+export const ElLikeCascader: SFCWithInstall<Component>
+
+export type CascaderNodeValue = string | number
+export type CascaderValue = CascaderNodeValue | CascaderNodeValue[] | CascaderNodeValue[][] | null
+export interface CascaderOption {
+  value?: CascaderNodeValue
+  label?: string
+  disabled?: boolean
+  leaf?: boolean
+  children?: CascaderOption[]
+  [key: string]: unknown
+}
+export interface CascaderNode {
+  data: CascaderOption
+  value: CascaderNodeValue
+  label: string
+  level: number
+  leaf: boolean
+  disabled: boolean
+  loading: boolean
+  loaded: boolean
+  parent: CascaderNode | null
+  children: CascaderNode[]
+  pathValues: CascaderNodeValue[]
+}
+export type CascaderLazyLoad = (
+  node: CascaderNode,
+  resolve: (data?: CascaderOption[]) => void,
+) => void | CascaderOption[] | Promise<void | CascaderOption[]>
+export interface CascaderConfig {
+  expandTrigger?: 'click' | 'hover'
+  multiple?: boolean
+  checkStrictly?: boolean
+  emitPath?: boolean
+  lazy?: boolean
+  lazyLoad?: CascaderLazyLoad
+  value?: string
+  label?: string
+  children?: string
+  disabled?: string
+  leaf?: string
+}
+export type CascaderSize = 'large' | 'default' | 'small'
+export type CascaderPlacement = 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end'
+export type CascaderFilterMethod = (node: CascaderNode, keyword: string) => boolean
+export type CascaderBeforeFilter = (keyword: string) => boolean | Promise<boolean>
+export interface CascaderExpose {
+  focus: () => void
+  blur: () => void
+  toggleDropDownVisible: (visible?: boolean) => void
+  updatePopperPosition: () => void
+  getCheckedNodes: (leafOnly?: boolean) => CascaderNode[]
+}
 
 export type VirtualListKey = string | number
 export type ScrollAlign = 'start' | 'center' | 'end'
@@ -46,6 +99,7 @@ declare const _default: {
   ElLikeTooltip: typeof ElLikeTooltip
   ElLikeDropdown: typeof ElLikeDropdown
   ElLikeVirtualList: typeof ElLikeVirtualList
+  ElLikeCascader: typeof ElLikeCascader
 }
 
 export default _default
@@ -62,5 +116,6 @@ declare module 'vue' {
     ElLikeTooltip: typeof ElLikeTooltip
     ElLikeDropdown: typeof ElLikeDropdown
     ElLikeVirtualList: typeof ElLikeVirtualList
+    ElLikeCascader: typeof ElLikeCascader
   }
 }
