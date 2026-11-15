@@ -4,6 +4,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
+import { compression } from 'vite-plugin-compression2'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,7 +15,16 @@ export default defineConfig({
   //     解决的问题：某些场景（如复杂渲染函数、动态标签）用 template 表达繁琐，JSX 更灵活。
   // - vueDevTools()：接入 Vue DevTools，开发时可在浏览器中检查组件树、状态和路由。
   //     解决的问题：没有 DevTools 时排查组件层级与响应式数据只能靠打日志，效率低。
-  plugins: [vue(), vueJsx(), vueDevTools()],
+  plugins: [
+    vue(),
+    vueJsx(),
+    vueDevTools(),
+    // 构建时为文本资源生成 .br 旁文件；保留原文件供不支持 Brotli 的客户端回退。
+    compression({
+      algorithms: ['brotliCompress'],
+      deleteOriginalAssets: false,
+    }),
+  ],
   server: {
     // 固定开发服务器端口为 1024。
     // 解决的问题：Vite 默认端口是 5173，且被占用时会自动顺延（5174、5175……），
