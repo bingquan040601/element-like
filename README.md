@@ -2,7 +2,7 @@
 
 一个仿 Element UI / Element Plus 的 Vue 3 组件库：从零封装常用 UI 组件，配套设计 token 体系、组件文档与单元测试。支持 npm 安装全量/按需注册，也支持 CDN `<script>` 直引。
 
-**在线预览**：组件交互效果可在 GitHub Pages 直接体验 → <https://bingquan040601.github.io/element-like/icon>（站点托管于 GitHub Pages，部分地区访问较慢，必要时请使用代理）
+**在线预览**：组件交互效果可在 [GitHub Pages](https://bingquan040601.github.io/element-like/icon) 直接体验；如果访问较慢，也可通过 [备用预览站点](https://xiaoquan-test.xyz/element-like/) 查看。
 
 ## 安装
 
