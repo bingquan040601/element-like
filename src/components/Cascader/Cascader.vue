@@ -23,6 +23,7 @@ import { cascaderProps, defaultCascaderConfig } from './props'
 
 defineOptions({
   name: 'ElLike-Cascader',
+  inheritAttrs: false,
 })
 
 const props = defineProps(cascaderProps)
@@ -709,6 +710,7 @@ defineExpose({
 <template>
   <div
     ref="rootRef"
+    v-bind="$attrs"
     class="el-like-cascader"
     :class="[
       `el-like-cascader--${size}`,

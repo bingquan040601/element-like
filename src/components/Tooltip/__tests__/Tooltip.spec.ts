@@ -11,9 +11,14 @@ interface TooltipInstance {
   toggle: () => void
 }
 
-const mountTooltip = (props: Record<string, unknown> = {}, slots: Record<string, string> = {}) =>
+const mountTooltip = (
+  props: Record<string, unknown> = {},
+  slots: Record<string, string> = {},
+  attrs: Record<string, string> = {},
+) =>
   mount(Tooltip, {
     props,
+    attrs,
     slots: { default: '<button type="button">触发按钮</button>', ...slots },
     global: {
       stubs: { teleport: true },
@@ -46,6 +51,13 @@ describe('ElLike-Tooltip', () => {
     expect(wrapper.props('closeDelay')).toBe(100)
     expect(wrapper.props('visible')).toBeUndefined()
     expect(wrapper.emitted()).toEqual({})
+  })
+
+  it('forwards caller source attributes to the trigger', () => {
+    const source = 'src/views/TooltipView.vue:35:9:el-like-tooltip'
+    const wrapper = mountTooltip({}, {}, { 'data-insp-path': source })
+
+    expect(getTrigger(wrapper).attributes('data-insp-path')).toBe(source)
   })
 
   it('opens after openDelay on hover and closes after closeDelay on leave', async () => {

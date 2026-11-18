@@ -11,10 +11,12 @@ const mountDialog = (
     closeOnClickModal?: boolean
   } = {},
   slots: Record<string, string> = {},
+  attrs: Record<string, string> = {},
 ) =>
   mount(Dialog, {
     props,
     slots,
+    attrs,
     global: {
       stubs: { teleport: true },
     },
@@ -52,6 +54,13 @@ describe('ElLike-Dialog', () => {
 
     expect((dialog.element as HTMLElement).style.width).toBe('640px')
     expect((dialog.element as HTMLElement).style.marginTop).toBe('10vh')
+  })
+
+  it('forwards caller source attributes through the teleport root', () => {
+    const source = 'src/views/DialogView.vue:28:7:el-like-dialog'
+    const wrapper = mountDialog({ visible: true }, {}, { 'data-insp-path': source })
+
+    expect(wrapper.find('.el-like-dialog__overlay').attributes('data-insp-path')).toBe(source)
   })
 
   it('supports custom title, body and footer slots', () => {

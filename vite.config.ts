@@ -24,6 +24,8 @@ export default defineConfig({
       bundler: 'vite',
       // Vitest 同样使用 serve 模式，需显式排除，避免测试退出时残留定位服务句柄。
       dev: () => process.env.NODE_ENV === 'development',
+      // 组件库内部 DOM 不注入路径，优先使用调用方组件上的定位信息。
+      exclude: /[\\/]src[\\/]components[\\/]/,
       // 团队默认关闭；开发者在 .env.local 中设置 CODE_INSPECTOR=true 后按需开启。
       needEnvInspector: true,
     }),

@@ -58,9 +58,13 @@ const options: CascaderOption[] = [
 ]
 
 const wrappers: VueWrapper[] = []
-const mountCascader = (props: Record<string, unknown> = {}) => {
+const mountCascader = (
+  props: Record<string, unknown> = {},
+  attrs: Record<string, string> = {},
+) => {
   const wrapper = mount(Cascader, {
     props: { options, ...props },
+    attrs,
     attachTo: document.body,
     global: {
       stubs: { teleport: true },
@@ -98,6 +102,13 @@ afterEach(() => {
 })
 
 describe('ElLike-Cascader', () => {
+  it('forwards caller source attributes to the control root', () => {
+    const source = 'src/views/CascaderView.vue:50:5:el-like-cascader'
+    const wrapper = mountCascader({}, { 'data-insp-path': source })
+
+    expect(wrapper.find('.el-like-cascader').attributes('data-insp-path')).toBe(source)
+  })
+
   it('renders a closed combobox with placeholder and no initial events', () => {
     const wrapper = mountCascader()
 
