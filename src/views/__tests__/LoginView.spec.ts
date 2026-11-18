@@ -55,6 +55,25 @@ describe('LoginView', () => {
     expect(context.authStore.isAuthenticated).toBe(true)
   })
 
+  it('shakes only fields that fail required validation and can replay the animation', async () => {
+    await mountLogin()
+    await wrapper?.find('input[name="account"]').setValue('huangbingquan')
+    await wrapper?.find('form').trigger('submit')
+    await flushPromises()
+
+    const password = wrapper?.find('input[name="password"]')
+    expect(password?.classes()).toContain('is-shaking')
+    expect(wrapper?.find('input[name="account"]').classes()).not.toContain('is-shaking')
+    expect(context.api.login).not.toHaveBeenCalled()
+
+    await password?.trigger('animationend')
+    expect(password?.classes()).not.toContain('is-shaking')
+
+    await wrapper?.find('form').trigger('submit')
+    await flushPromises()
+    expect(password?.classes()).toContain('is-shaking')
+  })
+
   it('shows a service error and stays on login for invalid credentials', async () => {
     context.api.login.mockRejectedValue(
       new ApiError('账号或密码错误', { status: 401, code: 'INVALID_CREDENTIALS' }),

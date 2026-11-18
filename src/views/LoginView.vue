@@ -12,14 +12,18 @@ const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 const form = reactive<LoginCredentials>({ account: '', password: '', remember: true })
+const errors = reactive({ account: '', password: '' })
+const validationAttempt = ref(0)
 const submitting = ref(false)
 const errorMessage = ref('')
 
 const handleSubmit = async () => {
   if (submitting.value) return
   errorMessage.value = ''
-  if (!form.account.trim() || !form.password) {
-    errorMessage.value = '请输入用户名 / 邮箱和密码'
+  errors.account = form.account.trim() ? '' : '请输入用户名或邮箱'
+  errors.password = form.password ? '' : '请输入密码'
+  if (errors.account || errors.password) {
+    validationAttempt.value += 1
     return
   }
 
@@ -46,6 +50,8 @@ const handleSubmit = async () => {
         name="account"
         autocomplete="username"
         placeholder="请输入用户名或邮箱"
+        :error="errors.account"
+        :shake-key="validationAttempt"
       />
       <AuthFormField
         v-model="form.password"
@@ -54,6 +60,8 @@ const handleSubmit = async () => {
         type="password"
         autocomplete="current-password"
         placeholder="请输入密码"
+        :error="errors.password"
+        :shake-key="validationAttempt"
       />
 
       <label class="login-form__remember">
@@ -82,14 +90,16 @@ const handleSubmit = async () => {
 <style scoped lang="scss">
 .login-form {
   display: grid;
-  gap: 20px;
+  gap: 18px;
 
   &__error {
     margin: 0;
     padding: 10px 12px;
-    border-radius: var(--el-border-radius-base);
+    border: 1px solid var(--el-color-danger-light-5);
+    border-radius: 8px;
     background-color: var(--el-color-danger-light-9);
     color: var(--el-color-danger);
+    font-size: var(--el-font-size-small);
     line-height: 1.5;
   }
 
@@ -98,13 +108,14 @@ const handleSubmit = async () => {
     align-items: center;
     justify-self: start;
     gap: 8px;
-    margin-top: -4px;
+    min-height: 20px;
     color: var(--el-text-color-regular);
+    font-size: var(--el-font-size-small);
     cursor: pointer;
 
     input {
-      width: 15px;
-      height: 15px;
+      width: 16px;
+      height: 16px;
       margin: 0;
       accent-color: var(--el-color-primary);
       cursor: pointer;
@@ -113,6 +124,26 @@ const handleSubmit = async () => {
 
   &__submit {
     width: 100%;
+    height: 44px;
+    margin-top: 2px;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgb(64 158 255 / 20%);
+    font-weight: var(--el-font-weight-primary);
+    letter-spacing: 0.04em;
+    transition:
+      transform var(--el-transition-duration-fast),
+      box-shadow var(--el-transition-duration-fast),
+      background-color var(--el-transition-duration-fast),
+      border-color var(--el-transition-duration-fast);
+
+    &:not(:disabled):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 9px 20px rgb(64 158 255 / 26%);
+    }
+
+    &:not(:disabled):active {
+      transform: translateY(0);
+    }
   }
 }
 </style>

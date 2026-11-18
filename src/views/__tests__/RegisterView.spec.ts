@@ -77,10 +77,16 @@ describe('RegisterView', () => {
     await setValue('confirm-password', 'different')
 
     await wrapper?.find('form').trigger('submit')
+    await flushPromises()
 
     expect(wrapper?.text()).toContain('以字母开头')
     expect(wrapper?.text()).toContain('请输入有效的邮箱地址')
     expect(wrapper?.text()).toContain('两次输入的密码不一致')
+    expect(wrapper?.find('input[name="username"]').classes()).toContain('is-shaking')
+    expect(wrapper?.find('input[name="email"]').classes()).toContain('is-shaking')
+    expect(wrapper?.find('input[name="new-password"]').classes()).toContain('is-shaking')
+    expect(wrapper?.find('input[name="confirm-password"]').classes()).toContain('is-shaking')
+    expect(wrapper?.find('input[name="nickname"]').classes()).not.toContain('is-shaking')
     expect(context.api.register).not.toHaveBeenCalled()
   })
 })

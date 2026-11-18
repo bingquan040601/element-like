@@ -18,12 +18,25 @@ const form = reactive({
   confirmPassword: '',
   remember: true,
 })
-const errors = reactive({ username: '', email: '', password: '', nickname: '' })
+const errors = reactive({
+  username: '',
+  email: '',
+  password: '',
+  nickname: '',
+  confirmPassword: '',
+})
+const validationAttempt = ref(0)
 const formError = ref('')
 const submitting = ref(false)
 
 const validate = (): boolean => {
-  Object.assign(errors, { username: '', email: '', password: '', nickname: '' })
+  Object.assign(errors, {
+    username: '',
+    email: '',
+    password: '',
+    nickname: '',
+    confirmPassword: '',
+  })
   formError.value = ''
 
   if (!/^[A-Za-z][A-Za-z0-9_]{2,49}$/.test(form.username)) {
@@ -34,9 +47,11 @@ const validate = (): boolean => {
   }
   errors.password = validateNewPassword(form.password)
   if (form.nickname.trim().length > 50) errors.nickname = '昵称不能超过 50 位'
-  if (form.confirmPassword !== form.password) formError.value = '两次输入的密码不一致'
+  if (form.confirmPassword !== form.password) errors.confirmPassword = '两次输入的密码不一致'
 
-  return !Object.values(errors).some(Boolean) && !formError.value
+  const isValid = !Object.values(errors).some(Boolean)
+  if (!isValid) validationAttempt.value += 1
+  return isValid
 }
 
 const applyApiErrors = (error: ApiError): void => {
@@ -92,6 +107,7 @@ const handleSubmit = async () => {
         placeholder="3-50 位，字母开头"
         :maxlength="50"
         :error="errors.username"
+        :shake-key="validationAttempt"
       />
       <AuthFormField
         v-model="form.email"
@@ -101,6 +117,7 @@ const handleSubmit = async () => {
         autocomplete="email"
         placeholder="请输入邮箱"
         :error="errors.email"
+        :shake-key="validationAttempt"
       />
       <AuthFormField
         v-model="form.nickname"
@@ -111,6 +128,7 @@ const handleSubmit = async () => {
         :maxlength="50"
         :required="false"
         :error="errors.nickname"
+        :shake-key="validationAttempt"
       />
       <AuthFormField
         v-model="form.password"
@@ -121,6 +139,7 @@ const handleSubmit = async () => {
         placeholder="8-72 位"
         :maxlength="72"
         :error="errors.password"
+        :shake-key="validationAttempt"
       />
       <AuthFormField
         v-model="form.confirmPassword"
@@ -130,6 +149,8 @@ const handleSubmit = async () => {
         autocomplete="new-password"
         placeholder="请再次输入密码"
         :maxlength="72"
+        :error="errors.confirmPassword"
+        :shake-key="validationAttempt"
       />
 
       <label class="register-form__remember">
@@ -158,14 +179,16 @@ const handleSubmit = async () => {
 <style scoped lang="scss">
 .register-form {
   display: grid;
-  gap: 16px;
+  gap: 14px;
 
   &__error {
     margin: 0;
     padding: 10px 12px;
-    border-radius: var(--el-border-radius-base);
+    border: 1px solid var(--el-color-danger-light-5);
+    border-radius: 8px;
     background-color: var(--el-color-danger-light-9);
     color: var(--el-color-danger);
+    font-size: var(--el-font-size-small);
     line-height: 1.5;
   }
 
@@ -174,20 +197,42 @@ const handleSubmit = async () => {
     align-items: center;
     justify-self: start;
     gap: 8px;
+    min-height: 20px;
     color: var(--el-text-color-regular);
+    font-size: var(--el-font-size-small);
     cursor: pointer;
 
     input {
-      width: 15px;
-      height: 15px;
+      width: 16px;
+      height: 16px;
       margin: 0;
       accent-color: var(--el-color-primary);
+      cursor: pointer;
     }
   }
 
   &__submit {
     width: 100%;
-    margin-top: 4px;
+    height: 44px;
+    margin-top: 2px;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgb(64 158 255 / 20%);
+    font-weight: var(--el-font-weight-primary);
+    letter-spacing: 0.04em;
+    transition:
+      transform var(--el-transition-duration-fast),
+      box-shadow var(--el-transition-duration-fast),
+      background-color var(--el-transition-duration-fast),
+      border-color var(--el-transition-duration-fast);
+
+    &:not(:disabled):hover {
+      transform: translateY(-1px);
+      box-shadow: 0 9px 20px rgb(64 158 255 / 26%);
+    }
+
+    &:not(:disabled):active {
+      transform: translateY(0);
+    }
   }
 }
 </style>
