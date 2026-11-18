@@ -1,15 +1,3 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const basicPage = ref(1)
-const collapsedPage = ref(25)
-const themedPage = ref(3)
-const sizedPage = ref(2)
-
-const pagerTypes = ['primary', 'success', 'warning', 'danger', 'info'] as const
-const pagerSizes = ['large', 'default', 'small'] as const
-</script>
-
 <template>
   <div class="pager-page">
     <h1>页码 Pager</h1>
@@ -70,6 +58,18 @@ const pagerSizes = ['large', 'default', 'small'] as const
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const basicPage = ref(1)
+const collapsedPage = ref(25)
+const themedPage = ref(3)
+const sizedPage = ref(2)
+
+const pagerTypes = ['primary', 'success', 'warning', 'danger', 'info'] as const
+const pagerSizes = ['large', 'default', 'small'] as const
+</script>
 
 <style scoped lang="scss">
 .pager-page__intro {

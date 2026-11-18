@@ -5,7 +5,7 @@
 - 组件已全局注册，模板中直接使用 `<el-like-button>`，无需 import
 - 颜色、字号、圆角和过渡均消费全局设计 Token
 - 图标复用 `el-like-icon`，图标名称不含 `fa-` 前缀
-- 根元素为原生 `<button type="button">`，不会在表单中意外触发提交
+- 根元素默认为原生 `<button type="button">`，不会在表单中意外触发提交；可通过 `native-type="submit"` 声明提交按钮
 
 ## 何时使用
 
@@ -201,16 +201,17 @@ function focusButton() {
 
 ### Attributes
 
-| 属性名   | 说明                                     | 类型    | 可选值                                                | 默认值  |
-| -------- | ---------------------------------------- | ------- | ----------------------------------------------------- | ------- |
-| type     | 主题类型                                 | string  | default / primary / success / warning / danger / info | default |
-| size     | 按钮尺寸                                 | string  | large / default / small                               | —       |
-| plain    | 是否为朴素按钮                           | boolean | —                                                     | false   |
-| round    | 是否为圆角按钮                           | boolean | —                                                     | false   |
-| circle   | 是否为圆形按钮                           | boolean | —                                                     | false   |
-| disabled | 是否禁用                                 | boolean | —                                                     | false   |
-| loading  | 是否加载中；加载时禁止点击并显示加载图标 | boolean | —                                                     | false   |
-| icon     | 图标名称，不含 `fa-` 前缀                | string  | fontawesome solid 图标名                              | —       |
+| 属性名      | 说明                                     | 类型    | 可选值                                                | 默认值  |
+| ----------- | ---------------------------------------- | ------- | ----------------------------------------------------- | ------- |
+| type        | 主题类型                                 | string  | default / primary / success / warning / danger / info | default |
+| native-type | 原生按钮类型                             | string  | button / submit / reset                               | button  |
+| size        | 按钮尺寸                                 | string  | large / default / small                               | —       |
+| plain       | 是否为朴素按钮                           | boolean | —                                                     | false   |
+| round       | 是否为圆角按钮                           | boolean | —                                                     | false   |
+| circle      | 是否为圆形按钮                           | boolean | —                                                     | false   |
+| disabled    | 是否禁用                                 | boolean | —                                                     | false   |
+| loading     | 是否加载中；加载时禁止点击并显示加载图标 | boolean | —                                                     | false   |
+| icon        | 图标名称，不含 `fa-` 前缀                | string  | fontawesome solid 图标名                              | —       |
 
 > 未列出的原生属性和 `aria-*` 属性会透传到根 `<button>`。组件的 `type` 表示主题类型，原生按钮类型固定为 `button`。
 

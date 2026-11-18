@@ -8,6 +8,9 @@ export type ButtonType = (typeof buttonTypes)[number]
 export const buttonSizes = ['large', 'default', 'small'] as const
 export type ButtonSize = (typeof buttonSizes)[number]
 
+export const buttonNativeTypes = ['button', 'submit', 'reset'] as const
+export type ButtonNativeType = (typeof buttonNativeTypes)[number]
+
 export const buttonProps = {
   /** 主题类型 */
   type: {
@@ -17,6 +20,12 @@ export const buttonProps = {
   /** 尺寸；不传或为 default 时使用基础尺寸 */
   size: {
     type: String as PropType<ButtonSize>,
+  },
+  /** 原生按钮类型；默认 button，表单提交按钮可显式设为 submit */
+  nativeType: {
+    type: String as PropType<ButtonNativeType>,
+    default: 'button',
+    validator: (value: string) => buttonNativeTypes.includes(value as ButtonNativeType),
   },
   /** 是否为朴素按钮 */
   plain: Boolean,

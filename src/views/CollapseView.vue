@@ -1,16 +1,3 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const activeNames = ref<string[]>(['1'])
-const accordionNames = ref<string[]>(['1'])
-const slotNames = ref<string[]>([])
-const changeLog = ref<string[]>([])
-
-const recordChange = (value: string[]) => {
-  changeLog.value.push(`[${value.join(', ') || '空'}]`)
-}
-</script>
-
 <template>
   <div class="collapse-page">
     <h1>折叠面板 Collapse</h1>
@@ -91,6 +78,19 @@ const recordChange = (value: string[]) => {
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const activeNames = ref<string[]>(['1'])
+const accordionNames = ref<string[]>(['1'])
+const slotNames = ref<string[]>([])
+const changeLog = ref<string[]>([])
+
+const recordChange = (value: string[]) => {
+  changeLog.value.push(`[${value.join(', ') || '空'}]`)
+}
+</script>
 
 <style scoped lang="scss">
 .collapse-page__intro {

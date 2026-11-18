@@ -1,3 +1,78 @@
+<template>
+  <div class="cascader-page">
+    <h1>级联选择器 Cascader</h1>
+    <p class="cascader-page__intro">
+      从一组关联数据中选择完整路径，支持单选、多选、任意级选择、搜索和异步懒加载。
+    </p>
+
+    <section class="cascader-demo">
+      <h2>基础用法</h2>
+      <p>点击父级展开下一列，选择叶子节点后返回完整路径；可清空、自定义尺寸。</p>
+      <el-like-cascader v-model="basicValue" :options="options" clearable aria-label="选择目的地" />
+      <output class="cascader-demo__value">{{ JSON.stringify(basicValue) }}</output>
+    </section>
+
+    <section class="cascader-demo">
+      <h2>任意级选择与 hover 展开</h2>
+      <p>设置 checkStrictly 后可选择任意一级，父级显示单选框；鼠标悬停即可展开。</p>
+      <el-like-cascader
+        v-model="strictValue"
+        :options="options"
+        :props="strictConfig"
+        clearable
+        placeholder="请选择任意节点"
+      />
+      <output class="cascader-demo__value">{{ JSON.stringify(strictValue) }}</output>
+    </section>
+
+    <section class="cascader-demo">
+      <h2>多选与折叠标签</h2>
+      <p>父级复选框联动所有可用叶子，半选状态表示部分选中；Backspace 可移除最后一项。</p>
+      <el-like-cascader
+        v-model="multipleValue"
+        :options="options"
+        :props="multipleConfig"
+        :max-collapse-tags="2"
+        collapse-tags
+        clearable
+      />
+      <output class="cascader-demo__value">{{ JSON.stringify(multipleValue) }}</output>
+    </section>
+
+    <section class="cascader-demo">
+      <h2>可搜索</h2>
+      <p>
+        输入节点名称或完整路径进行搜索，支持方向键切换、Enter 选择；自定义 filterMethod
+        可改变匹配规则。
+      </p>
+      <el-like-cascader
+        v-model="filterValue"
+        :options="options"
+        :debounce="0"
+        filterable
+        clearable
+        placeholder="输入“杭州”或“西湖”"
+      />
+      <output class="cascader-demo__value">{{ JSON.stringify(filterValue) }}</output>
+    </section>
+
+    <section class="cascader-demo">
+      <h2>动态加载</h2>
+      <p>开启 lazy 后，在展开节点时调用 lazyLoad；可回调 resolve，也可直接返回 Promise。</p>
+      <el-like-cascader
+        v-model="lazyValue"
+        :options="lazyOptions"
+        :props="{ lazy: true, lazyLoad }"
+        clearable
+        placeholder="展开“组件”查看异步加载"
+        @load-error="lazyError = '加载失败，请重试'"
+      />
+      <output class="cascader-demo__value">{{ JSON.stringify(lazyValue) }}</output>
+      <p v-if="lazyError" class="cascader-demo__error">{{ lazyError }}</p>
+    </section>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import type {
@@ -108,81 +183,6 @@ const lazyLoad: CascaderLazyLoad = (node, resolve) => {
   }, 500)
 }
 </script>
-
-<template>
-  <div class="cascader-page">
-    <h1>级联选择器 Cascader</h1>
-    <p class="cascader-page__intro">
-      从一组关联数据中选择完整路径，支持单选、多选、任意级选择、搜索和异步懒加载。
-    </p>
-
-    <section class="cascader-demo">
-      <h2>基础用法</h2>
-      <p>点击父级展开下一列，选择叶子节点后返回完整路径；可清空、自定义尺寸。</p>
-      <el-like-cascader v-model="basicValue" :options="options" clearable aria-label="选择目的地" />
-      <output class="cascader-demo__value">{{ JSON.stringify(basicValue) }}</output>
-    </section>
-
-    <section class="cascader-demo">
-      <h2>任意级选择与 hover 展开</h2>
-      <p>设置 checkStrictly 后可选择任意一级，父级显示单选框；鼠标悬停即可展开。</p>
-      <el-like-cascader
-        v-model="strictValue"
-        :options="options"
-        :props="strictConfig"
-        clearable
-        placeholder="请选择任意节点"
-      />
-      <output class="cascader-demo__value">{{ JSON.stringify(strictValue) }}</output>
-    </section>
-
-    <section class="cascader-demo">
-      <h2>多选与折叠标签</h2>
-      <p>父级复选框联动所有可用叶子，半选状态表示部分选中；Backspace 可移除最后一项。</p>
-      <el-like-cascader
-        v-model="multipleValue"
-        :options="options"
-        :props="multipleConfig"
-        :max-collapse-tags="2"
-        collapse-tags
-        clearable
-      />
-      <output class="cascader-demo__value">{{ JSON.stringify(multipleValue) }}</output>
-    </section>
-
-    <section class="cascader-demo">
-      <h2>可搜索</h2>
-      <p>
-        输入节点名称或完整路径进行搜索，支持方向键切换、Enter 选择；自定义 filterMethod
-        可改变匹配规则。
-      </p>
-      <el-like-cascader
-        v-model="filterValue"
-        :options="options"
-        :debounce="0"
-        filterable
-        clearable
-        placeholder="输入“杭州”或“西湖”"
-      />
-      <output class="cascader-demo__value">{{ JSON.stringify(filterValue) }}</output>
-    </section>
-
-    <section class="cascader-demo">
-      <h2>动态加载</h2>
-      <p>开启 lazy 后，在展开节点时调用 lazyLoad；可回调 resolve，也可直接返回 Promise。</p>
-      <el-like-cascader
-        v-model="lazyValue"
-        :options="lazyOptions"
-        :props="{ lazy: true, lazyLoad }"
-        clearable
-        placeholder="展开“组件”查看异步加载"
-        @load-error="lazyError = '加载失败，请重试'"
-      />
-      <output class="cascader-demo__value">{{ JSON.stringify(lazyValue) }}</output>
-      <p v-if="lazyError" class="cascader-demo__error">{{ lazyError }}</p>
-    </section>
-  </div>
-</template>
 
 <style scoped lang="scss">
 .cascader-page {

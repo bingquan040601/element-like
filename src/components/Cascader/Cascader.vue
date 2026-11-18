@@ -1,3 +1,231 @@
+<template>
+  <div
+    ref="rootRef"
+    v-bind="$attrs"
+    class="el-like-cascader"
+    :class="[
+      `el-like-cascader--${size}`,
+      {
+        'is-disabled': disabled,
+        'is-opened': isVisible,
+        'is-clearable': showClear,
+        'is-multiple': isMultiple,
+      },
+    ]"
+  >
+    <div class="el-like-cascader__wrapper" @click="handleTriggerClick">
+      <div v-if="isMultiple && selectedNodes.length" class="el-like-cascader__tags">
+        <span
+          v-for="node in visibleTags"
+          :key="nodeKey(node.pathValues)"
+          class="el-like-cascader__tag"
+          :title="getNodeLabel(node)"
+        >
+          <span class="el-like-cascader__tag-label">{{ getNodeLabel(node) }}</span>
+          <button
+            v-if="!disabled"
+            type="button"
+            class="el-like-cascader__tag-close"
+            :aria-label="`移除 ${getNodeLabel(node)}`"
+            tabindex="-1"
+            @click.stop="removeNode(node)"
+          >
+            <Icon icon="xmark" aria-hidden="true" />
+          </button>
+        </span>
+        <span
+          v-if="collapsedTagCount > 0"
+          class="el-like-cascader__tag is-collapse"
+          :title="collapsedTagsTitle"
+        >
+          + {{ collapsedTagCount }}
+        </span>
+      </div>
+
+      <input
+        :id="`${panelId}-input`"
+        ref="inputRef"
+        class="el-like-cascader__input"
+        :class="{ 'is-filterable': filterable }"
+        :value="inputValue"
+        :placeholder="inputPlaceholder"
+        :disabled="disabled"
+        :readonly="!filterable"
+        role="combobox"
+        :aria-label="ariaLabel"
+        :aria-expanded="isVisible"
+        :aria-controls="panelId"
+        :aria-autocomplete="filterable ? 'list' : 'none'"
+        :aria-activedescendant="
+          isFiltering && suggestions.length
+            ? getSuggestionElementId(suggestionActiveIndex)
+            : undefined
+        "
+        autocomplete="off"
+        spellcheck="false"
+        @input="handleInput"
+        @keydown="handleInputKeydown"
+        @focus="emit('focus', $event)"
+        @blur="emit('blur', $event)"
+      />
+
+      <button
+        v-if="showClear"
+        type="button"
+        class="el-like-cascader__clear"
+        aria-label="清空选择"
+        tabindex="-1"
+        @click.stop="clearValue"
+      >
+        <Icon icon="circle-xmark" aria-hidden="true" />
+      </button>
+      <span class="el-like-cascader__arrow" aria-hidden="true" @click.stop="handleArrowClick">
+        <Icon icon="angle-down" />
+      </span>
+    </div>
+  </div>
+
+  <Teleport to="body" :disabled="!teleported">
+    <Transition name="el-like-cascader-zoom">
+      <div
+        v-if="isVisible"
+        :id="panelId"
+        ref="popperRef"
+        class="el-like-cascader__popper"
+        :class="popperClass"
+        :data-placement="currentPlacement"
+        :style="{ visibility: positioned ? 'visible' : 'hidden' }"
+        @mousedown.prevent
+        @click.stop
+      >
+        <div v-if="isFiltering" class="el-like-cascader__suggestions" role="listbox">
+          <template v-if="suggestions.length">
+            <div
+              v-for="(node, index) in suggestions"
+              :id="getSuggestionElementId(index)"
+              :key="nodeKey(node.pathValues)"
+              class="el-like-cascader__suggestion"
+              :class="{
+                'is-active': index === suggestionActiveIndex,
+                'is-disabled': node.disabled,
+                'is-checked': isNodeChecked(node),
+              }"
+              role="option"
+              :aria-selected="isNodeChecked(node)"
+              :aria-disabled="node.disabled"
+              @click="handleSuggestionClick(node)"
+              @mouseenter="suggestionActiveIndex = index"
+            >
+              <input
+                v-if="isMultiple"
+                type="checkbox"
+                :checked="isNodeChecked(node)"
+                :disabled="node.disabled"
+                :aria-label="`选择 ${getNodeLabel(node)}`"
+                tabindex="-1"
+                @click.stop
+                @change.stop="toggleNode(node)"
+              />
+              <span class="el-like-cascader__suggestion-label">
+                <slot :node="node" :data="node.data">{{ getNodeLabel(node) }}</slot>
+              </span>
+              <Icon
+                v-if="!isMultiple && isNodeChecked(node)"
+                icon="check"
+                class="el-like-cascader__check"
+                aria-hidden="true"
+              />
+            </div>
+          </template>
+          <div v-else class="el-like-cascader__empty">{{ emptyText }}</div>
+        </div>
+
+        <div v-else class="el-like-cascader__menus">
+          <template v-if="rootNodes.length">
+            <ul
+              v-for="(menu, menuIndex) in menus"
+              :key="menuIndex"
+              class="el-like-cascader__menu"
+              role="menu"
+            >
+              <li v-for="node in menu" :key="nodeKey(node.pathValues)" role="none">
+                <div
+                  :id="getNodeElementId(node)"
+                  class="el-like-cascader__node"
+                  :class="{
+                    'is-active': isNodeActive(node),
+                    'is-disabled': node.disabled,
+                    'is-checked': isNodeChecked(node),
+                  }"
+                  role="menuitem"
+                  :tabindex="node.disabled ? -1 : 0"
+                  :aria-disabled="node.disabled"
+                  :aria-expanded="canExpand(node) ? isNodeActive(node) : undefined"
+                  :aria-busy="node.loading"
+                  @click="handleNodeClick(node)"
+                  @mouseenter="handleNodeHover(node)"
+                  @keydown.enter.prevent="handleNodeClick(node)"
+                  @keydown.space.prevent="handleNodeSpace(node)"
+                  @keydown.down.prevent="focusAdjacentNode($event, 1)"
+                  @keydown.up.prevent="focusAdjacentNode($event, -1)"
+                  @keydown.right.prevent="expandAndFocus(node)"
+                  @keydown.left.prevent="focusParentNode(node)"
+                >
+                  <input
+                    v-if="isMultiple"
+                    type="checkbox"
+                    :checked="getCheckboxState(node).checked"
+                    :indeterminate="getCheckboxState(node).indeterminate"
+                    :disabled="isCheckboxDisabled(node)"
+                    :aria-label="`选择 ${getNodeLabel(node)}`"
+                    tabindex="-1"
+                    @click.stop
+                    @change.stop="toggleNode(node)"
+                  />
+                  <input
+                    v-else-if="config.checkStrictly"
+                    type="radio"
+                    :name="radioGroup"
+                    :checked="isNodeChecked(node)"
+                    :disabled="node.disabled"
+                    :aria-label="`选择 ${getNodeLabel(node)}`"
+                    tabindex="-1"
+                    @click.stop
+                    @change.stop="selectSingle(node)"
+                  />
+                  <span class="el-like-cascader__node-label">
+                    <slot :node="node" :data="node.data">{{ node.label }}</slot>
+                  </span>
+                  <Icon
+                    v-if="node.loading"
+                    icon="spinner"
+                    spin
+                    class="el-like-cascader__suffix"
+                    :aria-label="loadingText"
+                  />
+                  <Icon
+                    v-if="!isMultiple && isNodeChecked(node) && !canExpand(node)"
+                    icon="check"
+                    class="el-like-cascader__check"
+                    aria-hidden="true"
+                  />
+                  <Icon
+                    v-if="canExpand(node)"
+                    icon="angle-right"
+                    class="el-like-cascader__suffix"
+                    aria-hidden="true"
+                  />
+                </div>
+              </li>
+            </ul>
+          </template>
+          <div v-else class="el-like-cascader__empty">{{ noDataText }}</div>
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
+</template>
+
 <script setup lang="ts">
 import Icon from '@/components/Icon/Icon.vue'
 import {
@@ -23,6 +251,7 @@ import { cascaderProps, defaultCascaderConfig } from './props'
 
 defineOptions({
   name: 'ElLike-Cascader',
+  inheritAttrs: false,
 })
 
 const props = defineProps(cascaderProps)
@@ -705,233 +934,6 @@ defineExpose({
     selectedNodes.value.filter((node) => !leafOnly || node.leaf),
 })
 </script>
-
-<template>
-  <div
-    ref="rootRef"
-    class="el-like-cascader"
-    :class="[
-      `el-like-cascader--${size}`,
-      {
-        'is-disabled': disabled,
-        'is-opened': isVisible,
-        'is-clearable': showClear,
-        'is-multiple': isMultiple,
-      },
-    ]"
-  >
-    <div class="el-like-cascader__wrapper" @click="handleTriggerClick">
-      <div v-if="isMultiple && selectedNodes.length" class="el-like-cascader__tags">
-        <span
-          v-for="node in visibleTags"
-          :key="nodeKey(node.pathValues)"
-          class="el-like-cascader__tag"
-          :title="getNodeLabel(node)"
-        >
-          <span class="el-like-cascader__tag-label">{{ getNodeLabel(node) }}</span>
-          <button
-            v-if="!disabled"
-            type="button"
-            class="el-like-cascader__tag-close"
-            :aria-label="`移除 ${getNodeLabel(node)}`"
-            tabindex="-1"
-            @click.stop="removeNode(node)"
-          >
-            <Icon icon="xmark" aria-hidden="true" />
-          </button>
-        </span>
-        <span
-          v-if="collapsedTagCount > 0"
-          class="el-like-cascader__tag is-collapse"
-          :title="collapsedTagsTitle"
-        >
-          + {{ collapsedTagCount }}
-        </span>
-      </div>
-
-      <input
-        :id="`${panelId}-input`"
-        ref="inputRef"
-        class="el-like-cascader__input"
-        :class="{ 'is-filterable': filterable }"
-        :value="inputValue"
-        :placeholder="inputPlaceholder"
-        :disabled="disabled"
-        :readonly="!filterable"
-        role="combobox"
-        :aria-label="ariaLabel"
-        :aria-expanded="isVisible"
-        :aria-controls="panelId"
-        :aria-autocomplete="filterable ? 'list' : 'none'"
-        :aria-activedescendant="
-          isFiltering && suggestions.length
-            ? getSuggestionElementId(suggestionActiveIndex)
-            : undefined
-        "
-        autocomplete="off"
-        spellcheck="false"
-        @input="handleInput"
-        @keydown="handleInputKeydown"
-        @focus="emit('focus', $event)"
-        @blur="emit('blur', $event)"
-      />
-
-      <button
-        v-if="showClear"
-        type="button"
-        class="el-like-cascader__clear"
-        aria-label="清空选择"
-        tabindex="-1"
-        @click.stop="clearValue"
-      >
-        <Icon icon="circle-xmark" aria-hidden="true" />
-      </button>
-      <span class="el-like-cascader__arrow" aria-hidden="true" @click.stop="handleArrowClick">
-        <Icon icon="angle-down" />
-      </span>
-    </div>
-  </div>
-
-  <Teleport to="body" :disabled="!teleported">
-    <Transition name="el-like-cascader-zoom">
-      <div
-        v-if="isVisible"
-        :id="panelId"
-        ref="popperRef"
-        class="el-like-cascader__popper"
-        :class="popperClass"
-        :data-placement="currentPlacement"
-        :style="{ visibility: positioned ? 'visible' : 'hidden' }"
-        @mousedown.prevent
-        @click.stop
-      >
-        <div v-if="isFiltering" class="el-like-cascader__suggestions" role="listbox">
-          <template v-if="suggestions.length">
-            <div
-              v-for="(node, index) in suggestions"
-              :id="getSuggestionElementId(index)"
-              :key="nodeKey(node.pathValues)"
-              class="el-like-cascader__suggestion"
-              :class="{
-                'is-active': index === suggestionActiveIndex,
-                'is-disabled': node.disabled,
-                'is-checked': isNodeChecked(node),
-              }"
-              role="option"
-              :aria-selected="isNodeChecked(node)"
-              :aria-disabled="node.disabled"
-              @click="handleSuggestionClick(node)"
-              @mouseenter="suggestionActiveIndex = index"
-            >
-              <input
-                v-if="isMultiple"
-                type="checkbox"
-                :checked="isNodeChecked(node)"
-                :disabled="node.disabled"
-                :aria-label="`选择 ${getNodeLabel(node)}`"
-                tabindex="-1"
-                @click.stop
-                @change.stop="toggleNode(node)"
-              />
-              <span class="el-like-cascader__suggestion-label">
-                <slot :node="node" :data="node.data">{{ getNodeLabel(node) }}</slot>
-              </span>
-              <Icon
-                v-if="!isMultiple && isNodeChecked(node)"
-                icon="check"
-                class="el-like-cascader__check"
-                aria-hidden="true"
-              />
-            </div>
-          </template>
-          <div v-else class="el-like-cascader__empty">{{ emptyText }}</div>
-        </div>
-
-        <div v-else class="el-like-cascader__menus">
-          <template v-if="rootNodes.length">
-            <ul
-              v-for="(menu, menuIndex) in menus"
-              :key="menuIndex"
-              class="el-like-cascader__menu"
-              role="menu"
-            >
-              <li v-for="node in menu" :key="nodeKey(node.pathValues)" role="none">
-                <div
-                  :id="getNodeElementId(node)"
-                  class="el-like-cascader__node"
-                  :class="{
-                    'is-active': isNodeActive(node),
-                    'is-disabled': node.disabled,
-                    'is-checked': isNodeChecked(node),
-                  }"
-                  role="menuitem"
-                  :tabindex="node.disabled ? -1 : 0"
-                  :aria-disabled="node.disabled"
-                  :aria-expanded="canExpand(node) ? isNodeActive(node) : undefined"
-                  :aria-busy="node.loading"
-                  @click="handleNodeClick(node)"
-                  @mouseenter="handleNodeHover(node)"
-                  @keydown.enter.prevent="handleNodeClick(node)"
-                  @keydown.space.prevent="handleNodeSpace(node)"
-                  @keydown.down.prevent="focusAdjacentNode($event, 1)"
-                  @keydown.up.prevent="focusAdjacentNode($event, -1)"
-                  @keydown.right.prevent="expandAndFocus(node)"
-                  @keydown.left.prevent="focusParentNode(node)"
-                >
-                  <input
-                    v-if="isMultiple"
-                    type="checkbox"
-                    :checked="getCheckboxState(node).checked"
-                    :indeterminate="getCheckboxState(node).indeterminate"
-                    :disabled="isCheckboxDisabled(node)"
-                    :aria-label="`选择 ${getNodeLabel(node)}`"
-                    tabindex="-1"
-                    @click.stop
-                    @change.stop="toggleNode(node)"
-                  />
-                  <input
-                    v-else-if="config.checkStrictly"
-                    type="radio"
-                    :name="radioGroup"
-                    :checked="isNodeChecked(node)"
-                    :disabled="node.disabled"
-                    :aria-label="`选择 ${getNodeLabel(node)}`"
-                    tabindex="-1"
-                    @click.stop
-                    @change.stop="selectSingle(node)"
-                  />
-                  <span class="el-like-cascader__node-label">
-                    <slot :node="node" :data="node.data">{{ node.label }}</slot>
-                  </span>
-                  <Icon
-                    v-if="node.loading"
-                    icon="spinner"
-                    spin
-                    class="el-like-cascader__suffix"
-                    :aria-label="loadingText"
-                  />
-                  <Icon
-                    v-if="!isMultiple && isNodeChecked(node) && !canExpand(node)"
-                    icon="check"
-                    class="el-like-cascader__check"
-                    aria-hidden="true"
-                  />
-                  <Icon
-                    v-if="canExpand(node)"
-                    icon="angle-right"
-                    class="el-like-cascader__suffix"
-                    aria-hidden="true"
-                  />
-                </div>
-              </li>
-            </ul>
-          </template>
-          <div v-else class="el-like-cascader__empty">{{ noDataText }}</div>
-        </div>
-      </div>
-    </Transition>
-  </Teleport>
-</template>
 
 <style lang="scss" scoped>
 /* 组件样式统一维护在 styles/components/cascader.scss，与其他组件共享全局 token 体系 */

@@ -1,6 +1,7 @@
 <template>
   <span
     ref="triggerRef"
+    v-bind="$attrs"
     class="el-like-tooltip__trigger"
     @mouseenter="onTriggerEnter"
     @mouseleave="onTriggerLeave"
@@ -40,6 +41,7 @@ import { tooltipProps } from './props'
 
 defineOptions({
   name: 'ElLike-Tooltip',
+  inheritAttrs: false,
 })
 
 const props = defineProps(tooltipProps)

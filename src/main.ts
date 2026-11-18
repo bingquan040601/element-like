@@ -1,17 +1,33 @@
+import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import App from './App.vue'
-// 示例应用消费库自身的公共入口（与使用方消费 dist 的 ElementLike 同一份代码）：
-// app.use(ElementLike) 全量安装，模板中小写标签 <el-like-button> 直接使用，
-// 与 Element Plus 的 app.use(ElementPlus) 用法对齐
 import ElementLike from '@/bundle'
+import { configureHttpClient } from '@/api/http'
+import { useAuthStore } from '@/stores/auth'
 import router from './router'
-// 全局样式（设计 token + reset）：组件样式通过 var(--el-*) 消费，必须先接入
 import './styles/index.scss'
 
 const app = createApp(App)
+const pinia = createPinia()
 
 app.use(ElementLike)
-
+app.use(pinia)
 app.use(router)
+
+const authStore = useAuthStore(pinia)
+configureHttpClient({
+  getAccessToken: () => authStore.accessToken,
+  onUnauthorized: (accessToken) => {
+    // 旧请求晚于退出 / 重新登录返回时，不影响当前会话。
+    if (accessToken !== authStore.accessToken) return
+    authStore.clearSession()
+    const currentRoute = router.currentRoute.value
+    if (currentRoute.name === 'login') return
+    void router.replace({
+      name: 'login',
+      query: { redirect: currentRoute.fullPath },
+    })
+  },
+})
 
 app.mount('#app')

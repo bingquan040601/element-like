@@ -1,7 +1,12 @@
 <template>
   <Teleport to="body">
     <Transition name="el-like-dialog-fade">
-      <div v-if="visible" class="el-like-dialog__overlay" @click.self="handleOverlayClick">
+      <div
+        v-if="visible"
+        v-bind="$attrs"
+        class="el-like-dialog__overlay"
+        @click.self="handleOverlayClick"
+      >
         <div
           class="el-like-dialog"
           role="dialog"
@@ -41,6 +46,7 @@ import { dialogProps } from './props'
 
 defineOptions({
   name: 'ElLike-Dialog',
+  inheritAttrs: false,
 })
 
 const props = defineProps(dialogProps)

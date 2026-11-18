@@ -1,36 +1,3 @@
-<script setup lang="ts">
-import {
-  buttonSizes,
-  buttonTypes,
-  type ButtonSize,
-  type ButtonType,
-} from '@/components/Button/props'
-import { ref } from 'vue'
-
-const typeLabels: Record<ButtonType, string> = {
-  default: '默认按钮',
-  primary: '主要按钮',
-  success: '成功按钮',
-  warning: '警告按钮',
-  danger: '危险按钮',
-  info: '信息按钮',
-}
-
-const sizeLabels: Record<ButtonSize, string> = {
-  large: '大型按钮',
-  default: '默认按钮',
-  small: '小型按钮',
-}
-
-const clickCount = ref(0)
-const btnRef = ref<{ ref: HTMLButtonElement | null } | null>(null)
-
-function clickHandler() {
-  clickCount.value++
-  console.log(btnRef.value?.ref)
-}
-</script>
-
 <template>
   <div class="button-page">
     <h1>按钮 Button</h1>
@@ -115,6 +82,39 @@ function clickHandler() {
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import {
+  buttonSizes,
+  buttonTypes,
+  type ButtonSize,
+  type ButtonType,
+} from '@/components/Button/props'
+import { ref } from 'vue'
+
+const typeLabels: Record<ButtonType, string> = {
+  default: '默认按钮',
+  primary: '主要按钮',
+  success: '成功按钮',
+  warning: '警告按钮',
+  danger: '危险按钮',
+  info: '信息按钮',
+}
+
+const sizeLabels: Record<ButtonSize, string> = {
+  large: '大型按钮',
+  default: '默认按钮',
+  small: '小型按钮',
+}
+
+const clickCount = ref(0)
+const btnRef = ref<{ ref: HTMLButtonElement | null } | null>(null)
+
+function clickHandler() {
+  clickCount.value++
+  console.log(btnRef.value?.ref)
+}
+</script>
 
 <style scoped lang="scss">
 .button-page__intro {
