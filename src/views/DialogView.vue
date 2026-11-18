@@ -1,16 +1,3 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const basicVisible = ref(false)
-const sizeVisible = ref(false)
-const modalVisible = ref(false)
-const customVisible = ref(false)
-const closeOnClickModal = ref(false)
-
-const releaseName = ref('v1.0.0')
-const releaseNotes = ref('优化页面交互体验，修复已知问题。')
-</script>
-
 <template>
   <div class="dialog-page">
     <h1>对话框 Dialog</h1>
@@ -118,6 +105,19 @@ const releaseNotes = ref('优化页面交互体验，修复已知问题。')
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const basicVisible = ref(false)
+const sizeVisible = ref(false)
+const modalVisible = ref(false)
+const customVisible = ref(false)
+const closeOnClickModal = ref(false)
+
+const releaseName = ref('v1.0.0')
+const releaseNotes = ref('优化页面交互体验，修复已知问题。')
+</script>
 
 <style scoped lang="scss">
 .dialog-page__intro {

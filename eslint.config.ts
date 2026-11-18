@@ -19,6 +19,15 @@ export default defineConfigWithVueTs(
   globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
 
   ...pluginVue.configs['flat/essential'],
+
+  {
+    name: 'app/vue-block-order',
+    files: ['**/*.vue'],
+    rules: {
+      'vue/block-order': ['error', { order: ['template', 'script', 'style'] }],
+    },
+  },
+
   vueTsConfigs.recommended,
 
   {

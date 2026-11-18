@@ -1,12 +1,3 @@
-<script setup lang="ts">
-import cardImage from '@/assets/card-demo.svg'
-
-const sizeCards = [
-  { width: 260, imgHeight: 130 },
-  { width: 340, imgHeight: 180 },
-]
-</script>
-
 <template>
   <div class="card-page">
     <h1>卡片 Card</h1>
@@ -88,6 +79,15 @@ const sizeCards = [
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import cardImage from '@/assets/card-demo.svg'
+
+const sizeCards = [
+  { width: 260, imgHeight: 130 },
+  { width: 340, imgHeight: 180 },
+]
+</script>
 
 <style scoped lang="scss">
 .card-page__intro {

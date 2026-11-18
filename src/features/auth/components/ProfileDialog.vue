@@ -1,3 +1,99 @@
+<template>
+  <el-like-dialog
+    :visible="props.visible"
+    title="个人信息"
+    width="720px"
+    :close-on-click-modal="false"
+    @close="handleClose"
+  >
+    <div v-if="user" class="profile">
+      <aside class="profile__summary" aria-label="账号摘要">
+        <img v-if="user.avatarUrl" class="profile__avatar" :src="user.avatarUrl" alt="" />
+        <span v-else class="profile__avatar" aria-hidden="true">{{ getUserInitial(user) }}</span>
+        <div class="profile__identity">
+          <h3 class="profile__name">{{ user.nickname || user.username }}</h3>
+          <span class="profile__username">@{{ user.username }}</span>
+        </div>
+        <p class="profile__summary-note">管理你的账号资料与联系方式，变更会同步到当前登录状态。</p>
+      </aside>
+
+      <form :id="formId" class="profile__form" novalidate @submit.prevent="handleSubmit">
+        <div class="profile__section-heading">
+          <h3>基本资料</h3>
+          <p>昵称和邮箱可修改，其他账号信息由系统维护。</p>
+        </div>
+
+        <p v-if="formError" class="profile__error" role="alert">{{ formError }}</p>
+
+        <div class="profile__fields">
+          <AuthFormField
+            v-model="form.nickname"
+            label="昵称"
+            name="nickname"
+            autocomplete="nickname"
+            placeholder="请输入昵称"
+            :maxlength="50"
+            :disabled="submitting"
+            :error="errors.nickname"
+          />
+          <AuthFormField
+            v-model="form.email"
+            label="邮箱"
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="请输入邮箱"
+            :maxlength="255"
+            :disabled="submitting"
+            :error="errors.email"
+          />
+        </div>
+
+        <section class="profile__readonly" aria-label="只读账号信息">
+          <div class="profile__readonly-heading">
+            <h3>账号信息</h3>
+            <span>不可修改</span>
+          </div>
+          <dl class="profile__details">
+            <div class="profile__row">
+              <dt>用户名</dt>
+              <dd>{{ user.username }}</dd>
+            </div>
+            <div class="profile__row">
+              <dt>用户 ID</dt>
+              <dd>{{ user.id }}</dd>
+            </div>
+            <div class="profile__row">
+              <dt>注册时间</dt>
+              <dd>{{ formatDate(user.createdAt) }}</dd>
+            </div>
+          </dl>
+        </section>
+      </form>
+    </div>
+
+    <template #footer>
+      <div class="profile__footer">
+        <span class="profile__footer-hint">
+          {{ hasChanges ? '资料已变更，记得保存' : '昵称和邮箱可编辑' }}
+        </span>
+        <div class="profile__actions">
+          <el-like-button :disabled="submitting" @click="handleClose">取消</el-like-button>
+          <el-like-button
+            type="primary"
+            native-type="submit"
+            :form="formId"
+            :disabled="!hasChanges || submitting"
+            :loading="submitting"
+          >
+            保存修改
+          </el-like-button>
+        </div>
+      </div>
+    </template>
+  </el-like-dialog>
+</template>
+
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { computed, reactive, ref, useId, watch } from 'vue'
@@ -104,102 +200,6 @@ const formatDate = (value: string): string => {
     : new Intl.DateTimeFormat('zh-CN', { dateStyle: 'medium', timeStyle: 'short' }).format(date)
 }
 </script>
-
-<template>
-  <el-like-dialog
-    :visible="props.visible"
-    title="个人信息"
-    width="720px"
-    :close-on-click-modal="false"
-    @close="handleClose"
-  >
-    <div v-if="user" class="profile">
-      <aside class="profile__summary" aria-label="账号摘要">
-        <img v-if="user.avatarUrl" class="profile__avatar" :src="user.avatarUrl" alt="" />
-        <span v-else class="profile__avatar" aria-hidden="true">{{ getUserInitial(user) }}</span>
-        <div class="profile__identity">
-          <h3 class="profile__name">{{ user.nickname || user.username }}</h3>
-          <span class="profile__username">@{{ user.username }}</span>
-        </div>
-        <p class="profile__summary-note">管理你的账号资料与联系方式，变更会同步到当前登录状态。</p>
-      </aside>
-
-      <form :id="formId" class="profile__form" novalidate @submit.prevent="handleSubmit">
-        <div class="profile__section-heading">
-          <h3>基本资料</h3>
-          <p>昵称和邮箱可修改，其他账号信息由系统维护。</p>
-        </div>
-
-        <p v-if="formError" class="profile__error" role="alert">{{ formError }}</p>
-
-        <div class="profile__fields">
-          <AuthFormField
-            v-model="form.nickname"
-            label="昵称"
-            name="nickname"
-            autocomplete="nickname"
-            placeholder="请输入昵称"
-            :maxlength="50"
-            :disabled="submitting"
-            :error="errors.nickname"
-          />
-          <AuthFormField
-            v-model="form.email"
-            label="邮箱"
-            name="email"
-            type="email"
-            autocomplete="email"
-            placeholder="请输入邮箱"
-            :maxlength="255"
-            :disabled="submitting"
-            :error="errors.email"
-          />
-        </div>
-
-        <section class="profile__readonly" aria-label="只读账号信息">
-          <div class="profile__readonly-heading">
-            <h3>账号信息</h3>
-            <span>不可修改</span>
-          </div>
-          <dl class="profile__details">
-            <div class="profile__row">
-              <dt>用户名</dt>
-              <dd>{{ user.username }}</dd>
-            </div>
-            <div class="profile__row">
-              <dt>用户 ID</dt>
-              <dd>{{ user.id }}</dd>
-            </div>
-            <div class="profile__row">
-              <dt>注册时间</dt>
-              <dd>{{ formatDate(user.createdAt) }}</dd>
-            </div>
-          </dl>
-        </section>
-      </form>
-    </div>
-
-    <template #footer>
-      <div class="profile__footer">
-        <span class="profile__footer-hint">
-          {{ hasChanges ? '资料已变更，记得保存' : '昵称和邮箱可编辑' }}
-        </span>
-        <div class="profile__actions">
-          <el-like-button :disabled="submitting" @click="handleClose">取消</el-like-button>
-          <el-like-button
-            type="primary"
-            native-type="submit"
-            :form="formId"
-            :disabled="!hasChanges || submitting"
-            :loading="submitting"
-          >
-            保存修改
-          </el-like-button>
-        </div>
-      </div>
-    </template>
-  </el-like-dialog>
-</template>
 
 <style scoped lang="scss">
 .profile {

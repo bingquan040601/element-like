@@ -1,3 +1,64 @@
+<template>
+  <el-like-dialog
+    :visible="props.visible"
+    title="修改密码"
+    width="460px"
+    :close-on-click-modal="false"
+    @close="handleClose"
+  >
+    <div v-if="succeeded" class="password-success" role="status">
+      <el-like-icon icon="circle-check" type="success" size="2x" aria-hidden="true" />
+      <h3>密码修改成功</h3>
+      <p>登录状态已更新，下次登录请使用新密码。</p>
+    </div>
+
+    <form v-else :id="formId" class="password-form" novalidate @submit.prevent="handleSubmit">
+      <p v-if="formError" class="password-form__error" role="alert">{{ formError }}</p>
+      <AuthFormField
+        v-model="form.currentPassword"
+        label="当前密码"
+        name="current-password"
+        type="password"
+        autocomplete="current-password"
+        placeholder="请输入当前密码"
+        :error="errors.currentPassword"
+      />
+      <AuthFormField
+        v-model="form.newPassword"
+        label="新密码"
+        name="new-password"
+        type="password"
+        autocomplete="new-password"
+        placeholder="8-72 位"
+        :maxlength="72"
+        :error="errors.newPassword"
+      />
+      <AuthFormField
+        v-model="form.confirmPassword"
+        label="确认新密码"
+        name="confirm-password"
+        type="password"
+        autocomplete="new-password"
+        placeholder="请再次输入新密码"
+        :maxlength="72"
+        :error="errors.confirmPassword"
+      />
+    </form>
+
+    <template #footer>
+      <div v-if="succeeded" class="password-form__actions">
+        <el-like-button type="primary" @click="handleClose">完成</el-like-button>
+      </div>
+      <div v-else class="password-form__actions">
+        <el-like-button :disabled="submitting" @click="handleClose">取消</el-like-button>
+        <el-like-button type="primary" native-type="submit" :form="formId" :loading="submitting">
+          确认修改
+        </el-like-button>
+      </div>
+    </template>
+  </el-like-dialog>
+</template>
+
 <script setup lang="ts">
 import { reactive, ref, useId, watch } from 'vue'
 import { ApiError } from '@/api/http'
@@ -100,67 +161,6 @@ const handleClose = () => {
   if (!submitting.value) emit('close')
 }
 </script>
-
-<template>
-  <el-like-dialog
-    :visible="props.visible"
-    title="修改密码"
-    width="460px"
-    :close-on-click-modal="false"
-    @close="handleClose"
-  >
-    <div v-if="succeeded" class="password-success" role="status">
-      <el-like-icon icon="circle-check" type="success" size="2x" aria-hidden="true" />
-      <h3>密码修改成功</h3>
-      <p>登录状态已更新，下次登录请使用新密码。</p>
-    </div>
-
-    <form v-else :id="formId" class="password-form" novalidate @submit.prevent="handleSubmit">
-      <p v-if="formError" class="password-form__error" role="alert">{{ formError }}</p>
-      <AuthFormField
-        v-model="form.currentPassword"
-        label="当前密码"
-        name="current-password"
-        type="password"
-        autocomplete="current-password"
-        placeholder="请输入当前密码"
-        :error="errors.currentPassword"
-      />
-      <AuthFormField
-        v-model="form.newPassword"
-        label="新密码"
-        name="new-password"
-        type="password"
-        autocomplete="new-password"
-        placeholder="8-72 位"
-        :maxlength="72"
-        :error="errors.newPassword"
-      />
-      <AuthFormField
-        v-model="form.confirmPassword"
-        label="确认新密码"
-        name="confirm-password"
-        type="password"
-        autocomplete="new-password"
-        placeholder="请再次输入新密码"
-        :maxlength="72"
-        :error="errors.confirmPassword"
-      />
-    </form>
-
-    <template #footer>
-      <div v-if="succeeded" class="password-form__actions">
-        <el-like-button type="primary" @click="handleClose">完成</el-like-button>
-      </div>
-      <div v-else class="password-form__actions">
-        <el-like-button :disabled="submitting" @click="handleClose">取消</el-like-button>
-        <el-like-button type="primary" native-type="submit" :form="formId" :loading="submitting">
-          确认修改
-        </el-like-button>
-      </div>
-    </template>
-  </el-like-dialog>
-</template>
 
 <style scoped lang="scss">
 .password-form {

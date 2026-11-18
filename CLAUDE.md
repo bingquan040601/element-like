@@ -39,4 +39,5 @@
 
 - 路径别名 `@/*` → `./src/*`（在 vite.config.ts 和 tsconfig.app.json 中配置；优先使用别名而非深层相对导入）。
 - 通过 `@vitejs/plugin-vue-jsx` 支持在 Vue 组件中使用 JSX/TSX。
+- Vue 单文件组件的顶层区块统一为 `template → script → style`；规范见 `.claude/skills/vue-sfc-order/SKILL.md`，由 ESLint 的 `vue/block-order` 规则自动检查和修复。
 - **提交信息遵循 Conventional Commits (Angular) 规范** —— 格式为 `<type>(scope): <subject>`，subject 用**中文**、动词开头、≤50 字符；type 和 scope 保持英文小写。完整流程（按逻辑变更拆分提交、type/scope 选取）定义在项目 skill `.claude/skills/commit/SKILL.md` 中，每次提交都必须遵守。

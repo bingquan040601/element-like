@@ -1,41 +1,3 @@
-<script setup lang="ts">
-import type { DropdownMenuOption } from '@/components/Dropdown/props'
-import { ref } from 'vue'
-
-// 基础选项：查看 / 编辑 / 删除
-const basicOptions: DropdownMenuOption[] = [
-  { label: '查看', value: 'view' },
-  { label: '编辑', value: 'edit' },
-  { label: '删除', value: 'delete' },
-]
-
-// 带禁用与分割线的选项
-const statusOptions: DropdownMenuOption[] = [
-  { label: '查看', value: 'view' },
-  { label: '编辑', value: 'edit' },
-  { label: '上传', value: 'upload', divided: true },
-  { label: '删除', value: 'delete', disabled: true },
-]
-
-// 带图标的选项
-const iconOptions: DropdownMenuOption[] = [
-  { label: '编辑', value: 'edit', icon: 'pen-to-square' },
-  { label: '下载', value: 'download', icon: 'download' },
-  { label: '删除', value: 'delete', icon: 'trash-can' },
-]
-
-// 手动控制：v-model:visible 接管显示状态
-const manualVisible = ref(false)
-
-const eventLog = ref<string[]>([])
-const recordSelect = (option: DropdownMenuOption) => {
-  eventLog.value.push(`选中:${option.label}`)
-}
-const recordVisibility = (visible: boolean) => {
-  eventLog.value.push(visible ? '显示' : '隐藏')
-}
-</script>
-
 <template>
   <div class="dropdown-page">
     <h1>下拉菜单 Dropdown</h1>
@@ -140,6 +102,44 @@ const recordVisibility = (visible: boolean) => {
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { DropdownMenuOption } from '@/components/Dropdown/props'
+import { ref } from 'vue'
+
+// 基础选项：查看 / 编辑 / 删除
+const basicOptions: DropdownMenuOption[] = [
+  { label: '查看', value: 'view' },
+  { label: '编辑', value: 'edit' },
+  { label: '删除', value: 'delete' },
+]
+
+// 带禁用与分割线的选项
+const statusOptions: DropdownMenuOption[] = [
+  { label: '查看', value: 'view' },
+  { label: '编辑', value: 'edit' },
+  { label: '上传', value: 'upload', divided: true },
+  { label: '删除', value: 'delete', disabled: true },
+]
+
+// 带图标的选项
+const iconOptions: DropdownMenuOption[] = [
+  { label: '编辑', value: 'edit', icon: 'pen-to-square' },
+  { label: '下载', value: 'download', icon: 'download' },
+  { label: '删除', value: 'delete', icon: 'trash-can' },
+]
+
+// 手动控制：v-model:visible 接管显示状态
+const manualVisible = ref(false)
+
+const eventLog = ref<string[]>([])
+const recordSelect = (option: DropdownMenuOption) => {
+  eventLog.value.push(`选中:${option.label}`)
+}
+const recordVisibility = (visible: boolean) => {
+  eventLog.value.push(visible ? '显示' : '隐藏')
+}
+</script>
 
 <style scoped lang="scss">
 .dropdown-page__intro {

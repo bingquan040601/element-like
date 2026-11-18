@@ -1,3 +1,34 @@
+<template>
+  <div
+    ref="viewportRef"
+    class="el-like-virtual-list"
+    role="list"
+    tabindex="0"
+    :style="containerStyle"
+    @scroll.passive="scheduleRangeUpdate"
+  >
+    <div class="el-like-virtual-list__spacer" :style="{ height: `${totalHeight}px` }">
+      <div
+        ref="contentRef"
+        class="el-like-virtual-list__content"
+        :style="{ transform: `translateY(${renderOffset}px)` }"
+      >
+        <div
+          v-for="entry in visibleItems"
+          :key="entry.key"
+          class="el-like-virtual-list__item"
+          role="listitem"
+          :data-index="entry.index"
+          :aria-setsize="items.length"
+          :aria-posinset="entry.index + 1"
+        >
+          <slot name="item" :item="entry.item" :index="entry.index" />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts" generic="T">
 import {
   computed,
@@ -250,34 +281,3 @@ onBeforeUnmount(() => {
 
 defineExpose({ scrollToIndex, scrollToOffset })
 </script>
-
-<template>
-  <div
-    ref="viewportRef"
-    class="el-like-virtual-list"
-    role="list"
-    tabindex="0"
-    :style="containerStyle"
-    @scroll.passive="scheduleRangeUpdate"
-  >
-    <div class="el-like-virtual-list__spacer" :style="{ height: `${totalHeight}px` }">
-      <div
-        ref="contentRef"
-        class="el-like-virtual-list__content"
-        :style="{ transform: `translateY(${renderOffset}px)` }"
-      >
-        <div
-          v-for="entry in visibleItems"
-          :key="entry.key"
-          class="el-like-virtual-list__item"
-          role="listitem"
-          :data-index="entry.index"
-          :aria-setsize="items.length"
-          :aria-posinset="entry.index + 1"
-        >
-          <slot name="item" :item="entry.item" :index="entry.index" />
-        </div>
-      </div>
-    </div>
-  </div>
-</template>

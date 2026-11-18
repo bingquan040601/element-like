@@ -1,3 +1,29 @@
+<template>
+  <div class="auth-form-field">
+    <label class="auth-form-field__label" :for="inputId">{{ props.label }}</label>
+    <input
+      :id="inputId"
+      class="auth-form-field__input"
+      :class="{ 'is-invalid': props.error, 'is-shaking': isShaking }"
+      :name="props.name"
+      :type="props.type"
+      :value="props.modelValue"
+      :autocomplete="props.autocomplete"
+      :placeholder="props.placeholder"
+      :maxlength="props.maxlength"
+      :aria-invalid="Boolean(props.error)"
+      :aria-describedby="props.error ? errorId : undefined"
+      :required="props.required"
+      :disabled="props.disabled"
+      @animationend="isShaking = false"
+      @input="handleInput"
+    />
+    <p v-if="props.error" :id="errorId" class="auth-form-field__error" role="alert">
+      {{ props.error }}
+    </p>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { nextTick, ref, useId, watch } from 'vue'
 
@@ -47,32 +73,6 @@ const handleInput = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
 }
 </script>
-
-<template>
-  <div class="auth-form-field">
-    <label class="auth-form-field__label" :for="inputId">{{ props.label }}</label>
-    <input
-      :id="inputId"
-      class="auth-form-field__input"
-      :class="{ 'is-invalid': props.error, 'is-shaking': isShaking }"
-      :name="props.name"
-      :type="props.type"
-      :value="props.modelValue"
-      :autocomplete="props.autocomplete"
-      :placeholder="props.placeholder"
-      :maxlength="props.maxlength"
-      :aria-invalid="Boolean(props.error)"
-      :aria-describedby="props.error ? errorId : undefined"
-      :required="props.required"
-      :disabled="props.disabled"
-      @animationend="isShaking = false"
-      @input="handleInput"
-    />
-    <p v-if="props.error" :id="errorId" class="auth-form-field__error" role="alert">
-      {{ props.error }}
-    </p>
-  </div>
-</template>
 
 <style scoped lang="scss">
 .auth-form-field {

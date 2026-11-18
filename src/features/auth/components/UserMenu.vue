@@ -1,3 +1,33 @@
+<template>
+  <div v-if="user" class="user-menu">
+    <el-like-dropdown
+      :menu-options="menuOptions"
+      placement="bottom"
+      popper-class="user-menu__dropdown"
+      hide-after-click
+      @select="handleSelect"
+    >
+      <button
+        class="user-menu__trigger"
+        type="button"
+        aria-label="打开用户菜单"
+        aria-haspopup="menu"
+        :disabled="loggingOut"
+      >
+        <img v-if="user.avatarUrl" class="user-menu__avatar" :src="user.avatarUrl" alt="" />
+        <span v-else class="user-menu__avatar" aria-hidden="true">
+          {{ getUserInitial(user) }}
+        </span>
+        <span class="user-menu__name">{{ user.nickname || user.username }}</span>
+        <el-like-icon class="user-menu__arrow" icon="angle-down" size="xs" aria-hidden="true" />
+      </button>
+    </el-like-dropdown>
+
+    <ProfileDialog :visible="activeDialog === 'profile'" @close="activeDialog = null" />
+    <ChangePasswordDialog :visible="activeDialog === 'password'" @close="activeDialog = null" />
+  </div>
+</template>
+
 <script setup lang="ts">
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -43,36 +73,6 @@ const handleSelect = (option: DropdownMenuOption) => {
   }
 }
 </script>
-
-<template>
-  <div v-if="user" class="user-menu">
-    <el-like-dropdown
-      :menu-options="menuOptions"
-      placement="bottom"
-      popper-class="user-menu__dropdown"
-      hide-after-click
-      @select="handleSelect"
-    >
-      <button
-        class="user-menu__trigger"
-        type="button"
-        aria-label="打开用户菜单"
-        aria-haspopup="menu"
-        :disabled="loggingOut"
-      >
-        <img v-if="user.avatarUrl" class="user-menu__avatar" :src="user.avatarUrl" alt="" />
-        <span v-else class="user-menu__avatar" aria-hidden="true">
-          {{ getUserInitial(user) }}
-        </span>
-        <span class="user-menu__name">{{ user.nickname || user.username }}</span>
-        <el-like-icon class="user-menu__arrow" icon="angle-down" size="xs" aria-hidden="true" />
-      </button>
-    </el-like-dropdown>
-
-    <ProfileDialog :visible="activeDialog === 'profile'" @close="activeDialog = null" />
-    <ChangePasswordDialog :visible="activeDialog === 'password'" @close="activeDialog = null" />
-  </div>
-</template>
 
 <style scoped lang="scss">
 .user-menu {

@@ -1,3 +1,27 @@
+<template>
+  <RouterView v-if="isBlankLayout" />
+
+  <template v-else>
+    <header class="app-header">
+      <div class="app-header__inner">
+        <RouterLink to="/" class="app-brand">
+          <span class="app-brand__logo" aria-hidden="true"></span>
+          <span class="app-brand__name">Element-Like</span>
+        </RouterLink>
+        <nav class="app-nav" aria-label="组件导航">
+          <RouterLink v-for="item in navItems" :key="item.name" :to="{ name: item.name }">
+            {{ item.label }}
+          </RouterLink>
+        </nav>
+        <UserMenu />
+      </div>
+    </header>
+    <main class="app-main">
+      <RouterView />
+    </main>
+  </template>
+</template>
+
 <script setup lang="ts">
 import { computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -27,30 +51,6 @@ const navItems = router.options.routes.flatMap((item) =>
   item.name && item.meta?.label ? [{ name: item.name, label: item.meta.label }] : [],
 )
 </script>
-
-<template>
-  <RouterView v-if="isBlankLayout" />
-
-  <template v-else>
-    <header class="app-header">
-      <div class="app-header__inner">
-        <RouterLink to="/" class="app-brand">
-          <span class="app-brand__logo" aria-hidden="true"></span>
-          <span class="app-brand__name">Element-Like</span>
-        </RouterLink>
-        <nav class="app-nav" aria-label="组件导航">
-          <RouterLink v-for="item in navItems" :key="item.name" :to="{ name: item.name }">
-            {{ item.label }}
-          </RouterLink>
-        </nav>
-        <UserMenu />
-      </div>
-    </header>
-    <main class="app-main">
-      <RouterView />
-    </main>
-  </template>
-</template>
 
 <style scoped lang="scss">
 /* 导航栏：Element Plus 文档站风格——吸顶 + 毛玻璃 + 下划线生长动画。

@@ -1,55 +1,3 @@
-<script setup lang="ts">
-import { computed, ref } from 'vue'
-import type { VirtualListExpose, VirtualListRange } from '@/components/VirtualList/types'
-
-interface OperationRecord {
-  id: number
-  orderNo: string
-  region: string
-  channel: string
-  revenue: number
-  status: '已完成' | '履约中' | '待处理'
-  note: string
-}
-
-const regions = ['华东', '华南', '华北', '西南', '华中']
-const channels = ['自营商城', '直播电商', '线下门店', '第三方平台']
-const statuses: OperationRecord['status'][] = ['已完成', '履约中', '待处理']
-
-const records: OperationRecord[] = Array.from({ length: 100_000 }, (_, index) => ({
-  id: index + 1,
-  orderNo: `SO-${String(100_000 - index).padStart(8, '0')}`,
-  region: regions[index % regions.length] ?? '华东',
-  channel: channels[index % channels.length] ?? '自营商城',
-  revenue: 299 + ((index * 137) % 28_000) / 10,
-  status: statuses[index % statuses.length] ?? '待处理',
-  note:
-    index % 3 === 0
-      ? '包含跨区域履约与库存调拨信息。此扩展区域用于验证不同内容长度下的动态高度测量。'
-      : '',
-}))
-
-const listRef = ref<VirtualListExpose>()
-const jumpIndex = ref(50_000)
-const renderedRange = ref<VirtualListRange>({ startIndex: 0, endIndex: 0 })
-const renderedCount = computed(() => renderedRange.value.endIndex - renderedRange.value.startIndex)
-const currencyFormatter = new Intl.NumberFormat('zh-CN', {
-  style: 'currency',
-  currency: 'CNY',
-  minimumFractionDigits: 2,
-})
-
-function getRecordKey(record: OperationRecord): number {
-  return record.id
-}
-
-function jumpTo(row: number): void {
-  if (!Number.isFinite(row)) return
-  const target = Math.max(1, Math.min(Math.floor(row), records.length))
-  listRef.value?.scrollToIndex(target - 1, 'start')
-}
-</script>
-
 <template>
   <div class="virtual-list-page">
     <h1>虚拟列表 VirtualList</h1>
@@ -139,6 +87,58 @@ function jumpTo(row: number): void {
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import type { VirtualListExpose, VirtualListRange } from '@/components/VirtualList/types'
+
+interface OperationRecord {
+  id: number
+  orderNo: string
+  region: string
+  channel: string
+  revenue: number
+  status: '已完成' | '履约中' | '待处理'
+  note: string
+}
+
+const regions = ['华东', '华南', '华北', '西南', '华中']
+const channels = ['自营商城', '直播电商', '线下门店', '第三方平台']
+const statuses: OperationRecord['status'][] = ['已完成', '履约中', '待处理']
+
+const records: OperationRecord[] = Array.from({ length: 100_000 }, (_, index) => ({
+  id: index + 1,
+  orderNo: `SO-${String(100_000 - index).padStart(8, '0')}`,
+  region: regions[index % regions.length] ?? '华东',
+  channel: channels[index % channels.length] ?? '自营商城',
+  revenue: 299 + ((index * 137) % 28_000) / 10,
+  status: statuses[index % statuses.length] ?? '待处理',
+  note:
+    index % 3 === 0
+      ? '包含跨区域履约与库存调拨信息。此扩展区域用于验证不同内容长度下的动态高度测量。'
+      : '',
+}))
+
+const listRef = ref<VirtualListExpose>()
+const jumpIndex = ref(50_000)
+const renderedRange = ref<VirtualListRange>({ startIndex: 0, endIndex: 0 })
+const renderedCount = computed(() => renderedRange.value.endIndex - renderedRange.value.startIndex)
+const currencyFormatter = new Intl.NumberFormat('zh-CN', {
+  style: 'currency',
+  currency: 'CNY',
+  minimumFractionDigits: 2,
+})
+
+function getRecordKey(record: OperationRecord): number {
+  return record.id
+}
+
+function jumpTo(row: number): void {
+  if (!Number.isFinite(row)) return
+  const target = Math.max(1, Math.min(Math.floor(row), records.length))
+  listRef.value?.scrollToIndex(target - 1, 'start')
+}
+</script>
 
 <style scoped lang="scss">
 .virtual-list-page__intro {

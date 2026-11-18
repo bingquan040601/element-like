@@ -1,23 +1,3 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-// 手动控制：v-model:visible 接管显示状态
-const manualVisible = ref(false)
-
-// 手动控制：通过组件实例方法 open / close / toggle 触发
-interface TooltipMethods {
-  open: () => void
-  close: () => void
-  toggle: () => void
-}
-const methodTooltip = ref<TooltipMethods | null>(null)
-
-const eventLog = ref<string[]>([])
-const recordVisibility = (visible: boolean) => {
-  eventLog.value.push(visible ? '显示' : '隐藏')
-}
-</script>
-
 <template>
   <div class="tooltip-page">
     <h1>文字提示 Tooltip</h1>
@@ -114,6 +94,26 @@ const recordVisibility = (visible: boolean) => {
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+
+// 手动控制：v-model:visible 接管显示状态
+const manualVisible = ref(false)
+
+// 手动控制：通过组件实例方法 open / close / toggle 触发
+interface TooltipMethods {
+  open: () => void
+  close: () => void
+  toggle: () => void
+}
+const methodTooltip = ref<TooltipMethods | null>(null)
+
+const eventLog = ref<string[]>([])
+const recordVisibility = (visible: boolean) => {
+  eventLog.value.push(visible ? '显示' : '隐藏')
+}
+</script>
 
 <style scoped lang="scss">
 .tooltip-page__intro {

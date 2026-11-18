@@ -1,10 +1,3 @@
-<script setup lang="ts">
-defineProps<{
-  title: string
-  subtitle: string
-}>()
-</script>
-
 <template>
   <main class="auth-page">
     <section class="auth-card" :aria-label="title">
@@ -47,6 +40,13 @@ defineProps<{
     </section>
   </main>
 </template>
+
+<script setup lang="ts">
+defineProps<{
+  title: string
+  subtitle: string
+}>()
+</script>
 
 <style scoped lang="scss">
 .auth-page {

@@ -1,13 +1,3 @@
-<script setup lang="ts">
-import { iconTypes } from '@/components/Icon/props'
-
-// Icon 示例页：ElLike-Icon 是对 font-awesome-icon 的二次封装——
-// 业务侧只传图标名（不含 fa- 前缀），组件内部固定拼接 fa-solid
-
-// 基础用法区的图标清单：图标下方同步展示名字，方便对照与复制
-const basicIcons = ['user-secret', 'mug-hot', 'paper-plane']
-</script>
-
 <template>
   <div class="icon-page">
     <h1>图标 Icon</h1>
@@ -144,6 +134,16 @@ const basicIcons = ['user-secret', 'mug-hot', 'paper-plane']
     </section>
   </div>
 </template>
+
+<script setup lang="ts">
+import { iconTypes } from '@/components/Icon/props'
+
+// Icon 示例页：ElLike-Icon 是对 font-awesome-icon 的二次封装——
+// 业务侧只传图标名（不含 fa- 前缀），组件内部固定拼接 fa-solid
+
+// 基础用法区的图标清单：图标下方同步展示名字，方便对照与复制
+const basicIcons = ['user-secret', 'mug-hot', 'paper-plane']
+</script>
 
 <style scoped lang="scss">
 .icon-page__intro {

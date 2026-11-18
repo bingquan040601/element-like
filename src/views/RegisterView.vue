@@ -1,3 +1,85 @@
+<template>
+  <AuthPageLayout title="创建账号" subtitle="注册成功后自动登录">
+    <form class="register-form" novalidate @submit.prevent="handleSubmit">
+      <p v-if="formError" class="register-form__error" role="alert">{{ formError }}</p>
+
+      <AuthFormField
+        v-model="form.username"
+        label="用户名"
+        name="username"
+        autocomplete="username"
+        placeholder="3-50 位，字母开头"
+        :maxlength="50"
+        :error="errors.username"
+        :shake-key="validationAttempt"
+      />
+      <AuthFormField
+        v-model="form.email"
+        label="邮箱"
+        name="email"
+        type="email"
+        autocomplete="email"
+        placeholder="请输入邮箱"
+        :error="errors.email"
+        :shake-key="validationAttempt"
+      />
+      <AuthFormField
+        v-model="form.nickname"
+        label="昵称（选填）"
+        name="nickname"
+        autocomplete="nickname"
+        placeholder="默认使用用户名"
+        :maxlength="50"
+        :required="false"
+        :error="errors.nickname"
+        :shake-key="validationAttempt"
+      />
+      <AuthFormField
+        v-model="form.password"
+        label="密码"
+        name="new-password"
+        type="password"
+        autocomplete="new-password"
+        placeholder="8-72 位"
+        :maxlength="72"
+        :error="errors.password"
+        :shake-key="validationAttempt"
+      />
+      <AuthFormField
+        v-model="form.confirmPassword"
+        label="确认密码"
+        name="confirm-password"
+        type="password"
+        autocomplete="new-password"
+        placeholder="请再次输入密码"
+        :maxlength="72"
+        :error="errors.confirmPassword"
+        :shake-key="validationAttempt"
+      />
+
+      <label class="register-form__remember">
+        <input v-model="form.remember" type="checkbox" name="remember" />
+        <span>保持登录</span>
+      </label>
+
+      <el-like-button
+        class="register-form__submit"
+        type="primary"
+        size="large"
+        native-type="submit"
+        :loading="submitting"
+      >
+        {{ submitting ? '注册中…' : '注册并登录' }}
+      </el-like-button>
+    </form>
+
+    <template #footer>
+      已有账号？
+      <RouterLink :to="{ name: 'login', query: route.query }">返回登录</RouterLink>
+    </template>
+  </AuthPageLayout>
+</template>
+
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -93,88 +175,6 @@ const handleSubmit = async () => {
   }
 }
 </script>
-
-<template>
-  <AuthPageLayout title="创建账号" subtitle="注册成功后自动登录">
-    <form class="register-form" novalidate @submit.prevent="handleSubmit">
-      <p v-if="formError" class="register-form__error" role="alert">{{ formError }}</p>
-
-      <AuthFormField
-        v-model="form.username"
-        label="用户名"
-        name="username"
-        autocomplete="username"
-        placeholder="3-50 位，字母开头"
-        :maxlength="50"
-        :error="errors.username"
-        :shake-key="validationAttempt"
-      />
-      <AuthFormField
-        v-model="form.email"
-        label="邮箱"
-        name="email"
-        type="email"
-        autocomplete="email"
-        placeholder="请输入邮箱"
-        :error="errors.email"
-        :shake-key="validationAttempt"
-      />
-      <AuthFormField
-        v-model="form.nickname"
-        label="昵称（选填）"
-        name="nickname"
-        autocomplete="nickname"
-        placeholder="默认使用用户名"
-        :maxlength="50"
-        :required="false"
-        :error="errors.nickname"
-        :shake-key="validationAttempt"
-      />
-      <AuthFormField
-        v-model="form.password"
-        label="密码"
-        name="new-password"
-        type="password"
-        autocomplete="new-password"
-        placeholder="8-72 位"
-        :maxlength="72"
-        :error="errors.password"
-        :shake-key="validationAttempt"
-      />
-      <AuthFormField
-        v-model="form.confirmPassword"
-        label="确认密码"
-        name="confirm-password"
-        type="password"
-        autocomplete="new-password"
-        placeholder="请再次输入密码"
-        :maxlength="72"
-        :error="errors.confirmPassword"
-        :shake-key="validationAttempt"
-      />
-
-      <label class="register-form__remember">
-        <input v-model="form.remember" type="checkbox" name="remember" />
-        <span>保持登录</span>
-      </label>
-
-      <el-like-button
-        class="register-form__submit"
-        type="primary"
-        size="large"
-        native-type="submit"
-        :loading="submitting"
-      >
-        {{ submitting ? '注册中…' : '注册并登录' }}
-      </el-like-button>
-    </form>
-
-    <template #footer>
-      已有账号？
-      <RouterLink :to="{ name: 'login', query: route.query }">返回登录</RouterLink>
-    </template>
-  </AuthPageLayout>
-</template>
 
 <style scoped lang="scss">
 .register-form {

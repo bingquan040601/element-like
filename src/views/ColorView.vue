@@ -1,3 +1,44 @@
+<template>
+  <div ref="pageEl" class="color-page">
+    <h1>色彩 Color</h1>
+    <p class="color-page__intro">
+      本页色板直接消费 styles/vars.scss 的设计
+      token，色值在运行时读取——调整主题后自动跟随。点击色卡可复制其 rgb 值。
+    </p>
+
+    <section v-for="section in sections" :key="section.title" class="color-section">
+      <h2 class="color-section__title">{{ section.title }}</h2>
+
+      <div v-for="row in section.rows" :key="row.title ?? section.title" class="color-row">
+        <div v-if="row.title" class="color-row__label">{{ row.title }}</div>
+
+        <div
+          v-for="swatch in row.swatches"
+          :key="swatch.varName"
+          class="color-card"
+          :class="{ 'color-card--compact': row.compact }"
+          :title="`点击复制 ${swatch.varName}`"
+          @click="copyColor(swatch.varName)"
+        >
+          <div
+            class="color-card__area"
+            :data-color-var="swatch.varName"
+            :style="{ backgroundColor: `var(${swatch.varName})` }"
+          ></div>
+          <div class="color-card__meta">
+            <div class="color-card__label">{{ swatch.label }}</div>
+            <div class="color-card__value">{{ colorValues[swatch.varName]?.hex ?? '' }}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <transition name="color-toast-fade">
+      <div v-if="copiedText" class="color-toast">{{ copiedText }}</div>
+    </transition>
+  </div>
+</template>
+
 <script setup lang="ts">
 import {
   neutralGroups,
@@ -103,47 +144,6 @@ function rgbToHex(rgb: string): string {
   return `#${[r, g, b].map((n) => Number(n).toString(16).padStart(2, '0')).join('')}`
 }
 </script>
-
-<template>
-  <div ref="pageEl" class="color-page">
-    <h1>色彩 Color</h1>
-    <p class="color-page__intro">
-      本页色板直接消费 styles/vars.scss 的设计
-      token，色值在运行时读取——调整主题后自动跟随。点击色卡可复制其 rgb 值。
-    </p>
-
-    <section v-for="section in sections" :key="section.title" class="color-section">
-      <h2 class="color-section__title">{{ section.title }}</h2>
-
-      <div v-for="row in section.rows" :key="row.title ?? section.title" class="color-row">
-        <div v-if="row.title" class="color-row__label">{{ row.title }}</div>
-
-        <div
-          v-for="swatch in row.swatches"
-          :key="swatch.varName"
-          class="color-card"
-          :class="{ 'color-card--compact': row.compact }"
-          :title="`点击复制 ${swatch.varName}`"
-          @click="copyColor(swatch.varName)"
-        >
-          <div
-            class="color-card__area"
-            :data-color-var="swatch.varName"
-            :style="{ backgroundColor: `var(${swatch.varName})` }"
-          ></div>
-          <div class="color-card__meta">
-            <div class="color-card__label">{{ swatch.label }}</div>
-            <div class="color-card__value">{{ colorValues[swatch.varName]?.hex ?? '' }}</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <transition name="color-toast-fade">
-      <div v-if="copiedText" class="color-toast">{{ copiedText }}</div>
-    </transition>
-  </div>
-</template>
 
 <style scoped lang="scss">
 .color-page__intro {

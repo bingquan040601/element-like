@@ -1,44 +1,3 @@
-<script setup lang="ts">
-import { reactive, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { ApiError } from '@/api/http'
-import AuthFormField from '@/features/auth/components/AuthFormField.vue'
-import AuthPageLayout from '@/features/auth/components/AuthPageLayout.vue'
-import { getSafeRedirect } from '@/features/auth'
-import type { LoginCredentials } from '@/features/auth'
-import { useAuthStore } from '@/stores/auth'
-
-const route = useRoute()
-const router = useRouter()
-const authStore = useAuthStore()
-const form = reactive<LoginCredentials>({ account: '', password: '', remember: true })
-const errors = reactive({ account: '', password: '' })
-const validationAttempt = ref(0)
-const submitting = ref(false)
-const errorMessage = ref('')
-
-const handleSubmit = async () => {
-  if (submitting.value) return
-  errorMessage.value = ''
-  errors.account = form.account.trim() ? '' : '请输入用户名或邮箱'
-  errors.password = form.password ? '' : '请输入密码'
-  if (errors.account || errors.password) {
-    validationAttempt.value += 1
-    return
-  }
-
-  submitting.value = true
-  try {
-    await authStore.login(form)
-    await router.replace(getSafeRedirect(route.query.redirect))
-  } catch (error) {
-    errorMessage.value = error instanceof ApiError ? error.message : '登录失败，请稍后重试'
-  } finally {
-    submitting.value = false
-  }
-}
-</script>
-
 <template>
   <AuthPageLayout title="欢迎回来" subtitle="登录后探索 Vue 3 组件示例">
     <form class="login-form" novalidate @submit.prevent="handleSubmit">
@@ -86,6 +45,47 @@ const handleSubmit = async () => {
     </template>
   </AuthPageLayout>
 </template>
+
+<script setup lang="ts">
+import { reactive, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { ApiError } from '@/api/http'
+import AuthFormField from '@/features/auth/components/AuthFormField.vue'
+import AuthPageLayout from '@/features/auth/components/AuthPageLayout.vue'
+import { getSafeRedirect } from '@/features/auth'
+import type { LoginCredentials } from '@/features/auth'
+import { useAuthStore } from '@/stores/auth'
+
+const route = useRoute()
+const router = useRouter()
+const authStore = useAuthStore()
+const form = reactive<LoginCredentials>({ account: '', password: '', remember: true })
+const errors = reactive({ account: '', password: '' })
+const validationAttempt = ref(0)
+const submitting = ref(false)
+const errorMessage = ref('')
+
+const handleSubmit = async () => {
+  if (submitting.value) return
+  errorMessage.value = ''
+  errors.account = form.account.trim() ? '' : '请输入用户名或邮箱'
+  errors.password = form.password ? '' : '请输入密码'
+  if (errors.account || errors.password) {
+    validationAttempt.value += 1
+    return
+  }
+
+  submitting.value = true
+  try {
+    await authStore.login(form)
+    await router.replace(getSafeRedirect(route.query.redirect))
+  } catch (error) {
+    errorMessage.value = error instanceof ApiError ? error.message : '登录失败，请稍后重试'
+  } finally {
+    submitting.value = false
+  }
+}
+</script>
 
 <style scoped lang="scss">
 .login-form {
