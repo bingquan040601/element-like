@@ -13,7 +13,7 @@
         'is-loading': loading,
       },
     ]"
-    type="button"
+    :type="nativeType"
     :disabled="disabled || loading"
     :aria-busy="loading"
     @click="handleClick"

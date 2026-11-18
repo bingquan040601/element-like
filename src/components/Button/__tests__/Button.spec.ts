@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 import Button from '../Button.vue'
-import type { ButtonSize, ButtonType } from '../props'
+import type { ButtonNativeType, ButtonSize, ButtonType } from '../props'
 
 library.add(faSpinner, faUserSecret)
 
@@ -12,6 +12,7 @@ const mountButton = (
   props: {
     type?: ButtonType
     size?: ButtonSize
+    nativeType?: ButtonNativeType
     plain?: boolean
     round?: boolean
     circle?: boolean
@@ -36,6 +37,11 @@ describe('ElLike-Button', () => {
     expect(wrapper.attributes('type')).toBe('button')
     expect(wrapper.classes()).toContain('el-like-button--default')
     expect(wrapper.text()).toBe('确定')
+  })
+
+  it('supports native submit and reset button types', () => {
+    expect(mountButton({ nativeType: 'submit' }).attributes('type')).toBe('submit')
+    expect(mountButton({ nativeType: 'reset' }).attributes('type')).toBe('reset')
   })
 
   it('maps type and size to modifier classes', () => {

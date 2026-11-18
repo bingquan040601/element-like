@@ -35,6 +35,17 @@ export default defineConfig({
     // 解决的问题：配合上面的固定端口，避免"以为起在 1024、实际开在别的端口"
     // 的隐蔽问题——端口冲突时立刻暴露，由开发者主动处理（关掉占用进程或改端口）。
     strictPort: true,
+    // 开发环境通过同源 /api 请求后端，避免 CORS；生产环境由网关代理到真实域名。
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        // 后端同时校验 Origin；代理后将来源改成后端同源地址，避免开发端口被 CORS 拦截。
+        headers: {
+          Origin: 'http://localhost:3000',
+        },
+      },
+    },
   },
   // 模块解析相关配置
   resolve: {
