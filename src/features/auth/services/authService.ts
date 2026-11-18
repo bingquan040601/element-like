@@ -3,6 +3,7 @@ import type {
   ChangePasswordPayload,
   LoginPayload,
   RegisterPayload,
+  UpdateProfilePayload,
   User,
 } from '../types'
 import { apiAuthService } from './apiAuthService'
@@ -12,6 +13,7 @@ export interface AuthService {
   login: (payload: LoginPayload) => Promise<AuthPayload>
   register: (payload: RegisterPayload) => Promise<AuthPayload>
   getCurrentUser: (accessToken: string) => Promise<User>
+  updateProfile: (accessToken: string, payload: UpdateProfilePayload) => Promise<User>
   changePassword: (accessToken: string, payload: ChangePasswordPayload) => Promise<AuthPayload>
 }
 

@@ -49,7 +49,10 @@ describe('UserMenu', () => {
     await selectOption('个人信息')
 
     expect(wrapper?.find('.el-like-dialog__title').text()).toBe('个人信息')
-    expect(wrapper?.text()).toContain('timmy@example.com')
+    expect(wrapper?.find('input[name="email"]').element).toHaveProperty(
+      'value',
+      'timmy@example.com',
+    )
     expect(wrapper?.text()).toContain('Timmy')
   })
 

@@ -10,6 +10,7 @@ interface Props {
   placeholder?: string
   maxlength?: number
   required?: boolean
+  disabled?: boolean
   error?: string
 }
 
@@ -18,6 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
   autocomplete: 'off',
   placeholder: '',
   required: true,
+  disabled: false,
   error: '',
 })
 
@@ -49,6 +51,7 @@ const handleInput = (event: Event) => {
       :aria-invalid="Boolean(props.error)"
       :aria-describedby="props.error ? errorId : undefined"
       :required="props.required"
+      :disabled="props.disabled"
       @input="handleInput"
     />
     <p v-if="props.error" :id="errorId" class="auth-form-field__error" role="alert">

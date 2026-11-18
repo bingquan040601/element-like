@@ -7,6 +7,7 @@ export type {
   LoginCredentials,
   RegisterCredentials,
   RegisterPayload,
+  UpdateProfilePayload,
   User,
 } from './types'
 export { getSafeRedirect, getUserInitial } from './utils'

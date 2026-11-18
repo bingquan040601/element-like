@@ -4,6 +4,7 @@ import type {
   ChangePasswordPayload,
   LoginPayload,
   RegisterPayload,
+  UpdateProfilePayload,
   User,
 } from '../types'
 import type { AuthService } from './authService'
@@ -27,6 +28,15 @@ const getCurrentUser = async (accessToken: string): Promise<User> => {
   return data.user
 }
 
+const updateProfile = async (accessToken: string, payload: UpdateProfilePayload): Promise<User> => {
+  const data = await request<{ user: User }>('/users/me', {
+    method: 'PATCH',
+    body: payload,
+    token: accessToken,
+  })
+  return data.user
+}
+
 const changePassword = (
   accessToken: string,
   payload: ChangePasswordPayload,
@@ -41,5 +51,6 @@ export const apiAuthService: AuthService = {
   login,
   register,
   getCurrentUser,
+  updateProfile,
   changePassword,
 }

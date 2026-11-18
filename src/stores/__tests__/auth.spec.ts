@@ -57,6 +57,29 @@ describe('auth store', () => {
     expect(context.authStore.profileLoaded).toBe(true)
   })
 
+  it('normalizes and persists editable profile fields', async () => {
+    await context.login()
+    const updatedUser = {
+      ...mockUser,
+      nickname: 'Updated',
+      email: 'updated@example.com',
+      updatedAt: '2026-11-17T09:00:00.000Z',
+    }
+    context.api.updateProfile.mockResolvedValue(updatedUser)
+
+    await context.authStore.updateProfile({
+      nickname: '  Updated  ',
+      email: ' UPDATED@EXAMPLE.COM ',
+    })
+
+    expect(context.api.updateProfile).toHaveBeenCalledWith('test-token', {
+      nickname: 'Updated',
+      email: 'updated@example.com',
+    })
+    expect(context.authStore.user).toEqual(updatedUser)
+    expect(sessionStorage.getItem('element-like.auth.session.v2')).toContain('updated@example.com')
+  })
+
   it('replaces the old token and persisted session after a password change', async () => {
     await context.login()
 

@@ -8,6 +8,7 @@ import type {
   LoginCredentials,
   RegisterCredentials,
   RegisterPayload,
+  UpdateProfilePayload,
   User,
 } from '@/features/auth/types'
 
@@ -104,6 +105,31 @@ export const useAuthStore = defineStore('auth', {
       const accessToken = this.accessToken
       try {
         const user = await authService.getCurrentUser(accessToken)
+        if (this.accessToken !== accessToken) return user
+        this.user = user
+        this.profileLoaded = true
+        this.persistSession()
+        return user
+      } catch (error) {
+        if (error instanceof ApiError && error.status === 401 && this.accessToken === accessToken) {
+          this.clearSession()
+        }
+        throw error
+      }
+    },
+
+    async updateProfile(profile: UpdateProfilePayload) {
+      if (!this.accessToken) {
+        throw new ApiError('请先登录', { status: 401, code: 'UNAUTHORIZED' })
+      }
+
+      const payload: UpdateProfilePayload = {}
+      if (profile.nickname !== undefined) payload.nickname = profile.nickname.trim()
+      if (profile.email !== undefined) payload.email = profile.email.trim().toLowerCase()
+
+      const accessToken = this.accessToken
+      try {
+        const user = await authService.updateProfile(accessToken, payload)
         if (this.accessToken !== accessToken) return user
         this.user = user
         this.profileLoaded = true

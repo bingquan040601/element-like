@@ -38,6 +38,7 @@ export const setupAuthTest = () => {
     login: vi.spyOn(authService, 'login').mockResolvedValue(mockAuthPayload),
     register: vi.spyOn(authService, 'register').mockResolvedValue(mockAuthPayload),
     getCurrentUser: vi.spyOn(authService, 'getCurrentUser').mockResolvedValue(mockUser),
+    updateProfile: vi.spyOn(authService, 'updateProfile').mockResolvedValue(mockUser),
     changePassword: vi.spyOn(authService, 'changePassword').mockResolvedValue(renewedAuthPayload),
   }
   const login = () =>

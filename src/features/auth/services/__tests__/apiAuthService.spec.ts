@@ -59,6 +59,26 @@ describe('apiAuthService', () => {
     expect(new Headers(init.headers).get('Authorization')).toBe('Bearer current-token')
   })
 
+  it('updates only editable profile fields with a Bearer token', async () => {
+    fetchMock.mockResolvedValue(success({ user: mockUser }))
+
+    await expect(
+      apiAuthService.updateProfile('current-token', {
+        nickname: 'Updated',
+        email: 'updated@example.com',
+      }),
+    ).resolves.toEqual(mockUser)
+
+    const [url, init] = getCall()
+    expect(url).toBe('/api/v1/users/me')
+    expect(init.method).toBe('PATCH')
+    expect(JSON.parse(init.body as string)).toEqual({
+      nickname: 'Updated',
+      email: 'updated@example.com',
+    })
+    expect(new Headers(init.headers).get('Authorization')).toBe('Bearer current-token')
+  })
+
   it('posts oldPassword/newPassword and returns the renewed session', async () => {
     fetchMock.mockResolvedValue(success(mockAuthPayload))
 

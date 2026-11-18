@@ -41,3 +41,9 @@ export interface ChangePasswordPayload {
   oldPassword: string
   newPassword: string
 }
+
+/** 当前用户允许修改的资料字段；用户名、ID 和注册时间由服务端保持只读。 */
+export interface UpdateProfilePayload {
+  nickname?: string
+  email?: string
+}
