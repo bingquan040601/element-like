@@ -5,6 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { compression } from 'vite-plugin-compression2'
+import { codeInspectorPlugin } from 'code-inspector-plugin'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -13,9 +14,19 @@ export default defineConfig({
   //     没有它 Vite 不认识 .vue 文件，项目无法运行。
   // - vueJsx()：支持在 Vue 组件中写 JSX/TSX（基于 Babel 转译）。
   //     解决的问题：某些场景（如复杂渲染函数、动态标签）用 template 表达繁琐，JSX 更灵活。
+  // - codeInspectorPlugin()：按住 Alt + Shift（Mac 为 Option + Shift）并点击页面元素，
+  //     自动打开 IDE 并定位到对应源码。仅在开发服务器且本机 CODE_INSPECTOR=true 时启用，
+  //     不参与生产构建，也不会把源码路径注入线上页面。
   // - vueDevTools()：接入 Vue DevTools，开发时可在浏览器中检查组件树、状态和路由。
   //     解决的问题：没有 DevTools 时排查组件层级与响应式数据只能靠打日志，效率低。
   plugins: [
+    codeInspectorPlugin({
+      bundler: 'vite',
+      // Vitest 同样使用 serve 模式，需显式排除，避免测试退出时残留定位服务句柄。
+      dev: () => process.env.NODE_ENV === 'development',
+      // 团队默认关闭；开发者在 .env.local 中设置 CODE_INSPECTOR=true 后按需开启。
+      needEnvInspector: true,
+    }),
     vue(),
     vueJsx(),
     vueDevTools(),
